@@ -1,5 +1,6 @@
 (defvar configs '( 
                   package-sources ;; this config should be first
+                  ac
                   ui
                   dired
                   ace
@@ -22,6 +23,7 @@
                   ecb
                   spellcheck
                   gtranslate
+                  go
                   ))
 
 (provide 'configs)
