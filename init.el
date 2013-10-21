@@ -3,6 +3,8 @@
 ;; a large part of Common Lisp implemented in Emacs Lisp
 (require 'cl)
 
+(require 'package)
+
 ;; determine the load path dirs
 ;; as relative to the location of this file
 (defvar dotfiles-dir "~/.emacs.d/"
@@ -61,6 +63,14 @@ Emacs load path."
     (require-file (intern (concatenate 'string
                                          (symbol-name item)
                                          filename-suffix)))))
+
+;; require package if installed, otherwise install and require
+(defun require-or-install (PKG)
+  (if (package-installed-p PKG)
+      (require PKG)
+    (progn
+      (package-install PKG)
+      (require PKG))))
 
 ;; load ~/.emcas.d/utils.el
 (require 'utils)

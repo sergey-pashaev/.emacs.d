@@ -4,8 +4,8 @@
 (require 'auto-complete-config)
 
 (global-auto-complete-mode t)
-(setq ac-auto-start 3)
-(setq ac-ignore-case t)
+(setq ac-auto-start 4)
+(setq ac-ignore-case 'smart)
 (setq ac-use-fuzzy t)
 
 (setq ac-modes
