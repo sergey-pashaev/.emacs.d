@@ -25,7 +25,7 @@
                   ac
                   go
                   irfc
-                  helm
+                  any
                   ))
 
 (provide 'configs)
