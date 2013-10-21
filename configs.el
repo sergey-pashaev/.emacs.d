@@ -22,6 +22,7 @@
                   ecb
                   spellcheck
                   gtranslate
+                  irfc
                   ))
 
 (provide 'configs)
