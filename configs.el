@@ -26,6 +26,7 @@
                   go
                   irfc
                   any
+                  c
                   ))
 
 (provide 'configs)
