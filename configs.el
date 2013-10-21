@@ -23,6 +23,7 @@
                   spellcheck
                   gtranslate
                   irfc
+                  helm
                   ))
 
 (provide 'configs)
