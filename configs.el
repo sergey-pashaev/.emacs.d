@@ -26,7 +26,7 @@
                   go
                   irfc
                   any
-                  c
+                  c-lang
                   ))
 
 (provide 'configs)
