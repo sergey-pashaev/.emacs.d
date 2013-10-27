@@ -27,6 +27,7 @@
                   irfc
                   any
                   c-lang
+                  gore
                   ))
 
 (provide 'configs)
