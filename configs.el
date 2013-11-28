@@ -28,6 +28,7 @@
                   any
                   c-lang
                   gore
+                  myhelm
                   ))
 
 (provide 'configs)
