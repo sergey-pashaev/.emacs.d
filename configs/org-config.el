@@ -1,7 +1,5 @@
 ;;; org-config.el
 
-(add-to-list 'auto-mode-alist '("\\.org\\’" . org-mode))
-
 (setq calendar-week-start-day 1)
 
 (global-set-key (kbd "C-c l") 'org-store-link)
