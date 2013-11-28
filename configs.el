@@ -1,5 +1,6 @@
 (defvar configs '( 
                   package-sources ;; this config should be first
+                  eshell
                   ui
                   dired
                   ace
@@ -8,7 +9,6 @@
                   common-lisp
                   emacs-lisp
                   encoding
-                  eshell
                   ido
                   misc
                   org
@@ -28,6 +28,7 @@
                   any
                   c-lang
                   gore
+                  projectile
                   ))
 
 (provide 'configs)
