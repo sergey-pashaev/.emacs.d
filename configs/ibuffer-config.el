@@ -6,10 +6,11 @@
                ("org-mode" (or
                             (name . "^org$")
                             (mode . org-mode)))
+               ("emacs lisp" (mode . emacs-lisp-mode))
+               ("magit" (name . "^\\*magit"))
                ("emacs" (or
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Messages\\*$")))
-               ("emacs lisp" (mode . emacs-lisp-mode))
                ("jabber / irc" (or
                           (name . "^\\*-jabber-chat-")
                           (name . "^\\*-jabber-roster-")

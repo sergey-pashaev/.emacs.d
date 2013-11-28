@@ -29,6 +29,7 @@
                   c-lang
                   gore
                   projectile
+                  myhelm
                   ))
 
 (provide 'configs)
