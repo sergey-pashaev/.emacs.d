@@ -8,4 +8,7 @@
 (defalias 'e 'find-file)
 (defalias 'E 'find-file-other-window)
 
+(setenv "GOPATH" (expand-file-name "~/workspace/go/"))
+(setenv "PATH" (concat (getenv "PATH") ":" (getenv "GOPATH") "bin"))
+
 (provide 'eshell-config)
