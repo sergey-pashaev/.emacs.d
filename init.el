@@ -72,27 +72,30 @@ Emacs load path."
       (package-install PKG)
       (require PKG))))
 
-;; load ~/.emcas.d/utils.el
-(require 'utils)
-(require-filelist utils "-utils")
+(let ((load-start-time (float-time)))
+  (progn
+    ;; load ~/.emcas.d/utils.el
+    (require 'utils)
+    (require-filelist utils "-utils")
 
-;; load ~/.emacs.d/configs.el
-(require 'configs)
-(require-filelist configs "-config")
+    ;; load ~/.emacs.d/configs.el
+    (require 'configs)
+    (require-filelist configs "-config")
 
-;; load ~/.emacs.d/custom.el
-(load custom-file 'noerror)
+    ;; load ~/.emacs.d/custom.el
+    (load custom-file 'noerror)
 
-;; You can keep system- or user-specific customizations here
-(setq system-specific-config (concat dotfiles-dir system-name ".el")
-      user-specific-config (concat dotfiles-dir user-login-name ".el")
-      user-specific-dir (concat dotfiles-dir user-login-name))
+    ;; You can keep system- or user-specific customizations here
+    (setq system-specific-config (concat dotfiles-dir system-name ".el")
+          user-specific-config (concat dotfiles-dir user-login-name ".el")
+          user-specific-dir (concat dotfiles-dir user-login-name))
 
-(add-to-list 'load-path user-specific-dir)
+    (add-to-list 'load-path user-specific-dir)
 
-(if (file-exists-p system-specific-config)
-    (load system-specific-config))
-(if (file-exists-p user-specific-config)
-    (load user-specific-config))
-(if (file-exists-p user-specific-dir)
-    (mapc #'load (directory-files user-specific-dir nil ".*el$")))
+    (if (file-exists-p system-specific-config)
+        (load system-specific-config))
+    (if (file-exists-p user-specific-config)
+        (load user-specific-config))
+    (if (file-exists-p user-specific-dir)
+        (mapc #'load (directory-files user-specific-dir nil ".*el$")))
+    (message "All configs loaded in %f seconds." (- (float-time) load-start-time))))
