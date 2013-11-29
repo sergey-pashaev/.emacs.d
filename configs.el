@@ -30,6 +30,7 @@
                   gore
                   projectile
                   myhelm
+                  mycscope
                   ))
 
 (provide 'configs)
