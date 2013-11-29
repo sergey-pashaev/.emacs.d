@@ -1,5 +1,9 @@
 ;;; myhelm-config.el
 
+(require-or-install 'helm-projectile)
+(global-set-key (kbd "C-c h") 'helm-projectile)
+
+;; add export GTAGSFORCECPP="" to ~/.bashrc to treat .h files as source files by global
 (require-or-install 'helm-gtags)
 
 (add-hook 'c-mode-hook 'helm-gtags-mode)
