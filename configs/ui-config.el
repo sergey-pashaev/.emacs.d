@@ -17,4 +17,6 @@
 ;; toggle menu-bar visibility
 (global-set-key (kbd "<f12>") 'menu-bar-mode)
 
+(set-default-font "Liberation Mono 10")
+
 (provide 'ui-config)
