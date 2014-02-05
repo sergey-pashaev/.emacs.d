@@ -19,10 +19,10 @@
                   erc
                   ibuffer
                   jabber
-                  ecb
-                  spellcheck
-                  gtranslate
-                  ac
+                  ;ecb
+                  ;spellcheck
+                  ;gtranslate
+                  ;ac
                   go
                   irfc
                   any
@@ -30,7 +30,7 @@
                   gore
                   projectile
                   myhelm
-                  mycscope
+                  ;mycscope
                   ))
 
 (provide 'configs)
