@@ -16,7 +16,7 @@
             (define-key jabber-chat-mode-map (kbd "<C-return>") 'newline))
           t)
 
-(global-set-key (kbd "C-x C-a") 'jabber-activity-switch-to)
+(global-set-key (kbd "C-x C-;") 'jabber-activity-switch-to)
 (global-set-key (kbd "<C-f10>") 'jabber-switch-to-roster-buffer)
 
 (provide 'jabber-config)
