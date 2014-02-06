@@ -3,6 +3,8 @@
 (require-or-install 'helm-projectile)
 (global-set-key (kbd "C-c h") 'helm-projectile)
 
+(require-or-install 'helm-flycheck)
+
 ;; add export GTAGSFORCECPP="" to ~/.bashrc to treat .h files as source files by global
 ;; (require-or-install 'helm-gtags)
 

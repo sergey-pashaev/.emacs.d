@@ -31,6 +31,7 @@
                   projectile
                   myhelm
                   ;mycscope
+                  flycheck
                   ))
 
 (provide 'configs)
