@@ -16,7 +16,11 @@
                           (name . "^\\*-jabber-roster-")
                           (mode . jabber-chat)
                           (mode . jabber-roster)
-                          (mode . erc-mode)))))))
+                          (mode . erc-mode)))
+               ("go lang" (or
+                           (mode . go-mode)
+                           (name . "^\\*godoc")
+                           (name . "^\\*godef")))))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()

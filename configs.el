@@ -22,7 +22,7 @@
                   ;ecb
                   ;spellcheck
                   ;gtranslate
-                  ;ac
+                  ac
                   go
                   irfc
                   any
@@ -31,6 +31,7 @@
                   projectile
                   myhelm
                   ;mycscope
+                  flycheck
                   ))
 
 (provide 'configs)
