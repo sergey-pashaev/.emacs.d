@@ -31,7 +31,7 @@
             (add-to-list 'ac-sources 'ac-source-c-headers)
             (add-to-list 'ac-sources 'ac-source-c-header-symbols t)))
 
-(setq ac-auto-show-menu nil)
+;(setq ac-auto-show-menu nil)
 (global-set-key (kbd "M-/") 'auto-complete)
 
 (provide 'ac-config)

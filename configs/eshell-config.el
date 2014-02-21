@@ -8,10 +8,17 @@
 (defalias 'e 'find-file)
 (defalias 'E 'find-file-other-window)
 
-(setenv "GOPATH" (expand-file-name "~/workspace/go/"))
-(setenv "PATH" (concat (getenv "PATH") ":" (getenv "GOPATH") "bin"))
-
 (require-or-install 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
+
+;; from ~/.bashrc
+;; export MYGOROOT=$HOME/workspace/go
+;; export STDGOROOT=$HOME/workspace/go-snapshot/go
+;; export GOPATH=$MYGOROOT:$STDGOROOT
+;; export PATH=$PATH:$MYGOROOT/bin
+
+(setenv "GOPATH" (concat (expand-file-name "~/workspace/go/")
+                         ":"
+                         (expand-file-name "~/workspace/go-snapshot/go/")))
 
 (provide 'eshell-config)
