@@ -72,4 +72,6 @@
 ;; recognize from the normal marking (selection)
 (global-hl-line-mode t) ; turn it on for all modes by default
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (provide 'misc-config)
