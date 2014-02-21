@@ -1,7 +1,8 @@
-(defvar configs '( 
+(defvar configs '(
                   package-sources ;; this config should be first
                   eshell
                   ui
+                  fonts
                   dired
                   ace
                   backups
@@ -35,4 +36,3 @@
                   ))
 
 (provide 'configs)
-  
