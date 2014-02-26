@@ -2,36 +2,37 @@
 
 (require-or-install 'auto-complete)
 (require 'auto-complete-config)
-
-(global-auto-complete-mode t)
-(setq ac-auto-start 4)
-(setq ac-ignore-case 'smart)
-(setq ac-use-fuzzy t)
-
-(setq ac-modes
-      '(emacs-lisp-mode
-        lisp-interaction-mode
-        lisp-mode
-        c-mode cc-mode c++-mode
-        makefile-mode sh-mode
-        org-mode
-        go-mode))
-
 (ac-config-default)
 
-(require-or-install 'ac-c-headers)
+;; (global-auto-complete-mode t)
+;; (setq ac-auto-start 4)
+;; (setq ac-ignore-case 'smart)
+;; (setq ac-use-fuzzy t)
 
-(add-hook 'c-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-c-headers)
-            (add-to-list 'ac-sources 'ac-source-c-header-symbols t)))
+;; (setq ac-modes
+;;       '(emacs-lisp-mode
+;;         lisp-interaction-mode
+;;         lisp-mode
+;;         c-mode cc-mode c++-mode
+;;         makefile-mode sh-mode
+;;         org-mode
+;;         go-mode))
 
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (add-to-list 'ac-sources 'ac-source-c-headers)
-            (add-to-list 'ac-sources 'ac-source-c-header-symbols t)))
+;; (ac-config-default)
 
-;(setq ac-auto-show-menu nil)
-(global-set-key (kbd "M-/") 'auto-complete)
+;; (require-or-install 'ac-c-headers)
+
+;; (add-hook 'c-mode-hook
+;;           (lambda ()
+;;             (add-to-list 'ac-sources 'ac-source-c-headers)
+;;             (add-to-list 'ac-sources 'ac-source-c-header-symbols t)))
+
+;; (add-hook 'c++-mode-hook
+;;           (lambda ()
+;;             (add-to-list 'ac-sources 'ac-source-c-headers)
+;;             (add-to-list 'ac-sources 'ac-source-c-header-symbols t)))
+
+;; ;(setq ac-auto-show-menu nil)
+;; (global-set-key (kbd "M-/") 'auto-complete)
 
 (provide 'ac-config)

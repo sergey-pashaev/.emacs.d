@@ -1,13 +1,16 @@
 (defvar configs '(
                   package-sources ;; this config should be first
                   eshell
+                  ac
+                  cedet
+                  ecb
                   ui
                   fonts
                   dired
                   ace
                   backups
                   bindings
-                  common-lisp
+                  ;common-lisp
                   emacs-lisp
                   encoding
                   ido
@@ -20,10 +23,8 @@
                   erc
                   ibuffer
                   jabber
-                  ;ecb
                   ;spellcheck
                   ;gtranslate
-                  ac
                   go
                   irfc
                   any

@@ -22,7 +22,7 @@
 
 (delete-selection-mode t)                ; delete the selection with a keypress
 
-(unless (= emacs-major-version 24) 
+(unless (= emacs-major-version 24)
   (setq x-select-enable-clipboard t       ; copy-paste should work ...
         interprogram-paste-function       ; ...with...
         'x-cut-buffer-or-selection-value)); ...other X clients
@@ -62,6 +62,9 @@
 
 ;; Default to unified diffs
 (setq diff-switches "-u")
+
+(when (fboundp 'winner-mode)
+      (winner-mode 1))
 
 ;; bookmarks
 (setq
