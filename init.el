@@ -35,7 +35,7 @@
     (scroll-bar-mode -1)
 
     (set-default-font "Liberation Mono 10")
-    
+
     ;; cursor color
     (if window-system
         (add-hook 'post-command-hook 'psv/update-cursor-color)))
@@ -248,7 +248,7 @@
                            (mode . go-mode)
                            (name . "^\\*godoc")
                            (name . "^\\*godef")))))))
-    
+
     (add-hook 'ibuffer-mode-hook 'psv/ibuffer-hook)))
 
 ;;; golang
@@ -321,5 +321,6 @@
 
 ;;; helm
 (require-or-install 'helm)
+(require 'helm-config)
 (use-package helm
   :bind ("M-?" . helm-mini))
