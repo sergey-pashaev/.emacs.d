@@ -77,4 +77,21 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(defun beginning-of-line-dwim ()
+  "Toggles between moving point to the first non-whitespace character, and
+the start of the line."
+  (interactive)
+  (let ((start-position (point)))
+    ;; see if going to the beginning of the line changes our position
+    (move-beginning-of-line nil)
+
+    (when (= (point) start-position)
+        ;; we're already at the beginning of the line, so go to the
+        ;; first non-whitespace character
+        (back-to-indentation))))
+
+(global-set-key (kbd "C-a") 'beginning-of-line-dwim)
+
+(setq gc-cons-threshold (* 10 1024 1024))
+
 (provide 'misc-config)
