@@ -17,6 +17,13 @@
                           (mode . jabber-chat)
                           (mode . jabber-roster)
                           (mode . erc-mode)))
+               ("c++ / c" (or
+                           (mode . c-mode)
+                           (mode . c++-mode)))
+               ("cedet" (or
+                         (name . "^\\*CEDET Global\\*$")
+                         (name . "^\\*Semantic SymRef\\*$")
+                         (name . "^\\*Symref ")))
                ("go lang" (or
                            (mode . go-mode)
                            (name . "^\\*godoc")
