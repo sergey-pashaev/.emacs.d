@@ -15,4 +15,7 @@
 (global-set-key (kbd "C-<backspace>") 'backward-kill-word)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(require-or-install 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
 (provide 'bindings-config)
