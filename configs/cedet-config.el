@@ -134,4 +134,10 @@ save the pointer marker if tag is found"
 (setq semanticdb-default-save-directory (expand-file-name "~/.emacs.d/.semanticdb")
       semanticdb-project-roots (list "/home/spashaev/github/s4c"))
 
+(defconst my-cc-style
+  '("cc-mode"
+    (c-offsets-alist . ((innamespace . [0])))))
+
+(c-add-style "my-cc-mode" my-cc-style)
+
 (provide 'cedet-config)
