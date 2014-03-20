@@ -65,6 +65,21 @@
 (global-set-key (kbd "<f12>") 'menu-bar-mode)
 
 ;;; misc
+(defun psv/beginning-of-line-dwim ()
+  "Toggles between moving point to the first non-whitespace character, and
+the start of the line."
+  (interactive)
+  (let ((start-position (point)))
+    ;; see if going to the beginning of the line changes our position
+    (move-beginning-of-line nil)
+
+    (when (= (point) start-position)
+      ;; we're already at the beginning of the line, so go to the
+      ;; first non-whitespace character
+      (back-to-indentation))))
+
+(global-set-key (kbd "C-a") 'psv/beginning-of-line-dwim)
+
 (progn
     ;; common minor modes
     (line-number-mode t)
@@ -110,7 +125,10 @@
           diff-switches "-u"
 
           ;; end files with newline
-          require-final-newline t)
+          require-final-newline t
+
+          ;; gc threshold
+          gc-cons-threshold (* 10 1024 1024))
 
     ;; common hooks
     (add-hook 'before-save-hook 'delete-trailing-whitespace))
@@ -238,6 +256,13 @@
                ("emacs" (or
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Messages\\*$")))
+               ("c++ / c" (or
+                           (mode . c-mode)
+                           (mode . c++-mode)))
+               ("cedet" (or
+                         (name . "^\\*CEDET Global\\*$")
+                         (name . "^\\*Semantic SymRef\\*$")
+                         (name . "^\\*Symref ")))
                ("jabber / irc" (or
                           (name . "^\\*-jabber-chat-")
                           (name . "^\\*-jabber-roster-")
@@ -321,6 +346,15 @@
 
 ;;; helm
 (require-or-install 'helm)
+(require-or-install 'helm-projectile)
+(require-or-install 'helm-flycheck)
 (require 'helm-config)
 (use-package helm
-  :bind ("M-?" . helm-mini))
+  :bind
+  (("M-?" . helm-projectile)
+   ("C-c !" . helm-flycheck)))
+
+;;; expand-region
+(require-or-install 'expand-region)
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
