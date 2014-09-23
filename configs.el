@@ -2,8 +2,8 @@
                   package-sources ;; this config should be first
                   eshell
                   ac
-                  cedet
-                  ecb
+                  ;cedet
+                  ;ecb
                   ui
                   fonts
                   dired
@@ -20,20 +20,20 @@
                   russian
                   tramp
                   vcs
-                  erc
+                  ;erc
                   ibuffer
                   jabber
                   ;spellcheck
                   ;gtranslate
-                  go
+                  ;go
                   irfc
                   any
                   c-lang
-                  gore
+                  ;gore
                   projectile
                   myhelm
                   ;mycscope
-                  flycheck
+                  ;flycheck
                   ))
 
 (provide 'configs)
