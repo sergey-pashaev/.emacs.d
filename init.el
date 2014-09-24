@@ -69,37 +69,8 @@ re-downloaded in order to locate PACKAGE."
 
 (when psv/onlinep
   (progn
-    (load "normal")))
-
-;;; jabber
-;; (require-or-install 'jabber)
-
-;; (defun psv/jabber-hook ()
-;;   (define-key jabber-chat-mode-map (kbd "RET") 'jabber-chat-buffer-send)
-;;   (define-key jabber-chat-mode-map (kbd "<C-return>") 'newline))
-
-;; (use-package jabber
-;;   :init
-;;   (progn
-;;     (setq
-;;      jabber-chat-buffer-show-avatar nil
-;;      jabber-roster-line-format " %c %-25n %u %-8s  %S"
-;;      jabber-roster-show-bindings nil
-;;      jabber-roster-show-title nil
-;;      jabber-history-dir "~/.emacs.d/jabber-history"
-;;      jabber-history-enabled t
-;;      jabber-use-global-history nil)
-
-;;     (add-hook 'jabber-chat-mode-hook 'psv/jabber-hook t))
-;;   :bind (("C-x C-;" . jabber-activity-switch-to)
-;;          ("<C-f10>" . jabber-switch-to-roster-buffer)))
-
-;; ;;; irfc
-;; (require-or-install 'irfc)
-;; (use-package irfc
-;;   :init
-;;   (setq irfc-directory "~/workspace/rfc/"
-;;         irfc-assoc-mode t))
+    (load "normal")
+    (load "im")))
 
 ;;; golang
 ;; mysql driver
@@ -130,12 +101,3 @@ re-downloaded in order to locate PACKAGE."
 ;;   (progn
 ;;     (add-hook 'go-mode-hook 'psv/go-hook)
 ;;     (add-to-list 'load-path "~/workspace/go/src/github.com/sergey-pashaev/goflymake")))
-
-;; ;;; erc
-;; (require-or-install 'erc)
-;; (use-package erc
-;;   :init
-;;   (progn
-;;     (setq erc-hide-list '("JOIN" "PART" "QUIT")
-;;           erc-prompt-for-nickserv-password nil
-;;           erc-save-buffer-on-part t)))

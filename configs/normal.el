@@ -61,15 +61,6 @@
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
 
-;; erc
-(require-package 'erc)
-(use-package erc
-  :init
-  (progn
-    (setq erc-hide-list '("JOIN" "PART" "QUIT")
-          erc-prompt-for-nickserv-password nil
-          erc-save-buffer-on-part t)))
-
 ;;; helm
 (require-package 'helm)
 (require-package 'helm-projectile)
