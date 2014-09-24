@@ -204,3 +204,7 @@ the start of the line."
 ;; tramp
 (require 'tramp)
 (setq tramp-default-method "ssh")
+
+;; windmove
+(require 'windmove)
+(windmove-default-keybindings 'meta)
