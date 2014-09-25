@@ -64,13 +64,37 @@ Emacs load path."
                                          (symbol-name item)
                                          filename-suffix)))))
 
-;; require package if installed, otherwise install and require
-(defun require-or-install (PKG)
-  (if (package-installed-p PKG)
-      (require PKG)
-    (progn
-      (package-install PKG)
-      (require PKG))))
+(defun require-or-install (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if psv/onlinep
+        (if (or (assoc package package-archive-contents) no-refresh)
+            (progn
+              (package-install package)
+              (require package))
+          (progn
+            (package-refresh-contents)
+            (require-package package min-version t)))
+      (messsage "Offline. Can't download package"))))
+
+;; check internet connection and set flag
+(setq psv/onlinep nil)
+
+(unless
+    (condition-case nil
+	(delete-process
+	 (make-network-process
+	  :name "psv/check-internet-connection"
+	  :host "elpa.gnu.org"
+	  :service 80))
+      (error t))
+  (setq psv/onlinep t))
+
+(when psv/onlinep
+  (package-initialize t))
 
 (let ((load-start-time (float-time)))
   (progn
