@@ -2,7 +2,7 @@
                   package-sources ;; this config should be first
                   eshell
                   ac
-                  ;cedet
+                  cedet
                   ;ecb
                   ui
                   fonts
@@ -33,6 +33,7 @@
                   myhelm
                   ;mycscope
                   ;flycheck
+                  windmove
                   ))
 
 (provide 'configs)
