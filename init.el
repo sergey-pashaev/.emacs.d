@@ -70,7 +70,8 @@ re-downloaded in order to locate PACKAGE."
 (when psv/onlinep
   (progn
     (load "normal")
-    (load "im")))
+    (load "im")
+    (load "cpp")))
 
 ;;; golang
 ;; mysql driver

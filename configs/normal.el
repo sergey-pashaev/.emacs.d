@@ -75,3 +75,5 @@
   :bind
   (("M-?" . helm-projectile)
    ("C-c !" . helm-flycheck)))
+
+(global-set-key (kbd "M-x") 'helm-M-x)
