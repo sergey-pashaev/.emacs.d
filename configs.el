@@ -27,7 +27,6 @@
                   ;gtranslate
                   ;go
                   irfc
-                  any
                   c-lang
                   ;gore
                   projectile
