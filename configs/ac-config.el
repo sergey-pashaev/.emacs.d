@@ -4,6 +4,12 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(setq-default ac-sources '(ac-source-semantic-raw))
+(setq ac-auto-start nil)
+(setq ac-auto-show-menu t)
+
+(define-key ac-mode-map [(meta return)] 'auto-complete)
+
 ;; (global-auto-complete-mode t)
 ;; (setq ac-auto-start 4)
 ;; (setq ac-ignore-case 'smart)
