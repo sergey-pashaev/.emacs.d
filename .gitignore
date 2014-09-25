@@ -1,27 +1,53 @@
+### Emacs ###
+# -*- mode: gitignore; -*-
+
 *~
-*#
-
-ac-comphist.dat
-ede-projects.el
-custom.el.before_ecb_2.40
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
 tramp
+.\#*
 
-/utils/pastebin/*
+# Org-mode
+.org-id-locations
+*_archive
 
-/saveplace
-/recentf
-/bookmarks
-/savehist
-/ido.last
+# flymake-mode
+*_flymake.*
 
-/elpa/*
-
+# eshell files
 /eshell/history
 /eshell/lastdir
 
-!.gitignore
+# elpa packages
+/elpa/
 
-/url/cookies
-/jabber-history
+# ac
+ac-comphist.dat
 
-/semanticdb
+# cedet, ecb, semantic, etc.
+ede-projects.el
+custom.el.before_ecb_2.40
+/semanticdb/
+/.semanticdb/
+
+saveplace
+recentf
+savehist
+ido.last
+
+/url/
+
+# jabber
+/jabber-history/
+
+# xkcd
+/xkcd/
+
+# games
+/games/
+
+# projectile
+projectile-bookmarks.eld
