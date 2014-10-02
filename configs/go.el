@@ -19,6 +19,7 @@
 ;; $ go get code.google.com/p/go.tools/cmd/godoc
 ;; $ go get code.google.com/p/go.tools/cmd/goimports
 ;; $ go get code.google.com/p/go.tools/cmd/oracle
+;; $ go get -u code.google.com/p/rog-go/exp/cmd/godef
 ;; $ go get -u github.com/nsf/gocode
 
 (setenv "GOPATH" (concat (expand-file-name "~/workspace/go/")))
@@ -49,7 +50,6 @@
 ;; $ go get -u github.com/go-sql-driver/mysql
 ;; $ go get -u github.com/dougm/goflymake
 ;; $ go get -u github.com/sergey-pashaev/goflymake
-;; $ go get -u code.google.com/p/rog-go/exp/cmd/godef
 ;; $ go get -u github.com/sriram-srinivasan/gore
 ;; $ go get -u github.com/golang/lint/golint
 
