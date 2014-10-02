@@ -71,34 +71,5 @@ re-downloaded in order to locate PACKAGE."
   (progn
     (load "normal")
     (load "im")
-    (load "cpp")))
-
-;;; golang
-;; mysql driver
-;;go get -u github.com/go-sql-driver/mysql
-
-;; dev utils
-;;go get -u github.com/dougm/goflymake
-;;go get -u github.com/sergey-pashaev/goflymake
-;;go get -u github.com/nsf/gocode
-;;go get -u code.google.com/p/rog-go/exp/cmd/godef
-;;go get -u github.com/sriram-srinivasan/gore
-;;go get -u github.com/golang/lint/golint
-;(require-or-install 'go-mode)
-;(require-or-install 'go-autocomplete)
-;(require-or-install 'go-eldoc)
-;(require-or-install 'golint)
-;(require-or-install 'go-flycheck)
-
-;; (defun psv/go-hook ()
-;;   (go-eldoc-setup)
-;;   (flycheck-mode t)
-;;   (setq tab-width 4)
-;;   (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
-;;   (local-set-key (kbd "C-c i") 'go-goto-imports))
-
-;; (use-package go-mode
-;;   :init
-;;   (progn
-;;     (add-hook 'go-mode-hook 'psv/go-hook)
-;;     (add-to-list 'load-path "~/workspace/go/src/github.com/sergey-pashaev/goflymake")))
+    (load "cpp")
+    (load "go")))
