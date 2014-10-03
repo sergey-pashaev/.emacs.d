@@ -94,4 +94,18 @@ the start of the line."
 
 (setq gc-cons-threshold (* 10 1024 1024))
 
+;; log stuff
+;; (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
+(add-to-list 'auto-mode-alist '("\\.log\\'" . read-only-mode))
+
+
+(define-abbrev-table 'global-abbrev-table '(
+    ;; email
+    ("psv/mail" "pashaev.sergey@gmail.com")
+    ("psv/name" "Sergey Pashaev")))
+
+;; stop asking whether to save newly added abbrev when quitting emacs
+(setq save-abbrevs nil)
+
+
 (provide 'misc-config)
