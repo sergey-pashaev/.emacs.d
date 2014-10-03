@@ -24,7 +24,7 @@
                   ibuffer
                   jabber
                   ;spellcheck
-                  ;gtranslate
+                  gtranslate
                   ;go
                   irfc
                   c-lang
