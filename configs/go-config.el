@@ -11,27 +11,28 @@
 ;;go get -u github.com/sriram-srinivasan/gore
 ;;go get -u github.com/golang/lint/golint
 
-(require 'ac-config)
+(setenv "GOPATH" (concat (expand-file-name "~/workspace/go/")))
 
 (require-or-install 'go-mode)
 (require-or-install 'go-autocomplete)
 (require-or-install 'go-eldoc)
-(require-or-install 'golint)
 
 (add-hook 'go-mode-hook 'go-eldoc-setup)
 
-(defun my-go-local-bindings()
+(require 'go-mode)
+(require 'go-eldoc)
+(require 'go-autocomplete)
+
+(defun psv/go-local-bindings()
   (progn
     (setq tab-width 4)
     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
     (local-set-key (kbd "C-c i") 'go-goto-imports)))
 
-(defun go-flycheck-turn-on()
+(defun psv/go-flycheck-turn-on()
   (flycheck-mode 1))
 
-(add-hook 'go-mode-hook 'my-go-local-bindings)
-(add-hook 'go-mode-hook 'go-flycheck-turn-on)
-
-;; lurk more about imenu
+(add-hook 'go-mode-hook 'psv/go-local-bindings)
+(add-hook 'go-mode-hook 'psv/go-flycheck-turn-on)
 
 (provide 'go-config)
