@@ -8,8 +8,8 @@
 (defalias 'e 'find-file)
 (defalias 'E 'find-file-other-window)
 
-;; (require-or-install 'exec-path-from-shell)
-;; (exec-path-from-shell-initialize)
+(require-or-install 'exec-path-from-shell)
+(exec-path-from-shell-initialize)
 
 ;; from ~/.bashrc
 ;; export MYGOROOT=$HOME/workspace/go
