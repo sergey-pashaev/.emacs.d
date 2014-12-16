@@ -7,16 +7,12 @@
 
 ;; determine the load path dirs
 ;; as relative to the location of this file
-(defvar dotfiles-dir "~/.emacs.d/"
+(defvar dotfiles-dir "~/.emacs.d/lisp/"
   "The root Emacs Lisp source folder")
 
 ;; external packages reside here
 (defvar ext-dir (concat dotfiles-dir "vendor/")
   "The root folder for external packages")
-
-;; elpa packages reside here
-(defvar elpa-dir (concat dotfiles-dir "elpa/")
-  "The root folder for elpa packages")
 
 ;; useful functions reside here
 (defvar utils-dir (concat dotfiles-dir "utils/")
@@ -49,7 +45,6 @@ Emacs load path."
 ;; add the first lever subfolders automatically
 (list-add-subfolders-to-load-path (list dotfiles-dir
                                         ext-dir
-                                        elpa-dir
                                         utils-dir
                                         configs-dir))
 
