@@ -18,4 +18,15 @@
 (require-or-install 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+;; keyfreq stats
+(require-or-install 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "M-/") 'dabbrev-expand)
+
+(global-unset-key (kbd "C-x C-c"))
+(global-unset-key (kbd "C-x 5 0"))
+
 (provide 'bindings-config)
