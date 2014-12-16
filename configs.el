@@ -25,7 +25,7 @@
                   jabber
                   ;spellcheck
                   ;gtranslate
-                  ;go
+                  go
                   irfc
                   c-lang
                   ;gore
