@@ -6,9 +6,11 @@
 
 (setq-default ac-sources '(ac-source-semantic-raw))
 (setq ac-auto-start nil)
-(setq ac-auto-show-menu t)
+(setq ac-auto-show-menu nil)
+(setq ac-menu-height 20)
 
 (define-key ac-mode-map [(meta return)] 'auto-complete)
+;;(define-key ac-mode-map [(meta return)] 'ac-complete)
 
 ;; (global-auto-complete-mode t)
 ;; (setq ac-auto-start 4)
