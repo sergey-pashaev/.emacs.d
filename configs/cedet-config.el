@@ -1,18 +1,31 @@
 ;;; cedet-config.el
 
-;;; minimial-cedet-config.el --- Working configuration for CEDET from bzr
+(load-file (expand-file-name "~/github/cedet-bzr/cedet-devel-load.el"))
+(add-to-list 'load-path (expand-file-name "~/github/cedet-bzr/contrib/"))
 
-;; Copyright (C) Alex Ott
-;;
-;; Author: Alex Ott <alexott@gmail.com>
-;; Keywords: cedet, C++, Java
-;; Requirements: CEDET from bzr (http://cedet.sourceforge.net/bzr-repo.shtml)
+(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
 
-;; Do checkout of fresh CEDET, and use this config (don't forget to change path below)
+(setq semanticdb-default-save-directory (expand-file-name "~/.emacs.d/.semanticdb"))
 
-(defvar semantic-tags-location-ring (make-ring 40))
+(ede-enable-generic-projects)
 
-(defun semantic-goto-definition (point)
+(semantic-mode 1)
+(global-ede-mode 1)
+
+(defconst my-cc-style
+  '("cc-mode"
+    (c-offsets-alist . ((innamespace . [0])))))
+
+(c-add-style "my-cc-mode" my-cc-style)
+
+(require 'eassist)
+
+(defvar semantic-tags-location-ring (make-ring 80))
+
+(defun psv/semantic-goto-definition (point)
   "Goto definition using semantic-ia-fast-jump
 save the pointer marker if tag is found"
   (interactive "d")
@@ -25,7 +38,7 @@ save the pointer marker if tag is found"
      (set-marker (ring-remove semantic-tags-location-ring 0) nil nil)
      (signal (car err) (cdr err)))))
 
-(defun semantic-pop-tag-mark ()
+(defun psv/semantic-pop-tag-mark ()
   "popup the tag save by semantic-goto-definition"
   (interactive)
   (if (ring-empty-p semantic-tags-location-ring)
@@ -39,105 +52,17 @@ save the pointer marker if tag is found"
         (goto-char pos))
       (set-marker marker nil nil))))
 
-(setq cedet-root-path (file-name-as-directory "~/github/cedet-bzr/"))
-
-(load-file (concat cedet-root-path "cedet-devel-load.el"))
-(add-to-list 'load-path (concat cedet-root-path "contrib"))
-
-;; select which submodes we want to activate
-(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-
-;; Activate semantic
-(semantic-mode 1)
-
-;; load contrib library
-(require 'eassist)
-
-;; customisation of modes
-(defun alexott/cedet-hook ()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
-  ;;
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
-
+(defun psv/cedet-hook ()
   (local-set-key "\C-cj" 'semantic-ia-fast-jump)
-  (local-set-key "\M-." 'semantic-goto-definition)
-  (local-set-key "\M-," 'semantic-pop-tag-mark)
-
-  (local-set-key "\C-cq" 'semantic-ia-show-doc)
-  (local-set-key "\C-cs" 'semantic-ia-show-summary)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  (add-to-list 'ac-sources 'ac-source-semantic)
-  )
-(add-hook 'c-mode-common-hook 'alexott/cedet-hook)
-(add-hook 'lisp-mode-hook 'alexott/cedet-hook)
-;(add-hook 'scheme-mode-hook 'alexott/cedet-hook)
-(add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
-;(add-hook 'erlang-mode-hook 'alexott/cedet-hook)
-
-(defun alexott/c-mode-cedet-hook ()
+  (local-set-key "\M-." 'psv/semantic-goto-definition)
+  (local-set-key "\M-," 'psv/semantic-pop-tag-mark)
   (local-set-key "\C-ct" 'eassist-switch-h-cpp)
-  (local-set-key "\C-xt" 'eassist-switch-h-cpp)
   (local-set-key "\C-ce" 'eassist-list-methods)
   (local-set-key "\C-c\C-r" 'semantic-symref)
-  ;(flycheck-mode 1)
-  )
+  (local-set-key "\C-cs" 'semantic-ia-show-summary))
 
-(add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
+(add-hook 'c-mode-common-hook 'psv/cedet-hook)
 
-(semanticdb-enable-gnu-global-databases 'c-mode t)
-(semanticdb-enable-gnu-global-databases 'c++-mode t)
-
-(when (cedet-ectag-version-check t)
-  (semantic-load-enable-primary-ectags-support))
-
-;; if you want to enable support for gnu global
-(when (cedet-gnu-global-version-check t)
-  (semanticdb-enable-gnu-global-databases 'c-mode)
-  (semanticdb-enable-gnu-global-databases 'c++-mode))
-
-(require 'semantic/ia)
-(require 'semantic/bovine/gcc) ; or depending on you compiler
-
-;; SRecode
-(global-srecode-minor-mode 1)
-
-;; EDE
-(global-ede-mode 1)
-(ede-enable-generic-projects)
-
-(ede-cpp-root-project "s4c"
-                :name "s4c"
-                :file "/home/spashaev/github/s4c/Makefile"
-                :include-path '("/"
-                                "/cache-service/src"
-                                "/dispatcher/src"
-                                "/dispatcher/handlers"
-                                "/dispatcher/clouds/dropbox"
-                                "/dispatcher/clouds/box"
-                                "/dispatcher/clouds/gdrive"
-                                "/libs/s4c/src"
-                                "/libs/s4c/src/http"
-                                "/libs/s4c/src/util"
-                               ))
-
-(setq semanticdb-default-save-directory (expand-file-name "~/.emacs.d/.semanticdb")
-      semanticdb-project-roots (list "/home/spashaev/github/s4c"))
-
-(defconst my-cc-style
-  '("cc-mode"
-    (c-offsets-alist . ((innamespace . [0])))))
-
-(c-add-style "my-cc-mode" my-cc-style)
+(require 'nda)
 
 (provide 'cedet-config)
