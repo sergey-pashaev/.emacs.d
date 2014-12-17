@@ -156,4 +156,11 @@ there's a region, all lines that region covers will be duplicated."
   (interactive)
   (uniquify-region-lines (point-min) (point-max)))
 
+(defun psv/replace-and-add-namespace (symbol namespace)
+  (interactive (list (read-string (format "Symbol (%s): " (thing-at-point 'symbol))
+                                  nil nil (thing-at-point 'symbol))
+                     (read-string "Namespace: ")))
+  (backward-char (length symbol))
+  (query-replace symbol (concat namespace "::" symbol)))
+
 (provide 'editing-utils)
