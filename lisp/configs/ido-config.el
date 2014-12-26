@@ -5,7 +5,7 @@
       ido-use-filename-at-point 'guess
       ido-everywhere t)
 
-(setq ido-save-directory-list-file (concat dotfiles-dir "ido.last"))
+(setq ido-save-directory-list-file (concat tempfiles-dir "ido.last"))
 
 ;; auto-completion in minibuffer
 (icomplete-mode +1)

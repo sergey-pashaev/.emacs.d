@@ -10,6 +10,9 @@
 (defvar dotfiles-dir "~/.emacs.d/lisp/"
   "The root Emacs Lisp source folder")
 
+(defvar tempfiles-dir "~/.emacs.d/tmp/"
+  "My temp files dir. It is safe to delete all files there.")
+
 ;; external packages reside here
 (defvar ext-dir (concat dotfiles-dir "vendor/")
   "The root folder for external packages")

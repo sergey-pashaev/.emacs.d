@@ -1,14 +1,20 @@
 ;;; cedet-config.el
 
+;; If using cedet-devel, srecode-map.el can be
+;; moved by setting srecode-map-save-file variable, but it has to be
+;; before loading cedet-devel-load.el.
+(setq srecode-map-save-file (concat tempfiles-dir "srecode-map.el"))
+
 (load-file (expand-file-name "~/github/cedet-bzr/cedet-devel-load.el"))
 (add-to-list 'load-path (expand-file-name "~/github/cedet-bzr/contrib/"))
 
 (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
 
-(setq semanticdb-default-save-directory (expand-file-name "~/.emacs.d/.semanticdb"))
+(setq semanticdb-default-save-directory (concat tempfiles-dir ".semanticdb"))
+(setq ede-project-placeholder-cache-file (concat tempfiles-dir "ede-projects.el"))
 
 (ede-enable-generic-projects)
 

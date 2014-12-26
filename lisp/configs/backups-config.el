@@ -2,7 +2,7 @@
 
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
-      `((".*" . "~/.emacs.d/backups")))
+      `((".*" . "~/.emacs.d/tmp/backups")))
 
 (setq backup-by-copying t
       delete-old-versions t
@@ -11,6 +11,9 @@
       version-control t)
 
 (setq auto-save-file-name-transforms
-      `((".*" "~/.emacs.d/autosave" t)))
+      `((".*" "~/.emacs.d/tmp/autosave" t)))
+
+
+(setq auto-save-list-file-prefix "~/.emacs.d/tmp/auto-save-list/.saves-")
 
 (provide 'backups-config)

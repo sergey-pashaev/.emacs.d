@@ -6,7 +6,7 @@
 (setq jabber-roster-line-format " %c %-25n %u %-8s  %S")
 (setq jabber-roster-show-bindings nil)
 (setq jabber-roster-show-title nil)
-(setq jabber-history-dir "~/.emacs.d/jabber-history")
+(setq jabber-history-dir "~/.emacs.d/tmp/jabber-history")
 (setq jabber-history-enabled t)
 (setq jabber-use-global-history nil)
 

@@ -10,6 +10,8 @@
 (setq ac-menu-height 20)
 
 (define-key ac-mode-map [(meta return)] 'auto-complete)
+
+(setq ac-comphist-file (concat tempfiles-dir "ac-comphist.dat"))
 ;;(define-key ac-mode-map [(meta return)] 'ac-complete)
 
 ;; (global-auto-complete-mode t)

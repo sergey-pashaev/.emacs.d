@@ -46,13 +46,13 @@
 (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; saveplace: save location in file when saving files
-(setq save-place-file (concat dotfiles-dir "saveplace"))
+(setq save-place-file (concat tempfiles-dir "saveplace"))
 (setq-default save-place t)            ;; activate it for all buffers
 (require-or-install 'saveplace)                   ;; get the package
 
 ;; save recent files
 (require-or-install 'recentf)
-(setq recentf-save-file (concat dotfiles-dir "recentf") ;; keep ~/ clean
+(setq recentf-save-file (concat tempfiles-dir "recentf") ;; keep ~/ clean
       recentf-max-saved-items 100          ;; max save 100
       recentf-max-menu-items 15)         ;; max 15 in menu
 (recentf-mode t)                  ;; turn it on
