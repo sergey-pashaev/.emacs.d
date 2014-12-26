@@ -1,6 +1,6 @@
 ;;; helm-meyers.el --- Don't forget Meyers rules!
 
-(require 'helm)
+(require-or-install 'helm)
 
 (defvar helm-meyers-buffer-name "*helm meyers*")
 (defvar helm-meyers-mode-name " Helm meyers")
