@@ -9,6 +9,7 @@
 auto-save-list
 tramp
 .\#*
+/lisp/custom.el
 
 # Org-mode
 .org-id-locations
@@ -51,3 +52,5 @@ ido.last
 
 # projectile
 projectile-bookmarks.eld
+
+/tmp/
