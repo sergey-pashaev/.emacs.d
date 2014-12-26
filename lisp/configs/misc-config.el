@@ -107,5 +107,8 @@ the start of the line."
 ;; stop asking whether to save newly added abbrev when quitting emacs
 (setq save-abbrevs nil)
 
+;; show time in mode line
+(display-time-mode 1)
+(setq display-time-format "%H:%M")
 
 (provide 'misc-config)
