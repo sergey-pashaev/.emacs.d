@@ -3,6 +3,7 @@
                   eshell
                   ac
                   ack
+                  ag
                   cedet
                   ;ecb
                   ui
