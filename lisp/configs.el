@@ -26,7 +26,7 @@
                   ibuffer
                   jabber
                   ;spellcheck
-                  ;gtranslate
+                  gtranslate
                   go
                   irfc
                   c-lang
@@ -36,6 +36,8 @@
                   ;mycscope
                   ;flycheck
                   windmove
+                  elfeed
+                  restclient
                   ))
 
 (provide 'configs)
