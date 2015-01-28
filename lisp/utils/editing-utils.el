@@ -163,4 +163,43 @@ there's a region, all lines that region covers will be duplicated."
   (backward-char (length symbol))
   (query-replace symbol (concat namespace "::" symbol)))
 
+;; increment/decrement number at point
+(defun psv/increment-number-decimal (&optional arg)
+  "Increment the number forward from point by 'arg'."
+  (interactive "p*")
+  (save-excursion
+    (save-match-data
+      (let (inc-by field-width answer)
+        (setq inc-by (if arg arg 1))
+        (skip-chars-backward "0123456789")
+        (when (re-search-forward "[0-9]+" nil t)
+          (setq field-width (- (match-end 0) (match-beginning 0)))
+          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
+          (when (< answer 0)
+            (setq answer (+ (expt 10 field-width) answer)))
+          (replace-match (format (concat "%0" (int-to-string field-width) "d")
+                                 answer)))))))
+
+(defun psv/decrement-number-decimal (&optional arg)
+  (interactive "p*")
+  (psv/increment-number-decimal (if arg (- arg) -1)))
+
+(global-set-key (kbd "C-c +") 'psv/increment-number-decimal)
+(global-set-key (kbd "C-c -") 'psv/decrement-number-decimal)
+
+(defun psv/flush-lines-like-at-the-point ()
+  (interactive)
+  (let ((line (buffer-substring-no-properties (line-beginning-position)
+                                            (line-end-position))))
+       (save-excursion
+         (cond ((= 0 (length line))     ; empty string check
+                (message "Trying to delete empty lines. Be careful."))
+               ((string-match "[ \t]+$" line) ; whitespace string check
+                (when (yes-or-no-p "Do you really want to flush whitespace strings?")
+                  (beginning-of-buffer)
+                  (flush-lines (regexp-quote line))))
+               (t                       ; common case
+                (beginning-of-buffer)
+                (flush-lines (regexp-quote line)))))))
+
 (provide 'editing-utils)
