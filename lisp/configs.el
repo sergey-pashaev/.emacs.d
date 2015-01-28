@@ -2,7 +2,6 @@
                   package-sources ;; this config should be first
                   eshell
                   ac
-                  ack
                   ag
                   cedet
                   ;ecb
