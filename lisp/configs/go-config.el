@@ -29,10 +29,6 @@
     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
     (local-set-key (kbd "C-c i") 'go-goto-imports)))
 
-(defun psv/go-flycheck-turn-on()
-  (flycheck-mode 1))
-
 (add-hook 'go-mode-hook 'psv/go-local-bindings)
-(add-hook 'go-mode-hook 'psv/go-flycheck-turn-on)
 
 (provide 'go-config)
