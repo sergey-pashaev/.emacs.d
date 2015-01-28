@@ -14,4 +14,6 @@
   (message (buffer-substring-no-properties p1 p2))
   (google-translate-translate "ru" "en" (replace-regexp-in-string "\\(\\\n\\|[ ]+\\)" " " (buffer-substring-no-properties p1 p2))))
 
+(global-set-key (kbd "C-c t") 'google-translate-at-point)
+
 (provide 'gtranslate-config)
