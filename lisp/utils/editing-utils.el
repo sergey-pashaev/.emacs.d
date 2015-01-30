@@ -202,4 +202,9 @@ there's a region, all lines that region covers will be duplicated."
                 (beginning-of-buffer)
                 (flush-lines (regexp-quote line)))))))
 
+(defun psv/align-by-spaces ()
+  "Align selection by spaces."
+  (interactive)
+  (align-regexp (region-beginning) (region-end) "\\(\\s-*\\) " -1 0 t))
+
 (provide 'editing-utils)
