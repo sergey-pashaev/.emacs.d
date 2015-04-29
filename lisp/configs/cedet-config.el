@@ -65,9 +65,13 @@ save the pointer marker if tag is found"
   (local-set-key "\C-ct" 'eassist-switch-h-cpp)
   (local-set-key "\C-ce" 'eassist-list-methods)
   (local-set-key "\C-c\C-r" 'semantic-symref)
-  (local-set-key "\C-cs" 'semantic-ia-show-summary))
+  (local-set-key "\C-cs" 'semantic-ia-show-summary)
+  (subword-mode 1)
+  (c-set-style "my-cc-mode"))
 
 (add-hook 'c-mode-common-hook 'psv/cedet-hook)
+
+(global-smartscan-mode 1)
 
 (require 'nda)
 
