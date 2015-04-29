@@ -69,6 +69,11 @@
                      (propertize (format "A")
                                  'display '(left-fringe right-triangle)))))))
 
+(defun deannotate-todo ()
+  "remove all markers"
+  (interactive)
+  (remove-overlays))
+
 (defun copy-file-name-to-clipboard ()
   "Put the current file name on the clipboard"
   (interactive)
@@ -206,5 +211,45 @@ there's a region, all lines that region covers will be duplicated."
   "Align selection by spaces."
   (interactive)
   (align-regexp (region-beginning) (region-end) "\\(\\s-*\\) " -1 0 t))
+
+(defun psv/goto-match-paren (arg)
+  "Go to the matching  if on (){}[], similar to vi style of % "
+  (interactive "p")
+  ;; first, check for "outside of bracket" positions expected by forward-sexp, etc
+  (cond ((looking-at "[\[\(\{]") (forward-sexp))
+        ((looking-back "[\]\)\}]" 1) (backward-sexp))
+        ;; now, try to succeed from inside of a bracket
+        ((looking-at "[\]\)\}]") (forward-char) (backward-sexp))
+        ((looking-back "[\[\(\{]" 1) (backward-char) (forward-sexp))
+        (t nil)))
+
+(defun psv/diff-current-buffer-with-file ()
+  "Diff current buffer with associated file"
+  (interactive)
+  (diff-buffer-with-file (current-buffer)))
+
+(defun smart-open-line-above ()
+  "Insert an empty line above the current line.
+Position the cursor at it's beginning, according to the current mode."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun smart-open-line ()
+  "Insert an empty line after the current line.
+Position the cursor at its beginning, according to the current mode."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+(global-set-key [(shift return)] 'smart-open-line)
+(global-set-key [(control shift return)] 'smart-open-line-above)
+
+(defun psv/sort-lines (beg end)
+  (interactive "*r")
+  (save-excursion
+    (sort-lines nil beg end)))
 
 (provide 'editing-utils)
