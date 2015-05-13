@@ -42,6 +42,10 @@
 (global-unset-key (kbd "C-x C-c"))
 (global-unset-key (kbd "C-x 5 0"))
 
+;; unbound suspend-frame function
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
+
 (global-set-key (kbd "M--") 'psv/goto-match-paren)
 (global-set-key (kbd "C-M-=") 'psv/diff-current-buffer-with-file)
 
