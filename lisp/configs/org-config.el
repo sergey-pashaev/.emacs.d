@@ -36,4 +36,7 @@
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
+;; follow links by RET
+(setq org-return-follows-link t)
+
 (provide 'org-config)
