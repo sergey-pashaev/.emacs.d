@@ -6,16 +6,14 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
-(global-set-key (kbd "C-c r") 'org-remember)
-
-(setq org-agenda-files (list
-                        ))
 
 (add-hook 'org-mode-hook
           '(lambda ()
              (define-key org-mode-map (kbd "C-c t") 'org-time-stamp)
              (org-indent-mode t)
              (visual-line-mode t)))
+
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 3))))
 
 (org-babel-do-load-languages 'org-babel-load-languages
                             '((emacs-lisp . t)
@@ -35,5 +33,20 @@
            (string= lang "plantuml"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
+(setq org-directory "~/Dropbox/org")
+(setq org-default-notes-file "~/Dropbox/org/notes.org")
+
+(setq org-capture-templates
+      (quote (("t" "Todo" entry (file "~/Dropbox/org/todo.org")
+               "* TODO %?\n")
+              ("T" "Todo (+time+link)" entry (file "~/Dropbox/org/todo.org")
+               "* TODO %?\n%U\n%a\n")
+              ("n" "Note" entry (file "~/Dropbox/org/notes.org")
+               "* %? :note:\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+               "* %?\n%U\n" :clock-in t :clock-resume t)
+              ("l" "Link" entry (file+heading "~/Dropbox/org/links.org" "Links")
+               "* %? :link:\n" :empty-lines 1))))
 
 (provide 'org-config)
