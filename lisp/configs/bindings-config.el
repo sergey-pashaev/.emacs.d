@@ -29,4 +29,7 @@
 (global-unset-key (kbd "C-x C-c"))
 (global-unset-key (kbd "C-x 5 0"))
 
+(global-set-key (kbd "M-]") 'forward-paragraph)
+(global-set-key (kbd "M-[") 'backward-paragraph)
+
 (provide 'bindings-config)
