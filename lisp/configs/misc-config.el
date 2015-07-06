@@ -111,4 +111,10 @@ the start of the line."
 (display-time-mode 1)
 (setq display-time-format "%H:%M")
 
+;; recenter after jump to occurence
+(defun psv/occur-find-occurence-hook ()
+  (recenter-top-bottom))
+
+(add-hook 'occur-mode-find-occurrence-hook 'psv/occur-find-occurence-hook)
+
 (provide 'misc-config)
