@@ -41,7 +41,6 @@
 
 (global-unset-key (kbd "C-x C-c"))
 (global-unset-key (kbd "C-x 5 0"))
-
 ;; unbound suspend-frame function
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
