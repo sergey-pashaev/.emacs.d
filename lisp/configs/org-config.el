@@ -39,4 +39,14 @@
 ;; follow links by RET
 (setq org-return-follows-link t)
 
+;; enable markdown export
+(eval-after-load "org"
+  '(require 'ox-md nil t))
+
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
+
+(eval-after-load "org"
+  '(require 'ox-rst nil t))
+
 (provide 'org-config)
