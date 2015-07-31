@@ -7,6 +7,8 @@
 ;; (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 ;; (add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
 
+;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 (setq c-default-style "k&r"
       c-basic-offset 4)
 
