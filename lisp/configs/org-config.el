@@ -14,6 +14,7 @@
              (visual-line-mode t)))
 
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 3))))
+(setq org-refile-use-outline-path 'file)
 
 (org-babel-do-load-languages 'org-babel-load-languages
                             '((emacs-lisp . t)
@@ -25,7 +26,7 @@
                               (org . t)))
 
 ;; (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-;; (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+;; (setq org-plantuml-jar-path "~/bin/plantuml.jar")
 
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (or (string= lang "ditaa")
@@ -51,15 +52,10 @@
 (setq org-default-notes-file "~/Dropbox/org/notes.org")
 
 (setq org-capture-templates
-      (quote (("t" "Todo" entry (file "~/Dropbox/org/todo.org")
-               "* TODO %?\n")
-              ("T" "Todo (+time+link)" entry (file "~/Dropbox/org/todo.org")
-               "* TODO %?\n%U\n%a\n")
-              ("n" "Note" entry (file "~/Dropbox/org/notes.org")
-               "* %? :note:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-               "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("l" "Link" entry (file+heading "~/Dropbox/org/links.org" "Links")
-               "* %? :link:\n" :empty-lines 1))))
+      (quote (("t" "Todo" entry (file "~/Dropbox/org/todo.org")  "* TODO %U %?\n")
+              ("n" "Note" entry (file "~/Dropbox/org/notes.org") "* %U %?\n")
+              ("l" "Link" entry (file "~/Dropbox/org/links.org") "* %U %?\n")
+              ("o" "Todo (OPS)" entry (file "~/Dropbox/org/job/ops/todo.org.gpg")
+               "* TODO %U %?\n  %i\n  %a"))))
 
 (provide 'org-config)
