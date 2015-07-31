@@ -117,4 +117,8 @@ the start of the line."
 
 (add-hook 'occur-mode-find-occurrence-hook 'psv/occur-find-occurence-hook)
 
+;; use wgrep
+(require-or-install 'wgrep)
+(require-or-install 'wgrep-ag)
+
 (provide 'misc-config)
