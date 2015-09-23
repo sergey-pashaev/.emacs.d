@@ -11,7 +11,7 @@
                   ace
                   backups
                   bindings
-                  ;common-lisp
+                  common-lisp
                   emacs-lisp
                   encoding
                   ido
