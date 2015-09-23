@@ -4,11 +4,9 @@
 ;;go get -u github.com/go-sql-driver/mysql
 
 ;; dev utils
-;;go get -u github.com/dougm/goflymake
-;;go get -u github.com/sergey-pashaev/goflymake
 ;;go get -u github.com/nsf/gocode
-;;go get -u code.google.com/p/rog-go/exp/cmd/godef
-;;go get -u github.com/sriram-srinivasan/gore
+;;go get -u github.com/rogpeppe/godef
+;;go get -u golang.org/x/tools/cmd/goimports
 ;;go get -u github.com/golang/lint/golint
 
 (setenv "GOPATH" (concat (expand-file-name "~/workspace/go/")))
@@ -16,8 +14,11 @@
 (require-or-install 'go-mode)
 (require-or-install 'go-autocomplete)
 (require-or-install 'go-eldoc)
+(require-or-install 'golint)
 
 (add-hook 'go-mode-hook 'go-eldoc-setup)
+
+(setq gofmt-command "goimports")
 
 (require 'go-mode)
 (require 'go-eldoc)
