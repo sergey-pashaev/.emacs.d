@@ -37,6 +37,7 @@
                   windmove
                   elfeed
                   restclient
+                  python
                   ))
 
 (provide 'configs)

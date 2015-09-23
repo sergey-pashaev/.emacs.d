@@ -10,7 +10,6 @@ auto-save-list
 tramp
 .\#*
 /lisp/custom.el
-/lisp/nda.el
 
 # Org-mode
 .org-id-locations
@@ -55,3 +54,6 @@ ido.last
 projectile-bookmarks.eld
 
 /tmp/
+
+# nda info
+/lisp/nda.el
