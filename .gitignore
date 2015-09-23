@@ -54,3 +54,6 @@ ido.last
 projectile-bookmarks.eld
 
 /tmp/
+
+# nda info
+/lisp/nda.el
