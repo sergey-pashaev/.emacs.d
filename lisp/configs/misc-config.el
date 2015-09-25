@@ -1,5 +1,7 @@
 ;;; misc-config.el
 
+(setq visible-bell t)
+
 ;; disable startup screen
 (setq inhibit-startup-screen t)
 
