@@ -58,4 +58,10 @@
               ("o" "Todo (OPS)" entry (file "~/Dropbox/org/job/ops/todo.org.gpg")
                "* TODO %U %?\n  %i\n  %a"))))
 
+;; save the clock history across emacs sessions
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+(global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
+
 (provide 'org-config)
