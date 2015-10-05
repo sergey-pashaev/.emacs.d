@@ -113,7 +113,7 @@ Emacs load path."
 (set-default-font "Liberation Mono 10")
 
 ;; toggle menu-bar visibility
-(global-set-key (kbd "<f12>") 'menu-bar-mode)
+(bind-key "<f12>" 'menu-bar-mode)
 
 ;;; common minor modes
 (line-number-mode t)
@@ -144,7 +144,7 @@ Emacs load path."
     (progn
       (set-input-method "russian-computer"))))
 
-(global-set-key (kbd "C-\\") 'psv/toggle-russian-input-method)
+(bind-key "C-\\" 'psv/toggle-russian-input-method)
 
 ;;; ido
 (defun psv/recentf-ido-find-file ()
@@ -211,10 +211,10 @@ Emacs load path."
       ido-save-directory-list-file (concat user-emacs-directory "ido.last"))
 
 ;; jump to a definition in the current file
-(global-set-key (kbd "M-i") 'ido-goto-symbol)
+(bind-key "M-i" 'ido-goto-symbol)
 
 ;; File finding
-(global-set-key (kbd "C-x f") 'psv/recentf-ido-find-file)
+(bind-key "C-x f" 'psv/recentf-ido-find-file)
 
 ;;; ibuffer
 (defun psv/ibuffer-hook ()
@@ -251,7 +251,7 @@ Emacs load path."
 
 (add-hook 'ibuffer-mode-hook 'psv/ibuffer-hook)
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(bind-key "C-x C-b" 'ibuffer)
 
 ;;; dired
 (defun psv/dired-hook ()
@@ -273,25 +273,25 @@ the start of the line."
       ;; first non-whitespace character
       (back-to-indentation))))
 
-(global-set-key (kbd "C-a") 'psv/beginning-of-line-dwim)
+(bind-key "C-a" 'psv/beginning-of-line-dwim)
 
 ;;; common bindings
 
 ;; Align your code in a pretty way.
-(global-set-key (kbd "C-x \\") 'align-regexp)
+(bind-key "C-x \\" 'align-regexp)
 
 ;; duplicate the current line or region
-(global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
+(bind-key "C-c d" 'duplicate-current-line-or-region)
 
 ;; rename buffer & visited file
-(global-set-key (kbd "C-c r") 'rename-file-and-buffer)
+(bind-key "C-c r" 'rename-file-and-buffer)
 
-(global-set-key (kbd "<f8>") 'kill-this-buffer)
-(global-set-key (kbd "C-<f6>") 'whitespace-mode)
-(global-set-key (kbd "C-<f12>") 'toggle-truncate-lines)
-(global-set-key (kbd "C-<backspace>") 'backward-kill-word)
-(global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "M-/") 'dabbrev-expand)
+(bind-key "<f8>" 'kill-this-buffer)
+(bind-key "C-<f6>" 'whitespace-mode)
+(bind-key "C-<f12>" 'toggle-truncate-lines)
+(bind-key "C-<backspace>" 'backward-kill-word)
+(bind-key "RET" 'newline-and-indent)
+(bind-key "M-/" 'dabbrev-expand)
 
 ;; unbound dangerous keys
 (global-unset-key (kbd "C-x C-c"))
@@ -303,8 +303,8 @@ the start of the line."
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
-(global-set-key (kbd "M-[") 'backward-paragraph)
-(global-set-key (kbd "M-]") 'forward-paragraph)
+(bind-key "M-[" 'backward-paragraph)
+(bind-key "M-]" 'forward-paragraph)
 
 ;; elisp
 (defun psv/remove-elc-on-save ()
@@ -320,8 +320,8 @@ the start of the line."
 (add-hook 'emacs-lisp-mode-hook 'psv/remove-elc-on-save)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 
-(define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
-(define-key emacs-lisp-mode-map (kbd "M-.") 'find-function-at-point)
+(bind-key "TAB" 'lisp-complete-symbol read-expression-map)
+(bind-key "M-." 'find-function-at-point emacs-lisp-mode-map)
 
 ;; backups - store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -389,7 +389,7 @@ the start of the line."
            (string= lang "plantuml"))))
 
 (defun psv/org-mode-hook ()
-  (define-key org-mode-map (kbd "C-c t") 'org-time-stamp)
+  (bind-key "C-c t" 'org-time-stamp org-mode-map)
   (org-indent-mode t)
   (visual-line-mode t))
 
@@ -495,7 +495,7 @@ the start of the line."
     (setq ac-menu-height 30)
     (setq ac-use-fuzzy t)
 
-    (define-key ac-mode-map [(meta return)] 'auto-complete)))
+    (bind-key "M-RET" 'auto-complete ac-mode-map)))
 
 ;; eshell
 (use-package exec-path-from-shell
@@ -514,8 +514,8 @@ the start of the line."
 
 ;;; jabber
 (defun psv/jabber-hook ()
-  (define-key jabber-chat-mode-map (kbd "RET") 'jabber-chat-buffer-send)
-  (define-key jabber-chat-mode-map (kbd "<C-return>") 'newline))
+  (bind-key "RET" 'jabber-chat-buffer-send jabber-chat-mode-map)
+  (bind-key "<C-return>" 'newline jabber-chat-mode-map))
 
 (use-package jabber
   :ensure t
@@ -761,8 +761,8 @@ All permutations equally likely."
   (transpose-lines 1)
   (forward-line -1))
 
-(global-set-key [(control shift up)] 'move-line-up)
-(global-set-key [(control shift down)] 'move-line-down)
+(bind-key "C-S-<up>" 'move-line-up)
+(bind-key "C-S-<down>" 'move-line-down)
 
 (defun indent-buffer ()
   (interactive)
@@ -853,8 +853,8 @@ there's a region, all lines that region covers will be duplicated."
   (interactive "p*")
   (psv/increment-number-decimal (if arg (- arg) -1)))
 
-(global-set-key (kbd "C-c +") 'psv/increment-number-decimal)
-(global-set-key (kbd "C-c -") 'psv/decrement-number-decimal)
+(bind-key "C-c +" 'psv/increment-number-decimal)
+(bind-key "C-c -" 'psv/decrement-number-decimal)
 
 (defun smart-open-line-above ()
   "Insert an empty line above the current line.
@@ -872,8 +872,8 @@ Position the cursor at its beginning, according to the current mode."
   (move-end-of-line nil)
   (newline-and-indent))
 
-(global-set-key [(shift return)] 'smart-open-line)
-(global-set-key [(control shift return)] 'smart-open-line-above)
+(bind-key "S-RET" 'smart-open-line)
+(bind-key "C-S-RET" 'smart-open-line-above)
 
 (defun sudo-edit (&optional arg)
   "Edit currently visited file as root.
@@ -894,8 +894,8 @@ buffer is not visiting a file."
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;;; other
-(global-set-key (kbd "M--") 'psv/goto-match-paren)
-(global-set-key (kbd "C-M-=") 'psv/diff-current-buffer-with-file)
+(bind-key "M--" 'psv/goto-match-paren)
+(bind-key "C-M-=" 'psv/diff-current-buffer-with-file)
 
 ;;; misc
 
