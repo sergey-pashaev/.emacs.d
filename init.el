@@ -563,7 +563,8 @@ the start of the line."
   :init
   (progn
     (setq ag-highlight-search t)
-    (setq ag-reuse-window t)))
+    (setq ag-reuse-window t)
+    (setq ag-reuse-buffers t)))
 
 ;;; keyfreq
 (use-package keyfreq
