@@ -980,7 +980,7 @@ buffer is not visiting a file."
 
 (defvar psv/executables '("bash" "git" "ag" "go" "global" "wget"
 			  "gocode" "godef" "goimports" "golint" ; some golang tools
-			  "plantuml.jar" "ditaa.jar"))
+			  "plantuml.jar" "ditaa.jar" "dot"))
 
 (defun psv/check-executable (program)
   (unless (executable-find program)
