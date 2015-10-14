@@ -917,6 +917,7 @@ buffer is not visiting a file."
   :init
   (progn
     (add-hook 'python-mode-hook 'jedi:setup)
-    (setq jedi:complete-on-dot t)))
+    (setq jedi:complete-on-dot t)
+    (setq jedi:use-shortcuts t)))
 
 ;; (jedi:install-server)
