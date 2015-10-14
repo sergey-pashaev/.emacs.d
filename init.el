@@ -921,3 +921,34 @@ buffer is not visiting a file."
     (setq jedi:use-shortcuts t)))
 
 ;; (jedi:install-server)
+
+;;; golang
+;; look at ~/.emacs.d/sh/go/sh
+
+(use-package go-mode
+  :ensure t
+  :init
+  (progn
+    (setenv "GOPATH" (concat (expand-file-name "~/workspace/go/")))
+    (add-hook 'go-mode-hook 'go-eldoc-setup)
+    (add-hook 'go-mode-hook 'psv/go-local-bindings)
+    (setq gofmt-command "goimports")))
+
+(use-package go-autocomplete
+  :ensure t)
+
+(use-package go-eldoc
+  :ensure t)
+
+(use-package golint
+  :ensure t)
+
+(defun psv/go-local-bindings()
+  (progn
+    (setq tab-width 4)
+    (local-set-key (kbd "M-.") 'godef-jump)
+    (local-set-key (kbd "M-,") 'pop-tag-mark)
+    (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
+    (local-set-key (kbd "C-c i") 'go-goto-imports)))
+
+
