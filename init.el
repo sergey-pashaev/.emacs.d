@@ -380,8 +380,8 @@ the start of the line."
   :bind ("C-x g" . magit-status))
 
 ;; org-mode
-(defvar *psv/ditaa-path* "")
-(defvar *psv/plantuml-path* "")
+(defvar *psv/ditaa-path* (expand-file-name "~/bin/ditaa.jar"))
+(defvar *psv/plantuml-path* (expand-file-name "~/bin/plantuml.jar"))
 
 (defun psv/org-confirm-babel-evaluate (lang body)
   (not (or (string= lang "ditaa")
@@ -402,8 +402,8 @@ the start of the line."
 	  org-refile-targets '((org-agenda-files . (:maxlevel . 3)))
 	  org-refile-use-outline-path 'file
 	  org-return-follows-link t	; follow links by ret
-          ;; org-ditaa-jar-path *psv/ditaa-path*
-          ;; org-plantuml-jar-path *psv/plantuml-path*
+          org-ditaa-jar-path *psv/ditaa-path*
+          org-plantuml-jar-path *psv/plantuml-path*
 	  org-directory "~/Dropbox/org"
 	  org-default-notes-file "~/Dropbox/org/notes.org"
 	  org-capture-templates
@@ -978,9 +978,9 @@ buffer is not visiting a file."
   (make-directory "~/Videos/movies" t)
   (make-directory "~/Videos/programming" t))
 
-(defvar psv/executables '("bash" "git" "ag" "go" "global"
+(defvar psv/executables '("bash" "git" "ag" "go" "global" "wget"
 			  "gocode" "godef" "goimports" "golint" ; some golang tools
-			  ))
+			  "plantuml.jar" "ditaa.jar"))
 
 (defun psv/check-executable (program)
   (unless (executable-find program)
