@@ -453,7 +453,8 @@ the start of the line."
 (use-package projectile
   :ensure t
   :init
-  (projectile-global-mode))
+  (projectile-global-mode)
+  (setq projectile-enable-caching t))
 
 ;;; helm
 (use-package helm
