@@ -112,6 +112,12 @@ Emacs load path."
 
 (set-default-font "Liberation Mono 10")
 
+(if window-system
+    (use-package solarized-theme
+      :ensure t
+      :init
+      (load-theme 'solarized-light t)))
+
 ;; toggle menu-bar visibility
 (bind-key "<f12>" 'menu-bar-mode)
 
@@ -453,7 +459,8 @@ the start of the line."
 (use-package projectile
   :ensure t
   :init
-  (projectile-global-mode))
+  (projectile-global-mode)
+  (setq projectile-enable-caching t))
 
 ;;; helm
 (use-package helm
@@ -951,6 +958,41 @@ buffer is not visiting a file."
     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
     (local-set-key (kbd "C-c i") 'go-goto-imports)))
 
+;;; guru-mode
+(use-package guru-mode
+  :ensure t
+  :init
+  (progn
+    (setq guru-warn-only t)
+    (guru-global-mode 1)))
+
+
+;;; helm-gtags
+(use-package helm-gtags
+  :ensure t
+  :init
+  (progn
+    (custom-set-variables
+     '(helm-gtags-path-style 'relative)
+     '(helm-gtags-display-style 'detail)
+     '(helm-gtags-ignore-case t)
+     '(helm-gtags-auto-update t))
+    (setenv "GTAGSFORCECPP" "")
+    (add-hook 'c-mode-hook 'helm-gtags-mode)
+    (add-hook 'c-mode-hook 'psv/gtags-local-bindings)
+    (add-hook 'c++-mode-hook 'helm-gtags-mode)
+    (add-hook 'c++-mode-hook 'psv/gtags-local-bindings)))
+
+(defun psv/gtags-local-bindings()
+  (progn
+    (local-set-key (kbd "M-.") 'helm-gtags-find-tag)
+    (local-set-key (kbd "M-*") 'helm-gtags-pop-stack)
+    (local-set-key (kbd "C-c r") 'helm-gtags-find-rtag)
+    (local-set-key (kbd "C-c s") 'helm-gtags-find-symbol)
+    (local-set-key (kbd "C-c g") 'helm-gtags-find-pattern)
+    (local-set-key (kbd "C-c f") 'helm-gtags-parse-file)
+    (local-set-key (kbd "C-c F") 'helm-gtags-find-files)
+    (local-set-key (kbd "C-c ]") 'helm-gtags-find-tag-from-here)))
 
 ;;; Environment setup
 (defun psv/fs ()
