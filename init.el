@@ -1024,7 +1024,7 @@ buffer is not visiting a file."
   (make-directory "~/workspace" t))
 
 (defun psv/personal-fs ()
-  (make-directory "~/Auidioworks" t)
+  (make-directory "~/Audioworks" t)
   (make-directory "~/Documents" t)
   (make-directory "~/Music" t)
   (make-directory "~/Music/heap" t)
