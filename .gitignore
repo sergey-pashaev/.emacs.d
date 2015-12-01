@@ -25,3 +25,9 @@ tramp
 /jabber-history
 
 /semanticdb
+
+/custom.el
+/nda.el
+/projectile-bookmarks.eld
+/projectile.cache
+/org-clock-save.el
