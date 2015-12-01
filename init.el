@@ -112,6 +112,12 @@ Emacs load path."
 
 (set-default-font "Liberation Mono 10")
 
+(if window-system
+    (use-package solarized-theme
+      :ensure t
+      :init
+      (load-theme 'solarized-light t)))
+
 ;; toggle menu-bar visibility
 (bind-key "<f12>" 'menu-bar-mode)
 
