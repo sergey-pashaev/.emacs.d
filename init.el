@@ -1008,6 +1008,10 @@ buffer is not visiting a file."
     (local-set-key (kbd "C-c F") 'helm-gtags-find-files)
     (local-set-key (kbd "C-c ]") 'helm-gtags-find-tag-from-here)))
 
+;;; Markdown
+(use-package markdown-mode
+  :ensure t)
+
 ;;; Environment setup
 (defun psv/fs ()
   (make-directory "~/Books" t)
