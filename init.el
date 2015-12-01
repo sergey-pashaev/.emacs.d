@@ -952,6 +952,13 @@ buffer is not visiting a file."
     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
     (local-set-key (kbd "C-c i") 'go-goto-imports)))
 
+;;; guru-mode
+(use-package guru-mode
+  :ensure t
+  :init
+  (progn
+    (setq guru-warn-only t)
+    (guru-global-mode 1)))
 
 ;;; Environment setup
 (defun psv/fs ()
