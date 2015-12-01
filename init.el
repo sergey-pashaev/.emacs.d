@@ -272,7 +272,10 @@ Emacs load path."
 
 ;;; dired
 (defun psv/dired-hook ()
-  (hl-line-mode 1))
+  (progn
+    (bind-key "C-o" 'dired-omit-mode dired-mode-map)
+    (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
+    (hl-line-mode 1)))
 
 (add-hook 'dired-mode-hook 'psv/dired-hook)
 
