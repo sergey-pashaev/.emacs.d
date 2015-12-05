@@ -1012,6 +1012,17 @@ buffer is not visiting a file."
 (use-package markdown-mode
   :ensure t)
 
+;;; Google Translate
+(use-package google-translate
+  :ensure t
+  :init
+  (progn
+    (require 'google-translate-default-ui)
+    (setq google-translate-default-source-language "auto")
+    (setq google-translate-default-target-language "ru"))
+  :bind
+  (("C-c t" . google-translate-at-point)))
+
 ;;; Environment setup
 (defun psv/fs ()
   (make-directory "~/Books" t)
