@@ -1052,3 +1052,16 @@ buffer is not visiting a file."
 
 (psv/fs)
 (psv/check-executables)
+
+;;; get some rest for eyes notification
+(require 'notifications)
+
+(defun psv/make-some-rest ()
+  (interactive)
+  (notifications-notify
+   :app-name "emacs"
+   :body (concat "Get some rest and continue at "
+		 (format-time-string "%H:%M" (time-add (current-time)
+						       (* 2 60))))))
+
+(run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest)
