@@ -1064,4 +1064,5 @@ buffer is not visiting a file."
 		 (format-time-string "%H:%M" (time-add (current-time)
 						       (* 2 60))))))
 
-(run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest)
+(when (dbus-ping :session "org.freedesktop.Notifications")
+  (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest))
