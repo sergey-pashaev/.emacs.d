@@ -1056,7 +1056,12 @@ buffer is not visiting a file."
 ;;; get some rest for eyes notification
 (require 'notifications)
 
-(defun psv/make-some-rest ()
+(defun psv/make-some-rest-msg ()
+  (interactive)
+  (message (concat "Get some rest and continue at "
+		   (format-time-string "%H:%M" (time-add (current-time)
+							 (* 2 60))))))
+(defun psv/make-some-rest-dbus ()
   (interactive)
   (notifications-notify
    :app-name "emacs"
@@ -1064,5 +1069,6 @@ buffer is not visiting a file."
 		 (format-time-string "%H:%M" (time-add (current-time)
 						       (* 2 60))))))
 
-(when (dbus-ping :session "org.freedesktop.Notifications")
-  (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest))
+(if (dbus-ping :session "org.freedesktop.Notifications")
+  (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-dbus)
+  (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-msg))
