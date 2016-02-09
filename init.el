@@ -1063,22 +1063,46 @@ buffer is not visiting a file."
 (psv/fs)
 (psv/check-executables)
 
-;;; get some rest for eyes notification
-(require 'notifications)
+;; ;;; get some rest for eyes notification
+;; (require 'notifications)
 
-(defun psv/make-some-rest-msg ()
-  (interactive)
-  (message (concat "Get some rest and continue at "
-		   (format-time-string "%H:%M" (time-add (current-time)
-							 (* 2 60))))))
-(defun psv/make-some-rest-dbus ()
-  (interactive)
-  (notifications-notify
-   :app-name "emacs"
-   :body (concat "Get some rest and continue at "
-		 (format-time-string "%H:%M" (time-add (current-time)
-						       (* 2 60))))))
+;; (defun psv/make-some-rest-msg ()
+;;   (interactive)
+;;   (message (concat "Get some rest and continue at "
+;; 		   (format-time-string "%H:%M" (time-add (current-time)
+;; 							 (* 2 60))))))
+;; (defun psv/make-some-rest-dbus ()
+;;   (interactive)
+;;   (notifications-notify
+;;    :app-name "emacs"
+;;    :body (concat "Get some rest and continue at "
+;; 		 (format-time-string "%H:%M" (time-add (current-time)
+;; 						       (* 2 60))))))
 
-(if (dbus-ping :session "org.freedesktop.Notifications")
-  (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-dbus)
-  (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-msg))
+;; (if (dbus-ping :session "org.freedesktop.Notifications")
+;;   (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-dbus)
+;;   (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-msg))
+
+;; http://pragmaticemacs.com/emacs/aligning-text/
+;; https://github.com/WaYdotNET/.emacs.d/blob/master/function.el#L128
+(defun psv/align-whitespace (start end)
+  "Align columns by whitespace"
+  (interactive "r")
+  (align-regexp start end
+                "\\(\\s-*\\)\\s-" 1 0 t))
+
+(defun psv/align-& (start end)
+  "Align columns by ampersand"
+  (interactive "r")
+  (align-regexp start end
+                "\\(\\s-*\\)&" 1 1 t))
+
+(defun psv/line-reference ()
+  "Copy to kill-ring reference to current line"
+  (interactive)
+  (kill-append (format "%s:%d:%d:%s"
+		       (buffer-name)
+		       (line-number-at-pos (point))
+		       (current-column)
+		       (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+	       nil))
