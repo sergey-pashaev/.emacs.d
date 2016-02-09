@@ -35,20 +35,6 @@
 ;; set an explicit file to customization created via the UI
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
-;; add everything to load-path
-(defun psv/add-subfolders-to-load-path (parent-dir)
-  "Adds all first level `parent-dir' subdirs to the
-Emacs load path."
-  (dolist (f (directory-files parent-dir))
-    (let ((name (concat parent-dir f)))
-      (when (and (file-directory-p name)
-                 (not (equal f ".."))
-                 (not (equal f ".")))
-        (add-to-list 'load-path name)))))
-
-(mapc (lambda (p) (push p load-path))
-      '("~/.emacs.d/configs/"))
-
 ;;;; minimal config - no external dependencies here
 
 ;;; personal
