@@ -654,11 +654,17 @@ When called with a prefix argument NLINES, display NLINES lines before and after
   :ensure t
   :init
   (progn
-    (setq elfeed-feeds '("http://www.reddit.com/r/emacs/.rss"
+    (setq elfeed-feeds '("http://www.reddit.com/r/emacs/.rss" ;emacs
                      "http://planet.emacsen.org/ru/atom.xml"
                      "http://planet.emacsen.org/atom.xml"
+		     "http://pragmaticemacs.com/feed/"
+		     "http://habrahabr.ru/rss/all" ;it
                      "https://news.ycombinator.com/rss"
-                     "https://meduza.io/rss/all"))))
+		     "https://www.linux.org.ru/section-rss.jsp?section=1"
+		     "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
+		     "http://stephenramsay.us/atom.xml"
+                     ;"https://meduza.io/rss/all"
+		     ))))
 
 ;;; irfc
 (use-package irfc
