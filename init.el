@@ -226,14 +226,21 @@
 (setq ibuffer-saved-filter-groups
       (quote (("default"
 	       ("dired" (mode . dired-mode))
+	       ("elisp" (mode . emacs-lisp-mode))
 	       ("org-mode" (or
 			    (name . "^org$")
 			    (mode . org-mode)))
-	       ("emacs lisp" (mode . emacs-lisp-mode))
-	       ("magit" (name . "^\\*magit"))
+	       ("vcs" (or (name . "^\\*magit")
+			  (name . "^\\*vc")))
+	       ("search" (or (name . "^\\*ag")
+			     (name . "^\\*grep")
+			     (name . "^\\*Occur")))
 	       ("emacs" (or
 			 (name . "^\\*scratch\\*$")
-			 (name . "^\\*Messages\\*$")))
+			 (name . "^\\*Messages\\*$")
+			 (name . "^\\*Warnings\\*$")
+			 (name . "^\\*helm")
+			 (name . "^\\*elfeed")))
 	       ("c++ / c" (or
 			   (mode . c-mode)
 			   (mode . c++-mode)))
