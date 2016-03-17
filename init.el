@@ -50,7 +50,7 @@
       byte-compile-warnings nil
 
       ;; nice scrolling
-      scroll-margin 2
+      scroll-margin 5
       scroll-conservatively 100000
       scroll-preserve-screen-position t
 
@@ -268,6 +268,7 @@
   (progn
     (bind-key "C-o" 'dired-omit-mode dired-mode-map)
     (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
+    (setq dired-listing-switches "-alh")
     (hl-line-mode 1)))
 
 (add-hook 'dired-mode-hook 'psv/dired-hook)
@@ -382,10 +383,10 @@ the start of the line."
 	;; don't muck with special buffers
 	uniquify-ignore-buffers-re "^\\*"))
 
-;; ace jump mode
-(use-package ace-jump-mode
+;; avy
+(use-package avy
   :ensure t
-  :bind ("C-;" . ace-jump-mode))
+  :bind ("C-;" . avy-goto-char))
 
 ;; magit
 (use-package magit
@@ -577,7 +578,8 @@ the start of the line."
   :init
   (progn
     (setq ag-highlight-search t)
-    (setq ag-reuse-window t)
+    ;; otherwise auto follow next error/line doesn't work
+    ;; (setq ag-reuse-window t)
     (setq ag-reuse-buffers t)))
 
 ;;; keyfreq
