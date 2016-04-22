@@ -1007,6 +1007,13 @@ buffer is not visiting a file."
   :bind
   (("C-c t" . google-translate-at-point)))
 
+;;; Undo tree
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config (global-undo-tree-mode)
+  :bind ("s-/" . undo-tree-visualize))
+
 ;;; Environment setup
 (defun psv/fs ()
   (make-directory "~/Books" t)
