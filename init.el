@@ -432,6 +432,7 @@ the start of the line."
 				   (plantuml . t)
 				   (dot . t)
 				   (gnuplot . t)
+				   (python . t)
 				   (org . t))))
   :bind
   (("C-c l" . org-store-link)
@@ -924,6 +925,10 @@ buffer is not visiting a file."
     (add-hook 'python-mode-hook 'jedi:setup)
     (setq jedi:complete-on-dot t)
     (setq jedi:use-shortcuts t)))
+
+;;; treat scons files as python
+(add-to-list 'auto-mode-alist '("SConstruct" . python-mode))
+(add-to-list 'auto-mode-alist '("SConscript" . python-mode))
 
 ;; (jedi:install-server)
 
