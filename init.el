@@ -369,7 +369,7 @@ the start of the line."
 ;; avy
 (use-package avy
   :ensure t
-  :bind ("C-;" . avy-goto-char))
+  :bind ("C-;" . avy-goto-word-1))
 
 ;; magit
 (use-package magit
