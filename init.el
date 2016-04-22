@@ -404,11 +404,14 @@ the start of the line."
 	  org-directory "~/Dropbox/org"
 	  org-default-notes-file "~/Dropbox/org/notes.org"
 	  org-capture-templates
-	  (quote (("t" "Todo" entry (file "~/Dropbox/org/todo.org")  "* TODO %U %?\n")
-		  ("n" "Note" entry (file "~/Dropbox/org/notes.org") "* %U %?\n")
-		  ("l" "Link" entry (file "~/Dropbox/org/links.org") "* %U %?\n")
-		  ("o" "Todo (OPS)" entry (file "~/Dropbox/org/job/ops/todo.org.gpg")
-		   "* TODO %U %?\n  %i\n  %a"))))
+	  (quote (("t" "Todo" entry (file "~/Dropbox/todo.org")  "* TODO %U %?\n")
+		  ("n" "Note" entry (file "~/Dropbox/notes.org") "* %U %?\n")
+		  ("l" "Link" entry (file "~/Dropbox/links.org") "* %U %?\n")
+		  ("o" "Work todo" entry (file "~/Dropbox/work/todo.org")
+		   "* TODO %U %?\n  %i\n  %a")
+		  ("p" "Work note" entry (file "~/Dropbox/work/notes.org")
+		   "* %U %?\n"))))
+
     (add-hook 'org-mode-hook 'psv/org-mode-hook)
 
     ;; save the clock history across emacs sessions
