@@ -594,7 +594,7 @@ the start of the line."
 	    try-complete-lisp-symbol-partially
 	    try-complete-lisp-symbol)))
   :bind
-  (("s-/" . hippie-expand)))
+  (("s-?" . hippie-expand)))
 
 ;;; occur
 ;; recenter after jump to occurence
@@ -1022,6 +1022,19 @@ buffer is not visiting a file."
   :config (global-undo-tree-mode)
   :bind ("s-/" . undo-tree-visualize))
 
+;;; define function to shutdown emacs server instance
+(defun server-shutdown ()
+  "Save buffers, Quit, and Shutdown (kill) server"
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs))
+
+(use-package multi-term
+  :ensure t
+  :init
+  (progn
+    (setq multi-term-program "/bin/bash")))
+
 ;;; Environment setup
 (defun psv/fs ()
   (make-directory "~/Books" t)
@@ -1048,9 +1061,10 @@ buffer is not visiting a file."
   (make-directory "~/Videos/movies" t)
   (make-directory "~/Videos/programming" t))
 
-(defvar psv/executables '("bash" "git" "ag" "go" "global" "wget"
+(defvar psv/executables '("bash" "git" "ag" "go" "global" "wget" "curl"
 			  "gocode" "godef" "goimports" "golint" ; some golang tools
 			  "plantuml.jar" "ditaa.jar" "dot"
+			  "tmux" "ssh" "sshpass"
 			  "exercism"))
 
 (defun psv/check-executable (program)
