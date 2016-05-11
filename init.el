@@ -5,6 +5,9 @@
 ;; - https://github.com/danielmai/.emacs.d
 ;; - https://github.com/bradwright/emacs-d
 ;; - https://github.com/magnars/.emacs.d
+;; - https://github.com/rafadc/emacs.d/blob/master/settings.org
+;; - http://writequit.org/eos/eos.html
+;; - https://github.com/grettke/help/blob/master/help.org
 
 ;; Turn off mouse interface early in startup to avoid momentary display
 (when window-system
