@@ -1123,3 +1123,6 @@ buffer is not visiting a file."
 		       (current-column)
 		       (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
 	       nil))
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
+(load "nda.el")
