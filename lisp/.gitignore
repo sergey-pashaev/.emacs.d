@@ -1,0 +1,3 @@
+# Ignore nda.el
+nda.el
+!.gitignore

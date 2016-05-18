@@ -1124,5 +1124,5 @@ buffer is not visiting a file."
 		       (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
 	       nil))
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/"))
 (load "nda.el")
