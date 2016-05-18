@@ -1057,7 +1057,6 @@ buffer is not visiting a file."
   (make-directory "~/Downloads" t)
   (make-directory "~/Dropbox" t)
   (make-directory "~/bin" t)
-  (make-directory "~/github" t)
   (make-directory "~/src" t)
   (make-directory "~/workspace" t))
 
