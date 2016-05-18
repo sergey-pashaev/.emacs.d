@@ -1038,6 +1038,18 @@ buffer is not visiting a file."
   (progn
     (setq multi-term-program "/bin/bash")))
 
+;;; volatile-highlights
+(use-package volatile-highlights
+  :ensure t
+  :config
+  (volatile-highlights-mode t))
+
+;;; yasnippet
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
+
 ;;; Environment setup
 (defun psv/fs ()
   (make-directory "~/Books" t)
