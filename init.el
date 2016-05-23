@@ -400,7 +400,17 @@ the start of the line."
   (progn
     (setq calendar-week-start-day 1
           org-confirm-babel-evaluate 'psv/org-confirm-babel-evaluate
-          org-agenda-files '()
+          org-agenda-files '("~/Dropbox/org/links.org"
+			     "~/Dropbox/org/notes.org"
+			     "~/Dropbox/org/todo.org"
+			     "~/Dropbox/org/work/notes.org"
+			     "~/Dropbox/org/work/todo.org")
+	  org-agenda-custom-commands '(("h" "Daily habits"
+					((agenda ""))
+					((org-agenda-show-log t)
+					 (org-agenda-ndays 7)
+					 (org-agenda-log-mode-items '(state))
+					 (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp ":daily:")))))
 	  org-refile-targets '((org-agenda-files . (:maxlevel . 3)))
 	  org-refile-use-outline-path 'file
 	  org-return-follows-link t	; follow links by ret
@@ -409,13 +419,11 @@ the start of the line."
 	  org-directory "~/Dropbox/org"
 	  org-default-notes-file "~/Dropbox/org/notes.org"
 	  org-capture-templates
-	  (quote (("t" "Todo" entry (file "~/Dropbox/todo.org")  "* TODO %U %?\n")
-		  ("n" "Note" entry (file "~/Dropbox/notes.org") "* %U %?\n")
-		  ("l" "Link" entry (file "~/Dropbox/links.org") "* %U %?\n")
-		  ("o" "Work todo" entry (file "~/Dropbox/work/todo.org")
-		   "* TODO %U %?\n  %i\n  %a")
-		  ("p" "Work note" entry (file "~/Dropbox/work/notes.org")
-		   "* %U %?\n"))))
+	  (quote (("t" "Todo" entry (file "~/Dropbox/org/todo.org")  "* TODO %U %?\n")
+		  ("n" "Note" entry (file "~/Dropbox/org/notes.org") "* %U %?\n")
+		  ("l" "Link" entry (file "~/Dropbox/org/links.org") "* %U %?\n")
+		  ("T" "Work todo" entry (file "~/Dropbox/org/work/todo.org") "* TODO %U %?\n")
+		  ("N" "Work note" entry (file "~/Dropbox/org/work/notes.org") "* %U %?\n"))))
 
     (add-hook 'org-mode-hook 'psv/org-mode-hook)
 
