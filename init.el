@@ -23,6 +23,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
 
 (package-initialize)
 
@@ -327,16 +329,16 @@ the start of the line."
 
 ;; backups - store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
-      `((".*" . ,(concat user-emacs-directory "backups"))))
+      `((".*" . "~/.emacs.d/backups/")))
 
 (setq backup-by-copying t
       delete-old-versions t
-      kept-new-versions 6
+      kept-new-versions 10
       kept-old-versions 2
       version-control t)
 
 (setq auto-save-file-name-transforms
-      `((".*" ,(concat user-emacs-directory "autosave") t)))
+      `((".*" "~/.emacs.d/autosave/" t)))
 
 ;; saveplace: save location in file when saving files
 (setq save-place-file (concat user-emacs-directory "saveplace"))
