@@ -434,6 +434,7 @@ the start of the line."
 	  org-default-notes-file "~/Dropbox/org/notes.org"
 	  org-capture-templates
 	  (quote (("t" "Todo" entry (file "~/Dropbox/org/gtd/tasks.org")  "* TODO %?")
+		  ("w" "Work Todo" entry (file "~/Dropbox/org/gtd/work/tasks.org")  "* TODO %?")
 		  ("l" "Link" entry (file "~/Dropbox/org/links.org") "* %?")
 		  ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org") "* %?"))))
 
@@ -466,8 +467,6 @@ the start of the line."
   (("C-c l" . org-store-link)
    ("C-c c" . org-capture)
    ("C-c a" . org-agenda)
-   ("C-c b" . org-iswitchb)
-   ("C-c r" . org-remember)
    ("C-c C-x C-j" . org-clock-goto)))
 
 ;; expand-region
