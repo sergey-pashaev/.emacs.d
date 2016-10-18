@@ -1070,6 +1070,7 @@ buffer is not visiting a file."
   (save-some-buffers)
   (kill-emacs))
 
+;;; mult-term
 (use-package multi-term
   :ensure t
   :init
@@ -1117,7 +1118,8 @@ buffer is not visiting a file."
 			  "gocode" "godef" "goimports" "golint" ; some golang tools
 			  "plantuml.jar" "ditaa.jar" "dot"
 			  "tmux" "ssh" "sshpass"
-			  "exercism"))
+			  "exercism")
+  "List of executables that should be installed for comfortable work")
 
 (defun psv/check-executable (program)
   (unless (executable-find program)
