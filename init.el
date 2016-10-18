@@ -1143,8 +1143,13 @@ buffer is not visiting a file."
 (psv/fs)
 (psv/check-executables)
 
-;; ;;; get some rest for eyes notification
-;; (require 'notifications)
+(require 'notifications)
+
+(setq compilation-finish-functions 'compile-finish-notify)
+(defun compile-finish-notify (buffer string)
+  (notifications-notify
+   :app-name "emacs"
+   :body (concat "Compilation is " string)))
 
 ;; (defun psv/make-some-rest-msg ()
 ;;   (interactive)
