@@ -253,6 +253,9 @@
 
 (bind-key "C-x C-b" 'ibuffer)
 
+;; quickly kill buffers
+(bind-key "C-x k" 'kill-this-buffer)
+
 ;;; dired
 (defun psv/dired-hook ()
   (progn
@@ -1172,3 +1175,17 @@ buffer is not visiting a file."
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/"))
 (load "nda.el")
+
+(defun psv/todo ()
+  (interactive)
+  (find-file (expand-file-name "~/Dropbox/org/gtd/tasks.org"))
+  (end-of-buffer))
+
+(defun psv/work-todo ()
+  (interactive)
+  (find-file (expand-file-name "~/Dropbox/org/work/tasks.org"))
+  (end-of-buffer))
+
+(bind-key "<f5>" 'psv/work-todo)
+(bind-key "<f6>" 'psv/todo)
+
