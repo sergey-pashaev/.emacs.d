@@ -39,6 +39,11 @@
   (require 'use-package))
 (require 'bind-key)
 
+;;; no-littering
+(use-package no-littering
+  :ensure t
+  )
+
 ;; set an explicit file to customization created via the UI
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
@@ -1088,6 +1093,13 @@ buffer is not visiting a file."
   :ensure t
   :config
   (yas-global-mode 1))
+
+;;; goto-chg
+(use-package goto-chg
+  :ensure t
+  :bind
+  (("C-c b ," . goto-last-change)
+   ("C-c b ." . goto-last-change-reverse)))
 
 ;;; Environment setup
 (defun psv/fs ()
