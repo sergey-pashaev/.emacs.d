@@ -332,6 +332,9 @@ the start of the line."
 
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'psv/remove-elc-on-save)
+(add-hook 'emacs-lisp-mode-hook (lambda()
+				  (setq mode-name "el")))
+
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 
 (bind-key "TAB" 'lisp-complete-symbol read-expression-map)
@@ -489,11 +492,16 @@ the start of the line."
   :ensure t
   :init
   (projectile-global-mode)
-  (setq projectile-enable-caching t))
+  (setq projectile-enable-caching t
+	projectile-mode-line '(:eval (if (projectile-project-p)
+					 (format " p[%s]"
+						 (projectile-project-name))
+				       ""))))
 
 ;;; helm
 (use-package helm
   :ensure t
+  :diminish helm-mode
   :init
   (progn
     (require 'helm-config)
@@ -519,6 +527,7 @@ the start of the line."
 ;; auto-complete
 (use-package auto-complete
   :ensure t
+  :diminish auto-complete-mode
   :init
   (progn
     (require 'auto-complete-config)
@@ -1015,6 +1024,7 @@ buffer is not visiting a file."
 ;;; guru-mode
 (use-package guru-mode
   :ensure t
+  :diminish guru-mode
   :init
   (progn
     (setq guru-warn-only t)
@@ -1087,12 +1097,14 @@ buffer is not visiting a file."
 ;;; volatile-highlights
 (use-package volatile-highlights
   :ensure t
+  :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
 
 ;;; yasnippet
 (use-package yasnippet
   :ensure t
+  :diminish yas-minor-mode
   :config
   (yas-global-mode 1))
 
@@ -1244,3 +1256,6 @@ is already narrowed."
         ((derived-mode-p 'latex-mode)
          (LaTeX-narrow-to-environment))
         (t (narrow-to-defun))))
+
+(diminish 'abbrev-mode)
+
