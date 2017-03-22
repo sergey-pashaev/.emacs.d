@@ -1259,3 +1259,10 @@ is already narrowed."
 
 (diminish 'abbrev-mode)
 
+
+(use-package dockerfile-mode
+  :ensure t)
+
+(use-package cmake-mode
+  :ensure t)
+
