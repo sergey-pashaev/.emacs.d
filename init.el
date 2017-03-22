@@ -1160,11 +1160,22 @@ buffer is not visiting a file."
 
 (require 'notifications)
 
+(defun emacs-notify-send-message (headline-string message-string)
+  """Send message to notification"""
+  (shell-command (concat "notify-send -u critical -i emacs \""
+                         headline-string
+                         "\" \""
+                         message-string
+                         "\"")))
+
 (setq compilation-finish-functions 'compile-finish-notify)
+
 (defun compile-finish-notify (buffer string)
-  (notifications-notify
-   :app-name "emacs"
-   :body (concat "Compilation is " string)))
+  (progn
+    (notifications-notify
+     :app-name "emacs"
+     :body (concat "Compilation is " string))
+    (emacs-notify-send-message "emacs" (concat "Compilation is " string))))
 
 ;; (defun psv/make-some-rest-msg ()
 ;;   (interactive)
