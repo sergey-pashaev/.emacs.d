@@ -372,6 +372,7 @@ the start of the line."
 ;; windmove
 (require 'windmove)
 (windmove-default-keybindings 'meta)
+(setq windmove-wrap-around t)
 
 ;;;; minimal.el ends here
 
@@ -1256,6 +1257,11 @@ is already narrowed."
         ((derived-mode-p 'latex-mode)
          (LaTeX-narrow-to-environment))
         (t (narrow-to-defun))))
+
+;; Save whatever’s in the current (system) clipboard before
+;; replacing it with the Emacs’ text.
+;; https://github.com/dakrone/eos/blob/master/eos.org
+(setq save-interprogram-paste-before-kill t)
 
 (diminish 'abbrev-mode)
 
