@@ -16,6 +16,7 @@
 (add-to-list 'load-path (concat user-emacs-directory "elisp"))
 
 (require 'base)
+(require 'base-env)
 (require 'base-extensions)
 (require 'base-functions)
 (require 'base-global-keys)
