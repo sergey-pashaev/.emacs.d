@@ -315,4 +315,14 @@ is already narrowed."
          (LaTeX-narrow-to-environment))
         (t (narrow-to-defun))))
 
+(defun psv/todo ()
+  (interactive)
+  (find-file (expand-file-name "~/Dropbox/org/gtd/tasks.org"))
+  (end-of-buffer))
+
+(defun psv/work-todo ()
+  (interactive)
+  (find-file (expand-file-name "~/Dropbox/org/work/tasks.org"))
+  (end-of-buffer))
+
 (provide 'base-functions)

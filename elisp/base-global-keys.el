@@ -47,6 +47,9 @@
 
 (bind-key "C-x f" 'psv/recentf-ido-find-file)
 
+(bind-key "<f5>" 'psv/work-todo)
+(bind-key "<f6>" 'psv/todo)
+
 ;; unbound dangerous keys
 (global-unset-key (kbd "C-x C-c"))
 

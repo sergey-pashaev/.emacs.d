@@ -176,13 +176,15 @@
 
 ;; (use-package smex)
 
-;; (use-package undo-tree
-;;   :config
-;;   ;; Remember undo history
-;;   (setq
-;;    undo-tree-auto-save-history nil
-;;    undo-tree-history-directory-alist `(("." . ,(concat temp-dir "/undo/"))))
-;;   (global-undo-tree-mode 1))
+(use-package undo-tree
+  :config
+  ;; Remember undo history
+  (setq
+   undo-tree-auto-save-history nil
+   undo-tree-history-directory-alist `(("." . ,(concat temp-dir "/undo/"))))
+  (global-undo-tree-mode 1)
+  :bind
+  ("s-/" . undo-tree-visualize))
 
 ;; (use-package which-key
 ;;   :config
@@ -199,11 +201,10 @@
 ;;   (windmove-default-keybindings 'meta)
 ;;   (setq windmove-wrap-around t))
 
-;; (use-package wgrep)
-
-;; (use-package yasnippet
-;;   :config
-;;   (yas-global-mode 1))
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
 
 (use-package markdown-mode)
 
@@ -237,5 +238,19 @@
 (use-package dockerfile-mode)
 
 (use-package yaml-mode)
+
+(use-package cmake-mode
+  :ensure t)
+
+(use-package wgrep
+  :ensure t)
+(use-package wgrep-ag
+  :ensure t)
+
+(use-package guru-mode
+  :ensure t
+  :config
+  (setq guru-warn-only t)
+  (guru-global-mode 1))
 
 (provide 'base-extensions)
