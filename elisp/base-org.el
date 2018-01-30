@@ -1,4 +1,8 @@
 ;; org-mode
+
+;; org-mode & gtd
+;; https://github.com/jethrokuan/.emacs.d/blob/master/config.org#org-mode-for-gtd
+
 (defvar *psv/ditaa-path* (expand-file-name "~/bin/ditaa.jar"))
 (defvar *psv/plantuml-path* (expand-file-name "~/bin/plantuml.jar"))
 
