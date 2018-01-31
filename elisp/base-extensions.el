@@ -253,4 +253,10 @@
   (setq guru-warn-only t)
   (guru-global-mode 1))
 
+(use-package skeletor
+  :config
+  (skeletor-define-template "cpp-make"
+    :requires-executables '(("make" . "http://www.gnu.org/software/make/"))
+    :no-license? t))
+
 (provide 'base-extensions)
