@@ -257,6 +257,8 @@
   :config
   (skeletor-define-template "cpp-make"
     :requires-executables '(("make" . "http://www.gnu.org/software/make/"))
+    :no-license? t)
+  (skeletor-define-template "appl"
     :no-license? t))
 
 (provide 'base-extensions)
