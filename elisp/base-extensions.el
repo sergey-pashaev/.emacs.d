@@ -261,4 +261,8 @@
   (skeletor-define-template "appl"
     :no-license? t))
 
+(use-package plantuml-mode
+  :config
+  (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
+
 (provide 'base-extensions)
