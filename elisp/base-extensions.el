@@ -265,4 +265,19 @@
   :config
   (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
 
+(defun langtool-autoshow-detail-popup (overlays)
+  (when (require 'popup nil t)
+    ;; Do not interrupt current popup
+    (unless (or popup-instances
+                ;; suppress popup after type `C-g` .
+                (memq last-command '(keyboard-quit)))
+      (let ((msg (langtool-details-error-message overlays)))
+        (popup-tip msg)))))
+
+(use-package langtool
+  :ensure t
+  :config
+  (setq langtool-language-tool-jar (expand-file-name "~/src/LanguageTool-4.0/languagetool-commandline.jar")
+	langtool-autoshow-message-function 'langtool-autoshow-detail-popup))
+
 (provide 'base-extensions)
