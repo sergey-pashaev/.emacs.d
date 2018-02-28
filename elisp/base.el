@@ -266,14 +266,14 @@
                          message-string
                          "\"")))
 
-(setq compilation-finish-functions 'compile-finish-notify)
+;; (setq compilation-finish-functions 'compile-finish-notify)
 
-(defun compile-finish-notify (buffer string)
-  (progn
-    (notifications-notify
-     :app-name "emacs"
-     :body (concat "Compilation is " string))
-    (emacs-notify-send-message "emacs" (concat "Compilation is " string))))
+;; (defun compile-finish-notify (buffer string)
+;;   (progn
+;;     (notifications-notify
+;;      :app-name "emacs"
+;;      :body (concat "Compilation is " string))
+;;     (emacs-notify-send-message "emacs" (concat "Compilation is " string))))
 
 ;; (defun psv/make-some-rest-msg ()
 ;;   (interactive)
