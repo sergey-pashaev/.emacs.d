@@ -247,11 +247,11 @@
 (use-package wgrep-ag
   :ensure t)
 
-(use-package guru-mode
-  :ensure t
-  :config
-  (setq guru-warn-only t)
-  (guru-global-mode 1))
+;; (use-package guru-mode
+;;   :ensure t
+;;   :config
+;;   (setq guru-warn-only t)
+;;   (guru-global-mode 1))
 
 (use-package skeletor
   :config
