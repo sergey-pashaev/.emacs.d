@@ -257,6 +257,7 @@
 
 (use-package skeletor
   :config
+  (setq skeletor-project-directory (expand-file-name "~/workspace/cpp/"))
   (skeletor-define-template "cpp-make"
     :requires-executables '(("make" . "http://www.gnu.org/software/make/"))
     :no-license? t)
