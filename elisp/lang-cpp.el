@@ -72,4 +72,21 @@
 (use-package helm-rtags)
 (setq rtags-display-result-backend 'helm)
 
+(use-package clang-format
+  :config
+  (setq clang-format-style-option "Google")
+  :bind
+  ("C-M-|" . clang-format-region))
+
+(defun clang-format-buffer-smart ()
+  "Reformat buffer if .clang-format exists in the projectile root."
+  (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+    (clang-format-buffer)))
+
+(defun clang-format-buffer-smart-on-save ()
+  "Add auto-save hook for clang-format-buffer-smart."
+  (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))
+
+(add-hook 'c++-mode-hook 'clang-format-buffer-smart-on-save)
+(add-hook 'c-mode-hook   'clang-format-buffer-smart-on-save)
 (provide 'lang-cpp)

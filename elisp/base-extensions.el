@@ -60,7 +60,9 @@
   :bind
   ("C-=" . er/expand-region))
 
-;; (use-package flycheck)
+(use-package flycheck
+  :config
+  (global-flycheck-mode))
 
 ;; todo: fix this
 ;; (when (executable-find "curl")
