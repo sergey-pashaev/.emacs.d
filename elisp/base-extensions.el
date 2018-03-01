@@ -208,6 +208,8 @@
   :config
   (yas-global-mode 1))
 
+(use-package yasnippet-snippets)
+
 (use-package markdown-mode)
 
 (use-package elfeed
