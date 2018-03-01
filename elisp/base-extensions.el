@@ -261,7 +261,14 @@
     :requires-executables '(("make" . "http://www.gnu.org/software/make/"))
     :no-license? t)
   (skeletor-define-template "appl"
-    :no-license? t))
+    :no-license? t)
+  (skeletor-define-template "cpp-cmake"
+    :requires-executables '(("make" . "http://www.gnu.org/software/make/")
+			    ("cmake" . "https://cmake.org/"))
+    :no-license? t
+    :before-git
+    (lambda (dir)
+      (skeletor-shell-command "chmod +x build.sh" dir))))
 
 (use-package plantuml-mode
   :config
