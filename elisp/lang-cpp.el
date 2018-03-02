@@ -60,7 +60,6 @@
 
 (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
 (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
-(add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
 
 (setq rtags-completions-enabled t)
 (eval-after-load 'company

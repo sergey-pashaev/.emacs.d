@@ -25,18 +25,10 @@
   :bind
   ("C-;" . avy-goto-word-1))
 
-;; (use-package ace-jump-mode
-;;   :bind
-;;   ("C-c SPC" . ace-jump-mode))
-
 (use-package ag
   :config
   (setq ag-highlight-search t
 	ag-reuse-buffers    t))
-
-;; (use-package company
-;;   :config
-;;   (add-hook 'after-init-hook 'global-company-mode))
 
 ;; (use-package dashboard
 ;;   :config
