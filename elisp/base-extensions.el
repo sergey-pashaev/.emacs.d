@@ -161,10 +161,10 @@
 
   (projectile-global-mode))
 
-;; (use-package recentf
-;;   :config
-;;   (setq recentf-save-file (recentf-expand-file-name "~/.emacs.d/private/cache/recentf"))
-;;   (recentf-mode 1))
+(use-package recentf
+  :config
+  (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" temp-dir)))
+  (recentf-mode 1))
 
 ;; (use-package smartparens)
 
