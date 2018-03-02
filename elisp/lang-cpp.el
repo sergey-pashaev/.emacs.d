@@ -2,6 +2,14 @@
 ;; common c settings
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
+(defconst psv/cc-style
+  '("cc-mode"
+    (c-offsets-alist . ((innamespace . [0])))
+    (c-basic-offset . 4)
+    (indent-tabs-mode . nil)))
+
+(c-add-style "psv/cc-mode" psv/cc-style)
+
 (defun psv/c-mode-hook ()
   (c-set-style "psv/cc-mode")
   (subword-mode 1)
@@ -16,13 +24,6 @@
 
 (setq gdb-many-windows t	     ; use gdb-many-windows by default
       gdb-show-main t)               ; non-nil means display source file containing the main routine at startup
-
-(defconst psv/cc-style
-  '("cc-mode"
-    (c-offsets-alist . ((innamespace . [0])))))
-
-(c-add-style "psv/cc-mode" psv/cc-style)
-
 
 (use-package irony)
 (use-package irony-eldoc)
