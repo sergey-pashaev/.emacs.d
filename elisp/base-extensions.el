@@ -30,24 +30,6 @@
   (setq ag-highlight-search t
 	ag-reuse-buffers    t))
 
-;; (use-package dashboard
-;;   :config
-;;   (dashboard-setup-startup-hook))
-
-;; (use-package ediff
-;;   :config
-;;   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-;;   (setq-default ediff-highlight-all-diffs 'nil)
-;;   (setq ediff-diff-options "-w"))
-
-;; (use-package exec-path-from-shell
-;;   :config
-;;   ;; Add GOPATH to shell
-;;   (when (memq window-system '(mac ns))
-;;     (exec-path-from-shell-copy-env "GOPATH")
-;;     (exec-path-from-shell-copy-env "PYTHONPATH")
-;;     (exec-path-from-shell-initialize)))
-
 (use-package expand-region
   :bind
   ("C-=" . er/expand-region))
@@ -55,10 +37,6 @@
 (use-package flycheck
   :config
   (global-flycheck-mode))
-
-;; todo: fix this
-;; (when (executable-find "curl")
-;;   (setq helm-google-suggest-use-curl-p t))
 
 (use-package helm
   :init
@@ -89,43 +67,12 @@
   :bind
   (("M-?" . helm-projectile)))
 
-;; (use-package helm-ag)
-
-;; (use-package helm-git-grep)
-
-;; (use-package helm-swoop
-;;   :bind
-;;   ("C-x c s" . helm-swoop))
-
-
-;; (use-package hlinum
-;;   :config
-;;   (hlinum-activate))
-
-;; (use-package linum
-;;   :config
-;;   (setq linum-format " %3d ")
-;;   (global-linum-mode nil))
+(use-package helm-swoop
+  :bind
+  ("C-x c s" . helm-swoop))
 
 (use-package magit
   :bind ("C-x g" . magit-status))
-
-;; (use-package magit-popup)
-
-;; (use-package multiple-cursors
-;;   :bind
-;;   ("C-S-c C-S-c" . mc/edit-lines)
-;;   ("C->" . mc/mark-next-like-this)
-;;   ("C-<" . mc/mark-previous-like-this)
-;;   ("C-c C->" . mc/mark-all-like-this))
-
-;; (use-package neotree
-;;   :config
-;;   (setq neo-theme 'arrow
-;;         neotree-smart-optn t
-;;         neo-window-fixed-size nil)
-;;   ;; Disable linum for neotree
-;;   (add-hook 'neo-after-create-hook 'disable-neotree-hook))
 
 ;; (use-package org
 ;;   :config
@@ -148,8 +95,6 @@
 ;;             (lambda ()
 ;;               (org-bullets-mode t))))
 
-;; (use-package page-break-lines)
-
 (use-package projectile
   :config
   (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" temp-dir)
@@ -166,10 +111,6 @@
   (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" temp-dir)))
   (recentf-mode 1))
 
-;; (use-package smartparens)
-
-;; (use-package smex)
-
 (use-package undo-tree
   :config
   ;; Remember undo history
@@ -179,10 +120,6 @@
   (global-undo-tree-mode 1)
   :bind
   ("s-/" . undo-tree-visualize))
-
-;; (use-package which-key
-;;   :config
-;;   (which-key-mode))
 
 ;; windmove
 (require 'windmove)
@@ -242,12 +179,6 @@
   :ensure t)
 (use-package wgrep-ag
   :ensure t)
-
-;; (use-package guru-mode
-;;   :ensure t
-;;   :config
-;;   (setq guru-warn-only t)
-;;   (guru-global-mode 1))
 
 (use-package skeletor
   :config
