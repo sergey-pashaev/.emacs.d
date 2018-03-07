@@ -333,4 +333,21 @@ is already narrowed."
             (emacs-lisp-docstring-fill-column t))
         (fill-paragraph nil region)))
 
+(use-package popup)
+
+(defvar cdecl-program "cdecl"
+  "The program to run.")
+
+(defun cdecl-explain (expr)
+  "Run cdecel 'explain' on EXPR."
+  (interactive "sExpr: \n")
+  (let ((cmd (concat
+              "echo 'explain " expr "' |"
+              cdecl-program)))
+    (popup-tip (shell-command-to-string cmd))))
+
+(defun cdecl-explain-region (r-s r-e)
+  (interactive "r")
+  (cdecl-explain (buffer-substring-no-properties r-s r-e)))
+
 (provide 'base-functions)
