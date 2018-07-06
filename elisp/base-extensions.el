@@ -135,9 +135,10 @@
 (use-package yasnippet
   :ensure t
   :config
-  (yas-global-mode 1))
-
-(use-package yasnippet-snippets)
+  (use-package yasnippet-snippets
+    :ensure t)
+  (yas-global-mode 1)
+  (yas-reload-all))
 
 (use-package markdown-mode)
 
