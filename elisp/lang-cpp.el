@@ -80,7 +80,9 @@
 
 (defun clang-format-buffer-smart ()
   "Reformat buffer if .clang-format exists in the projectile root."
-  (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+  (when (and
+	  (not (string= (projectile-project-name) "-"))
+	  (f-exists? (expand-file-name ".clang-format" (projectile-project-root))))
     (clang-format-buffer)))
 
 (defun clang-format-buffer-smart-on-save ()
