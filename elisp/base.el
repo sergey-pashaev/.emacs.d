@@ -113,7 +113,7 @@
  auto-save-list-file-name           (concat temp-dir "/autosave")
  make-backup-files                  t
  create-lockfiles                   nil
- backup-directory-alist            `((".*" . ,(concat temp-dir "/backup/")))
+ backup-directory-alist            `(("." . ,(concat temp-dir "/backup/")))
  auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/auto-save-list/") t)))
 
 ;; ;; backups - store all backup and autosave files in the tmp dir
