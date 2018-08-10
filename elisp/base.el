@@ -294,7 +294,7 @@
 
 
 ;; default font
-(set-default-font "Liberation Mono 10")
+(set-default-font "Liberation Mono 11")
 
 (provide 'base)
 ;;; base ends here
