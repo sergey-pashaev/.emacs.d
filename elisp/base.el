@@ -14,6 +14,7 @@
 (defconst private-dir  (expand-file-name "private" user-emacs-directory))
 (defconst temp-dir (format "%s/cache" private-dir)
   "Hostname-based elisp temp directories")
+(setq psv-backup-root-dir (concat temp-dir "/backup/"))
 
 ;;; Core settings
 ;; UTF-8 please
@@ -100,28 +101,33 @@
  bookmark-save-flag                      t
  bookmark-default-file              (concat temp-dir "/bookmarks"))
 
-;;; Backups enabled, use nil to disable
+;;; Lockfiles
+(setq create-lockfiles nil)
+
+;;; Backups
 (setq
- history-length                     1000
  backup-inhibited                   nil
  backup-by-copying                  t
  delete-old-versions                t
- kept-new-versions                  10
- kept-old-versions                  2
  version-control                    t
- auto-save-default                  t
- auto-save-list-file-name           (concat temp-dir "/autosave")
  make-backup-files                  t
- create-lockfiles                   nil
- backup-directory-alist            `(("." . ,(concat temp-dir "/backup/")))
- auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/auto-save-list/") t)))
+ backup-directory-alist            `(("." . ,psv-backup-root-dir)))
 
-;; ;; backups - store all backup and autosave files in the tmp dir
-;; (setq backup-directory-alist
-;;       `((".*" . "~/.emacs.d/backups/")))
+;; make backup to a designated dir, mirroring the full path
+(defun psv/backup-file-name (file-path)
+  "Return a new file path of a given FILE-PATH.
+If the new path's directories does not exist, create them."
+  (let* ((origin-file-path (replace-regexp-in-string "[A-Za-z]:" "" file-path)) ; remove Windows driver letter in path, for example, “C:”
+         (backup-file-path (replace-regexp-in-string "//" "/" (concat psv-backup-root-dir origin-file-path "~"))))
+    (make-directory (file-name-directory backup-file-path) (file-name-directory backup-file-path))
+    backup-file-path))
 
-;; (setq auto-save-file-name-transforms
-;;       `((".*" "~/.emacs.d/autosave/" t)))
+(setq make-backup-file-name-function 'psv/backup-file-name)
+
+;;; Autosave
+(setq
+ auto-save-default                  t
+ auto-save-list-file-name           (concat temp-dir "/autosave"))
 
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)
