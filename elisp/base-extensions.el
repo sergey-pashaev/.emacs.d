@@ -216,4 +216,9 @@
   (setq langtool-language-tool-jar (expand-file-name "~/src/LanguageTool-4.0/languagetool-commandline.jar")
 	langtool-autoshow-message-function 'langtool-autoshow-detail-popup))
 
+(use-package string-inflection
+  :ensure t
+  :bind
+  (("C-c s" . string-inflection-all-cycle)))
+
 (provide 'base-extensions)
