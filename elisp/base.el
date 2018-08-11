@@ -1,3 +1,10 @@
+;;; base.el --- Base configuration module which doesn't depend on any external packages
+
+;;; Commentary:
+
+;;; Code:
+
+;;; install use-package if needed
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
@@ -11,46 +18,41 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(defconst private-dir  (expand-file-name "private" user-emacs-directory))
-(defconst temp-dir (format "%s/cache" private-dir)
-  "Hostname-based elisp temp directories")
-(setq psv-backup-root-dir (concat temp-dir "/backup/"))
-
-;;; Core settings
-;; UTF-8 please
-(set-charset-priority 'unicode)
+;; utf-8
 (set-language-environment    "UTF-8")
-(setq locale-coding-system   'utf-8)   ; pretty
-(set-terminal-coding-system  'utf-8)   ; pretty
-(set-keyboard-coding-system  'utf-8)   ; pretty
-(set-selection-coding-system 'utf-8)   ; please
-(prefer-coding-system        'utf-8)   ; with sugar on top
+(set-charset-priority        'unicode)
+(setq locale-coding-system   'utf-8)
+(set-terminal-coding-system  'utf-8)
+(set-keyboard-coding-system  'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system        'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
-(set-input-method nil)            ; no funky input for normal editing;
-(setq read-quoted-char-radix 10   ; use decimal, not octal
-      locale-coding-system 'utf-8)
+(set-input-method nil)            ; no funky input for normal editing
+(setq read-quoted-char-radix 10)  ; use decimal, not octal
 
 ;;; Emacs customizations
 (setq confirm-kill-emacs                  'y-or-n-p
       confirm-nonexistent-file-or-buffer  t
-      save-interprogram-paste-before-kill t
       mouse-yank-at-point                 t
       visible-bell                        t
       ring-bell-function                  'ignore
       custom-file                         (concat user-emacs-directory "custom.el")
+
       ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
       minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
 
-      ;; Disable non selected window highlight
+      ;; disable non selected window highlight
       cursor-in-non-selected-windows      nil
       highlight-nonselected-windows       nil
-      ;; PATH
+
+      ;; path
       exec-path                           (append exec-path '("/usr/local/bin/"))
 
       ;; don't indent with tabs
       indent-tabs-mode                    nil
+
       inhibit-startup-message             t
       inhibit-startup-screen              t
       fringes-outside-margins             t
@@ -75,12 +77,9 @@
       ;; end files with newline
       require-final-newline               t
 
-      ;; todo: not sure about this
-      ;; ;; garbage collector limit to 10mb
-      ;; gc-cons-threshold                   (* 10 1024 1024)
-
-      ;; guess target directory
-      dired-dwim-target                   t
+      ;; dired
+      dired-dwim-target                   t ; guess target directory
+      dired-listing-switches              "-alh"
 
       ;; stop asking whether to save newly added abbrev when quitting emacs
       save-abbrevs                        nil
@@ -99,7 +98,7 @@
 (setq
  ;; persistent bookmarks
  bookmark-save-flag                      t
- bookmark-default-file              (concat temp-dir "/bookmarks"))
+ bookmark-default-file              (concat psv/temp-dir "/bookmarks"))
 
 ;;; Lockfiles
 (setq create-lockfiles nil)
@@ -111,14 +110,14 @@
  delete-old-versions                t
  version-control                    t
  make-backup-files                  t
- backup-directory-alist            `(("." . ,psv-backup-root-dir)))
+ backup-directory-alist            `(("." . ,psv/backup-root-dir)))
 
 ;; make backup to a designated dir, mirroring the full path
 (defun psv/backup-file-name (file-path)
   "Return a new file path of a given FILE-PATH.
 If the new path's directories does not exist, create them."
   (let* ((origin-file-path (replace-regexp-in-string "[A-Za-z]:" "" file-path)) ; remove Windows driver letter in path, for example, “C:”
-         (backup-file-path (replace-regexp-in-string "//" "/" (concat psv-backup-root-dir origin-file-path "~"))))
+         (backup-file-path (replace-regexp-in-string "//" "/" (concat psv/backup-root-dir origin-file-path "~"))))
     (make-directory (file-name-directory backup-file-path) (file-name-directory backup-file-path))
     backup-file-path))
 
@@ -127,7 +126,7 @@ If the new path's directories does not exist, create them."
 ;;; Autosave
 (setq
  auto-save-default                  t
- auto-save-list-file-name           (concat temp-dir "/autosave"))
+ auto-save-list-file-name           (concat psv/temp-dir "/autosave"))
 
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -166,11 +165,11 @@ If the new path's directories does not exist, create them."
 (setq ido-enable-flex-matching t
       ido-use-filename-at-point 'guess
       ido-everywhere t
-      ido-save-directory-list-file (concat temp-dir "/ido.last"))
+      ido-save-directory-list-file (concat psv/temp-dir "/ido.last"))
 
 ;; save recent files
 (require 'recentf)
-(setq recentf-save-file (concat user-emacs-directory "recentf")
+(setq recentf-save-file (concat psv/temp-dir "recentf")
       recentf-max-saved-items 100
       recentf-max-menu-items 15)
 
@@ -183,16 +182,17 @@ If the new path's directories does not exist, create them."
     (when file
       (find-file file))))
 
-;;; Personal info
+;;; personal info
 (setq user-mail-address "pashaev.sergey@gmail.com"
       user-full-name "Sergey Pashaev")
 
 ;;; ibuffer
 (defun psv/ibuffer-hook ()
-  (ibuffer-switch-to-saved-filter-groups "default"))
+  "Make ibuffer Use \"psv\" filter group."
+  (ibuffer-switch-to-saved-filter-groups "psv"))
 
 (setq ibuffer-saved-filter-groups
-      (quote (("default"
+      (quote (("psv"
 	       ("dired" (mode . dired-mode))
 	       ("elisp" (mode . emacs-lisp-mode))
 	       ("org-mode" (or
@@ -230,13 +230,13 @@ If the new path's directories does not exist, create them."
 (add-hook 'ibuffer-mode-hook 'psv/ibuffer-hook)
 
 ;;; dired
-(setq dired-listing-switches "-alh")
 (defun psv/dired-hook ()
+  "Custom dired hook."
   (progn
     ;; (bind-key "C-o" 'dired-omit-mode dired-mode-map)
     ;; (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
     ;; todo: move listing switches to emacs customization part
-    (setq dired-listing-switches "-alh")))
+    ))
 
 (add-hook 'dired-mode-hook 'psv/dired-hook)
 

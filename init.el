@@ -1,4 +1,8 @@
-;; inspiring emacs configs:
+;;; init.el --- Base config file to load different "layers" of configuration
+
+;;; Commentary:
+;; Here we load different modules/layers of my Emacs config.
+;; Some inspiring Emacs configs:
 ;; - http://doc.rix.si/org/fsem.html
 ;; - http://pages.sachachua.com/.emacs.d/Sacha.html
 ;; - https://github.com/thomasf/dotfiles-thomasf-emacs/
@@ -11,9 +15,23 @@
 ;; - https://github.com/howardabrams/dot-files
 ;; - https://expoundite.net/guides/dotfile-management
 
+;;; Code:
 (package-initialize)
 
-(add-to-list 'load-path (concat user-emacs-directory "elisp"))
+(defconst psv/elisp-dir (concat user-emacs-directory "elisp")
+  "Directory which contains all config modules.")
+
+;; todo: do we need fullpath here?
+(defconst psv/private-dir (expand-file-name "private" user-emacs-directory)
+  "Directory to store all private files.")
+
+(defconst psv/temp-dir (format "%s/cache" psv/private-dir)
+  "Directory to store all Emacs temp files are stored.")
+
+(defconst psv/backup-root-dir (concat psv/temp-dir "/backup/")
+  "Directory to store backup files.")
+
+(add-to-list 'load-path psv/elisp-dir)
 
 (require 'base)
 (require 'base-env)
@@ -27,3 +45,6 @@
 
 (require 'lang-elisp)
 (require 'lang-cpp)
+
+(provide 'init)
+;;; init.el ends here

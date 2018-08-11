@@ -3,7 +3,7 @@
 (use-package no-littering)
 
 ;; saveplace: save location in file when saving files
-(setq save-place-file (concat temp-dir "/saveplace"))
+(setq save-place-file (concat psv/temp-dir "/saveplace"))
 (setq-default save-place t)
 (require 'saveplace)
 
@@ -97,7 +97,7 @@
 
 (use-package projectile
   :config
-  (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" temp-dir)
+  (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" psv/temp-dir)
 	projectile-enable-caching t
 	projectile-mode-line '(:eval (if (projectile-project-p)
 					 (format " p[%s]"
@@ -108,7 +108,7 @@
 
 (use-package recentf
   :config
-  (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" temp-dir)))
+  (setq recentf-save-file (recentf-expand-file-name (expand-file-name "recentf" psv/temp-dir)))
   (recentf-mode 1))
 
 (use-package undo-tree
@@ -116,7 +116,7 @@
   ;; Remember undo history
   (setq
    undo-tree-auto-save-history nil
-   undo-tree-history-directory-alist `(("." . ,(concat temp-dir "/undo/"))))
+   undo-tree-history-directory-alist `(("." . ,(concat psv/temp-dir "/undo/"))))
   (global-undo-tree-mode 1)
   :bind
   ("s-/" . undo-tree-visualize))
