@@ -59,11 +59,9 @@ else()
 endif()
 message(STATUS "Boost version: ${Boost_VERSION}")
 
-add_definitions(-O3)
 add_definitions(-Wall)
 add_definitions(-g)
 add_definitions(-Wextra)
-add_definitions(-Werror)
 
 add_executable("${PROJECT_NAME}" main.cpp)
 target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_14)
