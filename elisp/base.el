@@ -308,7 +308,7 @@ If the new path's directories does not exist, create them."
 
 
 ;; default font
-(set-default-font "Liberation Mono 11")
+(set-frame-font "Liberation Mono 11")
 
 (provide 'base)
 ;;; base ends here
