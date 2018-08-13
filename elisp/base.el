@@ -5,7 +5,7 @@
 ;;; Code:
 
 ;;; install use-package if needed
-(package-initialize)
+(unless package--initialized (package-initialize t))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives

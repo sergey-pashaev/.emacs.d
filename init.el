@@ -16,8 +16,6 @@
 ;; - https://expoundite.net/guides/dotfile-management
 
 ;;; Code:
-(package-initialize)
-
 (defconst psv/elisp-dir (concat user-emacs-directory "elisp")
   "Directory which contains all config modules.")
 
