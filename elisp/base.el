@@ -5,6 +5,7 @@
 ;;; Code:
 
 ;;; install use-package if needed
+(setq load-prefer-newer t)
 (unless package--initialized (package-initialize t))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
@@ -17,6 +18,13 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+;; auto compile emacs lisp files
+(use-package auto-compile
+  :ensure t
+  :config
+  (auto-compile-on-load-mode)
+  (auto-compile-on-save-mode))
 
 ;; utf-8
 (set-language-environment    "UTF-8")
