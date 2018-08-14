@@ -222,4 +222,29 @@
   :bind
   (("C-c s" . string-inflection-all-cycle)))
 
+(defun psv/helm-dash-cpp-doc ()
+  "Enable C++ dash docset for c++ buffers."
+  (interactive)
+  (setq-local helm-dash-docsets '("C++")))
+
+(defun psv/helm-dash-python-doc ()
+  "Enable python2 dash docset for python buffers."
+   (interactive)
+  (setq-local helm-dash-docsets '("Python 2")))
+
+(defun psv/helm-dash-ensure-docset-installed (docset-name)
+  (if (not (member docset-name (helm-dash-installed-docsets)))
+      (helm-dash-install-docset docset-name)))
+
+(defconst psv/helm-dash-docsets '("C++" "C" "Boost" "Python 2" "Ansible" "Docker")
+  "My default docset list.")
+
+(use-package helm-dash
+  :ensure t
+  :config
+  (mapc 'psv/helm-dash-ensure-docset-installed psv/helm-dash-docsets)
+  (setq helm-dash-common-docsets psv/helm-dash-docsets)
+  (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
+  (add-hook 'python-mode-hook 'psv/helm-dash-python-doc))
+
 (provide 'base-extensions)
