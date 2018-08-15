@@ -218,6 +218,67 @@ there's a region, all lines that region covers will be duplicated."
           (replace-match (format (concat "%0" (int-to-string field-width) "d")
                                  answer)))))))
 
+(defun psv/grab-number-bounds ()
+  (let (beg end)
+    (save-excursion
+      (re-search-backward "[^0-9A-Fa-fxX]" nil t)
+      (forward-char)
+      (setq beg (point))
+      (re-search-forward "[^0-9A-Fa-fxX]" nil t)
+      (backward-char)
+      (setq end (point)))
+    (cons beg end)))
+
+(defun psv/next-type (type)
+  (cond
+   ((= type 2) 8)
+   ((= type 8) 10)
+   ((= type 10) 16)
+   ((= type 16) 2)))
+
+(defun int-to-binary-string (i)
+  "convert an integer into it's binary representation in string format"
+  (let ((res ""))
+    (while (not (= i 0))
+      (setq res (concat (if (= 1 (logand i 1)) "1" "0") res))
+      (setq i (lsh i -1)))
+    (if (string= res "")
+        (setq res "0"))
+    res))
+
+(defun psv/num-in-base (num base)
+  (cond
+   ((= base 2) (format "0b%s" (int-to-binary-string num)))
+   ((= base 8) (format "0%o" num))
+   ((= base 10) (format "%d" num))
+   ((= base 16) (format "0x%x" num))))
+
+(defun psv/cycle-base-of-integer-at-point ()
+  (interactive)
+  (let (bounds base-str base str num next-str)
+    (setq bounds (psv/grab-number-bounds))
+    (setq base-str (psv/grab-number-base bounds))
+    (setq base (car base-str))
+    (setq str (cdr base-str))
+    (when base
+      (setq num (string-to-number str base))
+      (setq next-str (psv/num-in-base num (psv/next-type base)))
+      (message "%d %s %s %s" base str num next-str)
+      (delete-region (car bounds) (cdr bounds))
+      (insert next-str)
+      )))
+
+(defun psv/grab-number-base (bounds)
+  (let (str)
+    (setq str (buffer-substring-no-properties (car bounds) (cdr bounds)))
+    (cond
+     ((string-match "^0[xX]\\([0-9A-Fa-f]+\\)$" str) (cons 16 (match-string 1 str)))
+     ((string-match "^0\\([0-9]+\\)$" str) (cons 8 (match-string 1 str)))
+     ((string-match "^0[bB]\\([01]+\\)$" str) (cons 2 (match-string 1 str)))
+     ((string-match "^\\([0-9]+\\)$" str) (cons 10 (match-string 1 str)))
+     (t nil)
+    )))
+
 (defun psv/decrement-number-decimal (&optional arg)
   (interactive "p*")
   (psv/increment-number-decimal (if arg (- arg) -1)))
