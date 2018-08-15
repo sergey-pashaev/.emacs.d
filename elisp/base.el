@@ -4,13 +4,29 @@
 
 ;;; Code:
 
+;;; make sure all connection are secure according to:
+;;; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
+(defconst psv/trustfile (replace-regexp-in-string
+        "\\\\" "/"
+        (replace-regexp-in-string
+         "\n" ""
+         (shell-command-to-string "python -m certifi")))
+  "Path to file with trusted certificates from python certifi package.")
+
+(setq tls-program
+      (list
+       (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+               (if (eq window-system 'w32) ".exe" "") psv/trustfile)))
+(setq gnutls-verify-error t)
+; (setq gnutls-trustfiles (list psv/trustfile))
+; (add-to-list 'gnutls-trustfiles psv/trustfile)
 ;;; install use-package if needed
 (setq load-prefer-newer t)
 (unless package--initialized (package-initialize t))
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/") t)
+             '("org" . "https://orgmode.org/elpa/") t)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
