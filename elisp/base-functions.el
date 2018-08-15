@@ -218,26 +218,61 @@ there's a region, all lines that region covers will be duplicated."
           (replace-match (format (concat "%0" (int-to-string field-width) "d")
                                  answer)))))))
 
-(defun psv/grab-number-bounds ()
+(defconst psv/integer-bounds-rx "[^0-9A-Fa-fxX]")
+
+(defun psv/bounds-of-integer-at-point ()
+  "Return bounds (begin . end) of number at point or nil."
   (let (beg end)
     (save-excursion
-      (re-search-backward "[^0-9A-Fa-fxX]" nil t)
-      (forward-char)
-      (setq beg (point))
-      (re-search-forward "[^0-9A-Fa-fxX]" nil t)
-      (backward-char)
-      (setq end (point)))
-    (cons beg end)))
+      ;; set point to buffer begin/end if search fails
+      (condition-case nil
+	  (progn
+	    (re-search-backward psv/integer-bounds-rx)
+	    (forward-char)
+	    (setq beg (point)))
+	(error (setq beg (point-min))))
+      (condition-case nil
+	  (progn
+	    (re-search-forward psv/integer-bounds-rx)
+	    (backward-char)
+	    (setq end (point)))
+	(error (setq end (point-max)))))
+    ;; check bound region is not empty
+    (when (< beg end)
+      (cons beg end))))
 
-(defun psv/next-type (type)
-  (cond
-   ((= type 2) 8)
-   ((= type 8) 10)
-   ((= type 10) 16)
-   ((= type 16) 2)))
+(defconst psv/integer-bases '((16 . "^0[xX]\\([0-9A-Fa-f]+\\)$")
+			      (8  . "^0\\([0-9]+\\)$")
+			      (2  . "^0[bB]\\([01]+\\)$")
+			      (10 . "^\\([0-9]+\\)$"))
+  "List of integer BASE to REGEX (w/ submatch group 1) mappings.")
 
-(defun int-to-binary-string (i)
-  "convert an integer into it's binary representation in string format"
+(defun psv/integer-n-base-from-bounds (bounds)
+  "Return parsed integer & base (num . base) from given BOUNDS."
+  (let (str base)
+    (setq str (buffer-substring-no-properties (car bounds) (cdr bounds)))
+    (setq base (seq-find (lambda (e)
+			   (string-match (cdr e) str))
+			 psv/integer-bases))
+    (when base
+      (setq base (car base)) ; get base number, drop rx
+      (cons (string-to-number (match-string 1 str) base) base))))
+
+(defun psv/next-integer-base (base)
+  "Return next interger base for BASE in psv/integer-bases."
+  (let (pos)
+    ;; find given BASE in psv/integer-bases
+    (setq pos (seq-position psv/integer-bases
+			    base
+			    (lambda (x y) (= (car x) y)))) ; get base number, drop rx
+    (when pos
+      ;; get next base in list in cyclic manner
+      (car (seq-elt psv/integer-bases
+		    (mod (+ pos 1)
+			 (seq-length psv/integer-bases)))))))
+
+(defun psv/integer-to-binary-string (i)
+  "Convert an integer I into it's binary representation in string format."
   (let ((res ""))
     (while (not (= i 0))
       (setq res (concat (if (= 1 (logand i 1)) "1" "0") res))
@@ -246,35 +281,25 @@ there's a region, all lines that region covers will be duplicated."
         (setq res "0"))
     res))
 
-(defun psv/num-in-base (num base)
+(defun psv/format-integer-in-base (num base)
+  "Return string representation of NUM in BASE base."
   (cond
-   ((= base 2) (format "0b%s" (int-to-binary-string num)))
-   ((= base 8) (format "0%o" num))
-   ((= base 10) (format "%d" num))
+   ((= base 2)  (format "0b%s" (psv/integer-to-binary-string num)))
+   ((= base 8)  (format "0%o"  num))
+   ((= base 10) (format "%d"   num))
    ((= base 16) (format "0x%x" num))))
 
 (defun psv/cycle-base-of-integer-at-point ()
+  "Cycle through different integer bases for number at point."
   (interactive)
-  (let (bounds base-str base str num next-str)
-    (setq bounds (psv/grab-number-bounds))
-    (setq base-str (psv/grab-number-base bounds))
-    (setq base (car base-str))
-    (setq str (cdr base-str))
-    (when base
-      (setq num (string-to-number str base))
-      (setq next-str (psv/num-in-base num (psv/next-type base)))
-      (delete-region (car bounds) (cdr bounds))
-      (insert next-str))))
-
-(defun psv/grab-number-base (bounds)
-  (let (str)
-    (setq str (buffer-substring-no-properties (car bounds) (cdr bounds)))
-    (cond
-     ((string-match "^0[xX]\\([0-9A-Fa-f]+\\)$" str) (cons 16 (match-string 1 str)))
-     ((string-match "^0\\([0-9]+\\)$" str) (cons 8 (match-string 1 str)))
-     ((string-match "^0[bB]\\([01]+\\)$" str) (cons 2 (match-string 1 str)))
-     ((string-match "^\\([0-9]+\\)$" str) (cons 10 (match-string 1 str)))
-     (t nil))))
+  (let (bounds num-base)
+    (setq bounds (psv/bounds-of-integer-at-point))
+    (when bounds
+      (setq num-base (psv/integer-n-base-from-bounds bounds))
+      (when num-base
+	(delete-region (car bounds) (cdr bounds))
+	(insert (psv/format-integer-in-base (car num-base)
+					    (psv/next-integer-base (cdr num-base))))))))
 
 (defun psv/decrement-number-decimal (&optional arg)
   (interactive "p*")
