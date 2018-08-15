@@ -263,10 +263,8 @@ there's a region, all lines that region covers will be duplicated."
     (when base
       (setq num (string-to-number str base))
       (setq next-str (psv/num-in-base num (psv/next-type base)))
-      (message "%d %s %s %s" base str num next-str)
       (delete-region (car bounds) (cdr bounds))
-      (insert next-str)
-      )))
+      (insert next-str))))
 
 (defun psv/grab-number-base (bounds)
   (let (str)
@@ -276,8 +274,7 @@ there's a region, all lines that region covers will be duplicated."
      ((string-match "^0\\([0-9]+\\)$" str) (cons 8 (match-string 1 str)))
      ((string-match "^0[bB]\\([01]+\\)$" str) (cons 2 (match-string 1 str)))
      ((string-match "^\\([0-9]+\\)$" str) (cons 10 (match-string 1 str)))
-     (t nil)
-    )))
+     (t nil))))
 
 (defun psv/decrement-number-decimal (&optional arg)
   (interactive "p*")
