@@ -6,6 +6,8 @@ endif()
 
 project(__PROJECT-NAME__)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 option(USE_CCACHE "Use ccache to speedup build if available" ON)
 if(USE_CCACHE)
   find_program(CCACHE_PROGRAM ccache)
