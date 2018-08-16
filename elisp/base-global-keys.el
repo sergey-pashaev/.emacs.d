@@ -60,4 +60,6 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
+(bind-key "C-c >" 'psv/cycle-base-of-integer-at-point)
+
 (provide 'base-global-keys)
