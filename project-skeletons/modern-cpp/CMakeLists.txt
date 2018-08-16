@@ -67,6 +67,7 @@ add_definitions(-g)
 add_definitions(-Wall)
 add_definitions(-Wextra)
 
-add_executable("${PROJECT_NAME}" main.cpp)
-target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_14)
-set_target_properties("${PROJECT_NAME}" PROPERTIES CXX_EXTENSIONS off)
+include_directories(include)
+
+add_subdirectory(src)
+add_subdirectory(test)
