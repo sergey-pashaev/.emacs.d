@@ -62,4 +62,6 @@
 
 (bind-key "C-c >" 'psv/cycle-base-of-integer-at-point)
 
+(bind-key "C-c ?" 'helm-dash-at-point)
+
 (provide 'base-global-keys)
