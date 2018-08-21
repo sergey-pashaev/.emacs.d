@@ -44,5 +44,7 @@
 (require 'lang-elisp)
 (require 'lang-cpp)
 
+(require 'multi-magit)
+
 (provide 'init)
 ;;; init.el ends here
