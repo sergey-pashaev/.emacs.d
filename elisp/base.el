@@ -191,21 +191,6 @@ If the new path's directories does not exist, create them."
       ido-everywhere t
       ido-save-directory-list-file (concat psv/temp-dir "/ido.last"))
 
-;; save recent files
-(require 'recentf)
-(setq recentf-save-file (concat psv/temp-dir "recentf")
-      recentf-max-saved-items 100
-      recentf-max-menu-items 15)
-
-(recentf-mode t)
-
-(defun psv/recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
 ;;; personal info
 (setq user-mail-address "pashaev.sergey@gmail.com"
       user-full-name "Sergey Pashaev")
