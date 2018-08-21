@@ -3,9 +3,9 @@
 (use-package no-littering)
 
 ;; saveplace: save location in file when saving files
-(setq save-place-file (concat psv/temp-dir "/saveplace"))
-(setq-default save-place t)
 (require 'saveplace)
+(setq save-place-file (concat psv/temp-dir "/saveplace"))
+(save-place-mode 1)
 
 ;; tramp
 (require 'tramp)
