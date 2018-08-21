@@ -740,6 +740,8 @@ like to select some using `multi-magit-list-repositories'? ")
 (mapc (lambda (pair) (multi-magit-select-repository (car pair)))
       magit-repository-directories)
 
+(bind-key "C-x G" 'multi-magit-status)
+
 ;; show multi magit status buffer at startup & maximize it
 (multi-magit-status)
 (delete-other-windows)
