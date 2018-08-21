@@ -45,7 +45,7 @@
 (bind-key "M--" 'psv/goto-match-paren)
 (bind-key "C-M-=" 'psv/diff-current-buffer-with-file)
 
-(bind-key "C-x f" 'psv/recentf-ido-find-file)
+(bind-key "C-x f" 'helm-recentf)
 
 (bind-key "<f5>" 'psv/work-todo)
 (bind-key "<f6>" 'psv/todo)
