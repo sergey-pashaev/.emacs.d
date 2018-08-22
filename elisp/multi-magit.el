@@ -730,14 +730,18 @@ like to select some using `multi-magit-list-repositories'? ")
 (provide 'multi-magit)
 
 (setq magit-repository-directories
-      '(("/home/spashaev/.emacs.d/" . 0)
-	("/home/spashaev/ansible" . 0)
-	("/home/spashaev/workspace/Swift/github/LoadGen" . 0)
-	("/home/spashaev/workspace/cpp/cpp-exercises" . 0)
-	("/home/spashaev/workspace/cpp/socks" . 0)))
+      `((,(expand-file-name "~/.emacs.d/") . 0)
+	(,(expand-file-name "~/ansible") . 0)
+	(,(expand-file-name "~/workspace/Swift/github/LoadGen") . 0)
+	(,(expand-file-name "~/workspace/cpp/cpp-exercises") . 0)
+	(,(expand-file-name "~/workspace/cpp/exercises") . 0)
+	(,(expand-file-name "~/workspace/cpp/socks") . 0)
+	(,(expand-file-name "~/workspace/atr") . 0)))
 
-;; select all repos
-(mapc (lambda (pair) (multi-magit-select-repository (car pair)))
+;; select all repos if exists
+(mapc (lambda (pair) (let ((dir (car pair)))
+		       (when (file-directory-p dir)
+			 (multi-magit-select-repository dir))))
       magit-repository-directories)
 
 (bind-key "C-x G" 'multi-magit-status)
