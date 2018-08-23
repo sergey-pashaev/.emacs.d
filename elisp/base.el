@@ -22,6 +22,7 @@
 ; (add-to-list 'gnutls-trustfiles psv/trustfile)
 ;;; install use-package if needed
 (setq load-prefer-newer t)
+(require 'package)
 (unless package--initialized (package-initialize t))
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
