@@ -147,14 +147,14 @@
 
 (use-package elfeed
   :config
-  (setq elfeed-feeds '("http://www.reddit.com/r/emacs/.rss" ;emacs
+  (setq elfeed-feeds '("https://www.reddit.com/.rss?feed=33a3018b0dbb339573b04a5c08c0a799e5c167f5&user=bioh" ;reddit
 		       "http://planet.emacsen.org/ru/atom.xml"
 		       "http://planet.emacsen.org/atom.xml"
 		       "http://pragmaticemacs.com/feed/"
 		       "http://habrahabr.ru/rss/all" ;it
 		       "https://news.ycombinator.com/rss"
 		       "https://www.linux.org.ru/section-rss.jsp?section=1"
-		       "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
+		       ; "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
 		       "http://stephenramsay.us/atom.xml"
 		       )))
 
