@@ -9,6 +9,7 @@
 (defun psv/org-confirm-babel-evaluate (lang body)
   (not (or (string= lang "ditaa")
            (string= lang "dot")
+           (string= lang "python")
            (string= lang "plantuml"))))
 
 (defun psv/org-mode-hook ()
@@ -16,7 +17,7 @@
   (org-indent-mode t)
   (visual-line-mode t))
 
-(use-package org-mode
+(use-package org
   :init
   (progn
     (setq calendar-week-start-day 1
@@ -75,7 +76,7 @@
 
     (org-babel-do-load-languages 'org-babel-load-languages
 				 '((emacs-lisp . t)
-				   (sh . t)
+				   (shell . t)
 				   (ditaa . t)
 				   (plantuml . t)
 				   (dot . t)

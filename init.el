@@ -37,7 +37,7 @@
 (require 'base-functions)
 (require 'base-global-keys)
 
-; (require 'base-org)
+(require 'base-org)
 
 ;; todo: checkout https://github.com/emacs-helm/helm-system-packages
 
