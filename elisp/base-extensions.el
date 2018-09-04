@@ -250,4 +250,9 @@
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc))
 
+(use-package magit-todos
+  :ensure t
+  :config
+  (magit-todos-mode +1))
+
 (provide 'base-extensions)
