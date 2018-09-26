@@ -74,27 +74,6 @@
 (use-package magit
   :bind ("C-x g" . magit-status))
 
-;; (use-package org
-;;   :config
-;;   (setq org-directory "~/org-files"
-;;         org-default-notes-file (concat org-directory "/todo.org"))
-;;   :bind
-;;   ("C-c l" . org-store-link)
-;;   ("C-c a" . org-agenda))
-
-;; (use-package org-projectile
-;;   :config
-;;   (org-projectile-per-project)
-;;   (setq org-projectile-per-project-filepath "todo.org"
-;; 	org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
-
-;; (use-package org-bullets
-;;   :config
-;;   (setq org-hide-leading-stars t)
-;;   (add-hook 'org-mode-hook
-;;             (lambda ()
-;;               (org-bullets-mode t))))
-
 (use-package projectile
   :config
   (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" psv/temp-dir)
@@ -249,10 +228,5 @@
   (setq helm-dash-common-docsets psv/helm-dash-docsets)
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc))
-
-(use-package magit-todos
-  :ensure t
-  :config
-  (magit-todos-mode +1))
 
 (provide 'base-extensions)

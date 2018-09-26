@@ -179,10 +179,6 @@ If the new path's directories does not exist, create them."
 ;; delete trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; show time in mode line
-(display-time-mode 1)
-(setq display-time-format "%H:%M")
-
 ;;; ido
 (ido-mode t)
 (icomplete-mode t)
