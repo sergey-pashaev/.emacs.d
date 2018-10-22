@@ -36,6 +36,7 @@
 
 (use-package flycheck
   :config
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (global-flycheck-mode))
 
 (use-package helm
