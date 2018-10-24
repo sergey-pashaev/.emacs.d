@@ -308,5 +308,12 @@ If the new path's directories does not exist, create them."
 ;; default font
 (set-frame-font "Liberation Mono 11")
 
+;; find file
+(setq ff-always-try-to-create nil)
+(defvar psv/cc-search-directories
+  '("../src/*" "../../src/*" "../../../src/*" "../include/*" "../../include/*" "../../../include/*")
+  "List of paths to search for other file (.h <-> .cpp).")
+(setq cc-search-directories (append cc-search-directories psv/cc-search-directories))
+
 (provide 'base)
 ;;; base ends here
