@@ -10,15 +10,6 @@
 
 (c-add-style "psv/cc-mode" psv/cc-style)
 
-(defun psv/c-mode-hook ()
-  (c-set-style "psv/cc-mode")
-  (subword-mode 1)
-  (bind-key (kbd "<C-tab>") 'ff-find-related-file c++-mode-map)
-  (bind-key (kbd "<C-tab>") 'ff-find-related-file c-mode-map))
-
-(add-hook 'c-mode-common-hook 'psv/c-mode-hook)
-(add-hook 'c++-mode-hook 'psv/c-mode-hook)
-
 (setq c-default-style "linux"
       c-basic-offset 4)
 
@@ -30,9 +21,6 @@
 
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 (add-hook 'irony-mode-hook #'irony-eldoc)
-
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
 
 (use-package company
   :config
@@ -58,9 +46,6 @@
 (use-package rtags)
 
 (use-package company-rtags)
-
-(add-hook 'c-mode-hook 'rtags-start-process-unless-running)
-(add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
 
 (setq rtags-completions-enabled t)
 (eval-after-load 'company
@@ -89,12 +74,27 @@
   "Add auto-save hook for clang-format-buffer-smart."
   (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))
 
-(add-hook 'c++-mode-hook 'clang-format-buffer-smart-on-save)
-(add-hook 'c-mode-hook   'clang-format-buffer-smart-on-save)
-
 (use-package flycheck-clang-tidy)
 
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
+
+(defvar psv/cc-search-directories
+  '("../src/*" "../../src/*" "../../../src/*" "../include/*" "../../include/*" "../../../include/*")
+  "List of paths to search for other file (.h <-> .cpp).")
+
+(defun psv/c-mode-hook ()
+  (c-set-style "psv/cc-mode")
+  (subword-mode 1)
+  (with-eval-after-load "find-file"
+    (setq cc-search-directories (append cc-search-directories psv/cc-search-directories)))
+  (bind-key (kbd "<C-tab>") 'ff-find-related-file c++-mode-map)
+  (bind-key (kbd "<C-tab>") 'ff-find-related-file c-mode-map)
+  (irony-mode 1)
+  (rtags-start-process-unless-running)
+  (clang-format-buffer-smart-on-save))
+
+(add-hook 'c-mode-hook 'psv/c-mode-hook)
+(add-hook 'c++-mode-hook 'psv/c-mode-hook)
 
 (provide 'lang-cpp)
