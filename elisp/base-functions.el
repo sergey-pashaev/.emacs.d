@@ -433,4 +433,15 @@ is already narrowed."
   (interactive "r")
   (cdecl-explain (buffer-substring-no-properties r-s r-e)))
 
+(defun psv/ssh-hosts ()
+  "Return lists of hosts from ~/.ssh/config."
+  (split-string (shell-command-to-string
+		 "cat ~/.ssh/config | grep 'Host ' | awk -F' ' '{ print $2 }'")))
+
+(defun psv/dired-ssh ()
+  "Run dired at selected host."
+  (interactive)
+  (dired (format "/ssh:%s:/"
+		 (ido-completing-read "Host? " (psv/ssh-hosts)))))
+
 (provide 'base-functions)
