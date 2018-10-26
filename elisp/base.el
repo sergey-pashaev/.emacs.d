@@ -177,7 +177,12 @@ If the new path's directories does not exist, create them."
 (delete-selection-mode t)
 
 ;; delete trailing whitespace before save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(defun psv/before-save-hook ()
+  "Delete trailing ws everywhere but at SwiftBack project."
+  (when (not (string= (projectile-project-name) "SwiftBack"))
+    (delete-trailing-whitespace)))
+
+(add-hook 'before-save-hook 'psv/before-save-hook)
 
 ;;; ido
 (ido-mode t)
