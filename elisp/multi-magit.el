@@ -735,6 +735,7 @@ like to select some using `multi-magit-list-repositories'? ")
 	(,(expand-file-name "~/workspace/Swift/github/LoadGen") . 0)
 	(,(expand-file-name "~/workspace/cpp/cpp-exercises") . 0)
 	(,(expand-file-name "~/workspace/cpp/exercises") . 0)
+	(,(expand-file-name "~/workspace/cpp/sedgewick-cpp") . 0)
 	(,(expand-file-name "~/workspace/cpp/socks") . 0)
 	(,(expand-file-name "~/workspace/atr") . 0)))
 
