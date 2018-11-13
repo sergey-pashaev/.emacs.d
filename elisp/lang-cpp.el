@@ -13,7 +13,7 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
-(setq gdb-many-windows t	     ; use gdb-many-windows by default
+(setq gdb-many-windows t             ; use gdb-many-windows by default
       gdb-show-main t)               ; non-nil means display source file containing the main routine at startup
 
 (use-package irony)
@@ -66,8 +66,8 @@
 (defun clang-format-buffer-smart ()
   "Reformat buffer if .clang-format exists in the projectile root."
   (when (and
-	  (not (string= (projectile-project-name) "-"))
-	  (f-exists? (expand-file-name ".clang-format" (projectile-project-root))))
+         (not (string= (projectile-project-name) "-"))
+         (f-exists? (expand-file-name ".clang-format" (projectile-project-root))))
     (clang-format-buffer)))
 
 (defun clang-format-buffer-smart-on-save ()

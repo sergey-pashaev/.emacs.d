@@ -11,7 +11,7 @@
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'psv/remove-elc-on-save)
 (add-hook 'emacs-lisp-mode-hook (lambda()
-				  (setq mode-name "el")))
+                                  (setq mode-name "el")))
 
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 

@@ -41,17 +41,17 @@ the start of the line."
 (defun psv/flush-lines-like-at-the-point ()
   (interactive)
   (let ((line (buffer-substring-no-properties (line-beginning-position)
-                                            (line-end-position))))
-       (save-excursion
-         (cond ((= 0 (length line))     ; empty string check
-                (message "Trying to delete empty lines. Be careful."))
-               ((string-match "[ \t]+$" line) ; whitespace string check
-                (when (yes-or-no-p "Do you really want to flush whitespace strings?")
-                  (beginning-of-buffer)
-                  (flush-lines (regexp-quote line))))
-               (t                       ; common case
-                (beginning-of-buffer)
-                (flush-lines (regexp-quote line)))))))
+                                              (line-end-position))))
+    (save-excursion
+      (cond ((= 0 (length line))     ; empty string check
+             (message "Trying to delete empty lines. Be careful."))
+            ((string-match "[ \t]+$" line) ; whitespace string check
+             (when (yes-or-no-p "Do you really want to flush whitespace strings?")
+               (beginning-of-buffer)
+               (flush-lines (regexp-quote line))))
+            (t                       ; common case
+             (beginning-of-buffer)
+             (flush-lines (regexp-quote line)))))))
 
 (defun randomize-region (beg end)
   (interactive "r")
@@ -73,7 +73,7 @@ the start of the line."
     (setq end (point-marker))
     (let ((strs (shuffle-list
                  (split-string (buffer-substring-no-properties beg end)
-                             "\n"))))
+                               "\n"))))
       (delete-region beg end)
       (dolist (str strs)
         (insert (concat str "\n"))))))
@@ -82,9 +82,9 @@ the start of the line."
   "Randomly permute the elements of LIST.
 All permutations equally likely."
   (let ((i 0)
-  j
-  temp
-  (len (length list)))
+        j
+        temp
+        (len (length list)))
     (while (< i len)
       (setq j (+ i (random (- len i))))
       (setq temp (nth i list))
@@ -226,25 +226,25 @@ there's a region, all lines that region covers will be duplicated."
     (save-excursion
       ;; set point to buffer begin/end if search fails
       (condition-case nil
-	  (progn
-	    (re-search-backward psv/integer-bounds-rx)
-	    (forward-char)
-	    (setq beg (point)))
-	(error (setq beg (point-min))))
+          (progn
+            (re-search-backward psv/integer-bounds-rx)
+            (forward-char)
+            (setq beg (point)))
+        (error (setq beg (point-min))))
       (condition-case nil
-	  (progn
-	    (re-search-forward psv/integer-bounds-rx)
-	    (backward-char)
-	    (setq end (point)))
-	(error (setq end (point-max)))))
+          (progn
+            (re-search-forward psv/integer-bounds-rx)
+            (backward-char)
+            (setq end (point)))
+        (error (setq end (point-max)))))
     ;; check bound region is not empty
     (when (< beg end)
       (cons beg end))))
 
 (defconst psv/integer-bases '((16 . "^0[xX]\\([0-9A-Fa-f]+\\)$")
-			      (8  . "^0\\([0-9]+\\)$")
-			      (2  . "^0[bB]\\([01]+\\)$")
-			      (10 . "^\\([0-9]+\\)$"))
+                              (8  . "^0\\([0-9]+\\)$")
+                              (2  . "^0[bB]\\([01]+\\)$")
+                              (10 . "^\\([0-9]+\\)$"))
   "List of integer BASE to REGEX (w/ submatch group 1) mappings.")
 
 (defun psv/integer-n-base-from-bounds (bounds)
@@ -252,8 +252,8 @@ there's a region, all lines that region covers will be duplicated."
   (let (str base)
     (setq str (buffer-substring-no-properties (car bounds) (cdr bounds)))
     (setq base (seq-find (lambda (e)
-			   (string-match (cdr e) str))
-			 psv/integer-bases))
+                           (string-match (cdr e) str))
+                         psv/integer-bases))
     (when base
       (setq base (car base)) ; get base number, drop rx
       (cons (string-to-number (match-string 1 str) base) base))))
@@ -263,13 +263,13 @@ there's a region, all lines that region covers will be duplicated."
   (let (pos)
     ;; find given BASE in psv/integer-bases
     (setq pos (seq-position psv/integer-bases
-			    base
-			    (lambda (x y) (= (car x) y)))) ; get base number, drop rx
+                            base
+                            (lambda (x y) (= (car x) y)))) ; get base number, drop rx
     (when pos
       ;; get next base in list in cyclic manner
       (car (seq-elt psv/integer-bases
-		    (mod (+ pos 1)
-			 (seq-length psv/integer-bases)))))))
+                    (mod (+ pos 1)
+                         (seq-length psv/integer-bases)))))))
 
 (defun psv/integer-to-binary-string (i)
   "Convert an integer I into it's binary representation in string format."
@@ -297,9 +297,9 @@ there's a region, all lines that region covers will be duplicated."
     (when bounds
       (setq num-base (psv/integer-n-base-from-bounds bounds))
       (when num-base
-	(delete-region (car bounds) (cdr bounds))
-	(insert (psv/format-integer-in-base (car num-base)
-					    (psv/next-integer-base (cdr num-base))))))))
+        (delete-region (car bounds) (cdr bounds))
+        (insert (psv/format-integer-in-base (car num-base)
+                                            (psv/next-integer-base (cdr num-base))))))))
 
 (defun psv/decrement-number-decimal (&optional arg)
   (interactive "p*")
@@ -409,12 +409,12 @@ is already narrowed."
   (end-of-buffer))
 
 (defun unfill-paragraph (&optional region)
-      "Takes a multi-line paragraph and makes it into a single line of text."
-      (interactive (progn (barf-if-buffer-read-only) '(t)))
-      (let ((fill-column (point-max))
-            ;; This would override `fill-column' if it's an integer.
-            (emacs-lisp-docstring-fill-column t))
-        (fill-paragraph nil region)))
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max))
+        ;; This would override `fill-column' if it's an integer.
+        (emacs-lisp-docstring-fill-column t))
+    (fill-paragraph nil region)))
 
 (use-package popup)
 
@@ -436,12 +436,12 @@ is already narrowed."
 (defun psv/ssh-hosts ()
   "Return lists of hosts from ~/.ssh/config."
   (split-string (shell-command-to-string
-		 "cat ~/.ssh/config | grep 'Host ' | awk -F' ' '{ print $2 }'")))
+                 "cat ~/.ssh/config | grep 'Host ' | awk -F' ' '{ print $2 }'")))
 
 (defun psv/dired-ssh ()
   "Run dired at selected host."
   (interactive)
   (dired (format "/ssh:%s:/"
-		 (ido-completing-read "Host? " (psv/ssh-hosts)))))
+                 (ido-completing-read "Host? " (psv/ssh-hosts)))))
 
 (provide 'base-functions)

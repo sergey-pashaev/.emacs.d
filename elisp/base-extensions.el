@@ -32,7 +32,7 @@
 (use-package ag
   :config
   (setq ag-highlight-search t
-	ag-reuse-buffers    t))
+        ag-reuse-buffers    t))
 
 (use-package expand-region
   :bind
@@ -47,32 +47,31 @@
   :init
   (require 'helm-config)
   :config
-  (setq helm-quick-update                     t ; do not display
-						; invisible candidates
+  (setq helm-quick-update               t   ; do not display invisible
+                                            ; candidates
 
-	helm-split-window-inside-p            t ; open helm buffer
-						; inside current
-						; window, not occupy
-						; whole other window
+        helm-split-window-inside-p    t     ; open helm buffer inside
+                                            ; current window, not
+                                            ; occupy whole other
+                                            ; window
 
-	helm-buffers-fuzzy-matching           t ; fuzzy matching
-						; buffer names when
-						; non--nil
+        helm-buffers-fuzzy-matching   t     ; fuzzy matching buffer
+                                            ; names when non--nil
 
-	helm-move-to-line-cycle-in-source     t ; move to end or
-						; beginning of source
-						; when reaching top or
-						; bottom of source.
+        helm-move-to-line-cycle-in-source t ; move to end or
+                                            ; beginning of source
+                                            ; when reaching top or
+                                            ; bottom of source.
 
-	helm-ff-search-library-in-sexp        t ; search for library
-						; in `require' and
-						; `declare-function'
-						; sexp.
-	helm-ff-file-name-history-use-recentf t
+        helm-ff-search-library-in-sexp    t ; search for library in
+                                            ; `require' and
+                                            ; `declare-function' sexp.
+
+        helm-ff-file-name-history-use-recentf t
         helm-split-window-default-side        'below
-	helm-idle-delay                       0.0
-	helm-input-idle-delay                 0.01
-	helm-ff-skip-boring-files             t)
+        helm-idle-delay                       0.0
+        helm-input-idle-delay                 0.01
+        helm-ff-skip-boring-files             t)
   (helm-mode 1)
   :bind (("M-x" . helm-M-x)))
 
@@ -91,16 +90,16 @@
 (use-package projectile
   :config
   (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" psv/temp-dir)
-	projectile-enable-caching t
-	projectile-mode-line-function '(lambda () (format " p[%s]" (projectile-project-name))))
+        projectile-enable-caching t
+        projectile-mode-line-function '(lambda () (format " p[%s]" (projectile-project-name))))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode))
 
 (use-package recentf
   :config
   (setq recentf-save-file (concat psv/temp-dir "recentf")
-	recentf-max-saved-items 100
-	recentf-max-menu-items 15)
+        recentf-max-saved-items 100
+        recentf-max-menu-items 15)
   (recentf-mode 1))
 
 ;; todo: check why use-package doesn't work
@@ -125,15 +124,15 @@
 (use-package elfeed
   :config
   (setq elfeed-feeds '("https://www.reddit.com/.rss?feed=33a3018b0dbb339573b04a5c08c0a799e5c167f5&user=bioh" ;reddit
-		       "http://planet.emacsen.org/ru/atom.xml"
-		       "http://planet.emacsen.org/atom.xml"
-		       "http://pragmaticemacs.com/feed/"
-		       "http://habrahabr.ru/rss/all" ;it
-		       "https://news.ycombinator.com/rss"
-		       "https://www.linux.org.ru/section-rss.jsp?section=1"
-		       ; "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
-		       "http://stephenramsay.us/atom.xml"
-		       )))
+                       "http://planet.emacsen.org/ru/atom.xml"
+                       "http://planet.emacsen.org/atom.xml"
+                       "http://pragmaticemacs.com/feed/"
+                       "http://habrahabr.ru/rss/all" ;it
+                       "https://news.ycombinator.com/rss"
+                       "https://www.linux.org.ru/section-rss.jsp?section=1"
+                                        ; "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
+                       "http://stephenramsay.us/atom.xml"
+                       )))
 
 (use-package google-translate
   :init
@@ -160,7 +159,7 @@
     :no-license? t)
   (skeletor-define-template "cpp-cmake"
     :requires-executables '(("make" . "http://www.gnu.org/software/make/")
-			    ("cmake" . "https://cmake.org/"))
+                            ("cmake" . "https://cmake.org/"))
     :no-license? t
     :before-git
     (lambda (dir)
@@ -201,7 +200,7 @@
 
 (defun psv/helm-dash-python-doc ()
   "Enable python2 dash docset for python buffers."
-   (interactive)
+  (interactive)
   (setq-local helm-dash-docsets '("Python 2")))
 
 (defun psv/helm-dash-ensure-docset-installed (docset-name)

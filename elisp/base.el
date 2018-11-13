@@ -7,10 +7,10 @@
 ;;; make sure all connection are secure according to:
 ;;; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
 (defconst psv/trustfile (replace-regexp-in-string
-        "\\\\" "/"
-        (replace-regexp-in-string
-         "\n" ""
-         (shell-command-to-string "python -m certifi")))
+                         "\\\\" "/"
+                         (replace-regexp-in-string
+                          "\n" ""
+                          (shell-command-to-string "python -m certifi")))
   "Path to file with trusted certificates from python certifi package.")
 
 (setq tls-program
@@ -203,39 +203,39 @@ If the new path's directories does not exist, create them."
 
 (setq ibuffer-saved-filter-groups
       (quote (("psv"
-	       ("dired" (mode . dired-mode))
-	       ("elisp" (mode . emacs-lisp-mode))
-	       ("org-mode" (or
-			    (name . "^org$")
-			    (mode . org-mode)))
-	       ("vcs" (or (name . "^\\*magit")
-			  (name . "^\\*vc")))
-	       ("search" (or (name . "^\\*ag")
-			     (name . "^\\*grep")
-			     (name . "^\\*Occur")))
-	       ("emacs" (or
-			 (name . "^\\*scratch\\*$")
-			 (name . "^\\*Messages\\*$")
-			 (name . "^\\*Warnings\\*$")
-			 (name . "^\\*helm")
-			 (name . "^\\*elfeed")))
-	       ("c++ / c" (or
-			   (mode . c-mode)
-			   (mode . c++-mode)))
-	       ("cedet" (or
-			 (name . "^\\*CEDET Global\\*$")
-			 (name . "^\\*Semantic SymRef\\*$")
-			 (name . "^\\*Symref ")))
-	       ("jabber / irc" (or
-				(name . "^\\*-jabber-chat-")
-				(name . "^\\*-jabber-roster-")
-				(mode . jabber-chat)
-				(mode . jabber-roster)
-				(mode . erc-mode)))
-	       ("go lang" (or
-			   (mode . go-mode)
-			   (name . "^\\*godoc")
-			   (name . "^\\*godef")))))))
+               ("dired" (mode . dired-mode))
+               ("elisp" (mode . emacs-lisp-mode))
+               ("org-mode" (or
+                            (name . "^org$")
+                            (mode . org-mode)))
+               ("vcs" (or (name . "^\\*magit")
+                          (name . "^\\*vc")))
+               ("search" (or (name . "^\\*ag")
+                             (name . "^\\*grep")
+                             (name . "^\\*Occur")))
+               ("emacs" (or
+                         (name . "^\\*scratch\\*$")
+                         (name . "^\\*Messages\\*$")
+                         (name . "^\\*Warnings\\*$")
+                         (name . "^\\*helm")
+                         (name . "^\\*elfeed")))
+               ("c++ / c" (or
+                           (mode . c-mode)
+                           (mode . c++-mode)))
+               ("cedet" (or
+                         (name . "^\\*CEDET Global\\*$")
+                         (name . "^\\*Semantic SymRef\\*$")
+                         (name . "^\\*Symref ")))
+               ("jabber / irc" (or
+                                (name . "^\\*-jabber-chat-")
+                                (name . "^\\*-jabber-roster-")
+                                (mode . jabber-chat)
+                                (mode . jabber-roster)
+                                (mode . erc-mode)))
+               ("go lang" (or
+                           (mode . go-mode)
+                           (name . "^\\*godoc")
+                           (name . "^\\*godef")))))))
 
 (add-hook 'ibuffer-mode-hook 'psv/ibuffer-hook)
 
@@ -283,15 +283,15 @@ If the new path's directories does not exist, create them."
 ;; (defun psv/make-some-rest-msg ()
 ;;   (interactive)
 ;;   (message (concat "Get some rest and continue at "
-;; 		   (format-time-string "%H:%M" (time-add (current-time)
-;; 							 (* 2 60))))))
+;;                 (format-time-string "%H:%M" (time-add (current-time)
+;;                                                       (* 2 60))))))
 ;; (defun psv/make-some-rest-dbus ()
 ;;   (interactive)
 ;;   (notifications-notify
 ;;    :app-name "emacs"
 ;;    :body (concat "Get some rest and continue at "
-;; 		 (format-time-string "%H:%M" (time-add (current-time)
-;; 						       (* 2 60))))))
+;;               (format-time-string "%H:%M" (time-add (current-time)
+;;                                                     (* 2 60))))))
 
 ;; (if (dbus-ping :session "org.freedesktop.Notifications")
 ;;   (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-dbus)
