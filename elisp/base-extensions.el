@@ -219,5 +219,9 @@
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc))
 
+(use-package nord-theme
+  :config
+  (load-theme 'nord t))
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
