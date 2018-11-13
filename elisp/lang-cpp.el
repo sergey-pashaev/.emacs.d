@@ -78,7 +78,7 @@
 
 (defun psv/clang-format-buffer-smart-on-save ()
   "Add auto-save hook for clang-format-buffer-smart."
-  (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))
+  (add-hook 'before-save-hook 'psv/clang-format-buffer-smart nil t))
 
 (use-package flycheck-clang-tidy)
 
@@ -99,7 +99,7 @@
   (bind-key (kbd "<C-tab>") 'ff-find-related-file c-mode-map)
   (irony-mode 1)
   (rtags-start-process-unless-running)
-  (clang-format-buffer-smart-on-save))
+  (psv/clang-format-buffer-smart-on-save))
 
 (add-hook 'c-mode-hook 'psv/c-mode-hook)
 (add-hook 'c++-mode-hook 'psv/c-mode-hook)
