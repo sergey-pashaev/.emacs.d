@@ -116,15 +116,12 @@
 ;;   (setq windmove-wrap-around t))
 
 (use-package yasnippet
-  :ensure t
   :config
-  (use-package yasnippet-snippets
-    :ensure t)
+  (use-package yasnippet-snippets)
   (yas-global-mode 1)
   (yas-reload-all))
 
 (use-package markdown-mode
-  :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
@@ -161,13 +158,10 @@
 
 (use-package yaml-mode)
 
-(use-package cmake-mode
-  :ensure t)
+(use-package cmake-mode)
 
-(use-package wgrep
-  :ensure t)
-(use-package wgrep-ag
-  :ensure t)
+(use-package wgrep)
+(use-package wgrep-ag)
 
 (use-package skeletor
   :config
@@ -199,13 +193,11 @@
         (popup-tip msg)))))
 
 (use-package langtool
-  :ensure t
   :config
   (setq langtool-language-tool-jar (expand-file-name "~/src/LanguageTool-4.0/languagetool-commandline.jar")
 	langtool-autoshow-message-function 'langtool-autoshow-detail-popup))
 
 (use-package string-inflection
-  :ensure t
   :bind
   (("C-c s" . string-inflection-all-cycle)))
 
@@ -228,7 +220,6 @@
   "My default docset list.")
 
 (use-package helm-dash
-  :ensure t
   :config
   (mapc 'psv/helm-dash-ensure-docset-installed psv/helm-dash-docsets)
   (setq helm-dash-common-docsets psv/helm-dash-docsets)
