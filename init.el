@@ -32,7 +32,6 @@
 (add-to-list 'load-path psv/elisp-dir)
 
 (require 'base)
-(require 'base-env)
 (require 'base-extensions)
 (require 'base-functions)
 (require 'base-global-keys)
