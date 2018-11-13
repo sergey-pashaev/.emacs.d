@@ -1,5 +1,8 @@
-;; Add your keys here, as such
+;;; base-global-keys.el --- List of global keybindings
 
+;;; Commentary:
+
+;;; Code:
 (require 'bind-key)
 
 ;; toggle menu-bar visibility
@@ -19,7 +22,7 @@
 (bind-key "C-x \\" 'align-regexp)
 
 ;; duplicate the current line or region
-(bind-key "C-c d" 'duplicate-current-line-or-region)
+(bind-key "C-c d" 'psv/duplicate-current-line-or-region)
 
 ;; toggle ws mode
 (bind-key "C-<f6>" 'whitespace-mode)
@@ -33,14 +36,11 @@
 (bind-key "M-[" 'backward-paragraph)
 (bind-key "M-]" 'forward-paragraph)
 
-(bind-key "C-S-<up>" 'move-line-up)
-(bind-key "C-S-<down>" 'move-line-down)
+(bind-key "C-S-<up>" 'psv/move-line-up)
+(bind-key "C-S-<down>" 'psv/move-line-down)
 
 (bind-key "C-c +" 'psv/increment-number-decimal)
 (bind-key "C-c -" 'psv/decrement-number-decimal)
-
-(bind-key "S-RET" 'smart-open-line)
-(bind-key "C-S-RET" 'smart-open-line-above)
 
 (bind-key "M--" 'psv/goto-match-paren)
 (bind-key "C-M-=" 'psv/diff-current-buffer-with-file)
@@ -65,3 +65,4 @@
 (bind-key "C-c ?" 'helm-dash-at-point)
 
 (provide 'base-global-keys)
+;;; base-global-keys.el ends here

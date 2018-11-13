@@ -1,4 +1,9 @@
-;;; cpp
+;;; lang-cpp.el --- C/C++ language configuration
+
+;;; Commentary:
+
+;;; Code:
+
 ;; common c settings
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
@@ -13,8 +18,9 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
-(setq gdb-many-windows t             ; use gdb-many-windows by default
-      gdb-show-main t)               ; non-nil means display source file containing the main routine at startup
+(setq gdb-many-windows t ; use gdb-many-windows by default
+      gdb-show-main t)   ; non-nil means display source file
+                         ; containing the main routine at startup
 
 (use-package irony)
 (use-package irony-eldoc)
@@ -63,14 +69,14 @@
   :bind
   ("C-M-|" . clang-format-region))
 
-(defun clang-format-buffer-smart ()
+(defun psv/clang-format-buffer-smart ()
   "Reformat buffer if .clang-format exists in the projectile root."
   (when (and
          (not (string= (projectile-project-name) "-"))
          (f-exists? (expand-file-name ".clang-format" (projectile-project-root))))
     (clang-format-buffer)))
 
-(defun clang-format-buffer-smart-on-save ()
+(defun psv/clang-format-buffer-smart-on-save ()
   "Add auto-save hook for clang-format-buffer-smart."
   (add-hook 'before-save-hook 'clang-format-buffer-smart nil t))
 
@@ -84,6 +90,7 @@
   "List of paths to search for other file (.h <-> .cpp).")
 
 (defun psv/c-mode-hook ()
+  "C/C++ mode hook."
   (c-set-style "psv/cc-mode")
   (subword-mode 1)
   (with-eval-after-load "find-file"
@@ -98,3 +105,4 @@
 (add-hook 'c++-mode-hook 'psv/c-mode-hook)
 
 (provide 'lang-cpp)
+;;; lang-cpp.el ends here

@@ -1,4 +1,8 @@
-;; org-mode
+;;; base-org.el --- Base org-mode configuration
+
+;;; Commentary:
+
+;;; Code:
 
 ;; org-mode & gtd
 ;; https://github.com/jethrokuan/.emacs.d/blob/master/config.org#org-mode-for-gtd
@@ -6,13 +10,15 @@
 (defvar *psv/ditaa-path* (expand-file-name "~/bin/ditaa.jar"))
 (defvar *psv/plantuml-path* (expand-file-name "~/bin/plantuml.jar"))
 
-(defun psv/org-confirm-babel-evaluate (lang body)
+(defun psv/org-confirm-babel-evaluate (lang _body)
+  "Return t if LANG is in whitelist."
   (not (or (string= lang "ditaa")
            (string= lang "dot")
            (string= lang "python")
            (string= lang "plantuml"))))
 
 (defun psv/org-mode-hook ()
+  "Org-mode hook."
   (bind-key "C-c t" 'org-time-stamp org-mode-map)
   (org-indent-mode t)
   (visual-line-mode t))
@@ -90,3 +96,4 @@
    ("C-c C-x C-j" . org-clock-goto)))
 
 (provide 'base-org)
+;;; base-org.el ends here

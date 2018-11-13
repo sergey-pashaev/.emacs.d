@@ -1,5 +1,10 @@
-;; elisp settings
+;;; lang-elisp.el --- Emacs Lisp language configuration
 
+;;; Commentary:
+
+;;; Code:
+
+;; elisp settings
 (defun psv/remove-elc-on-save ()
   "If you're saving an elisp file, likely the .elc is no longer valid."
   (make-local-variable 'after-save-hook)
@@ -19,3 +24,4 @@
 (bind-key "M-." 'find-function-at-point emacs-lisp-mode-map)
 
 (provide 'lang-elisp)
+;;; lang-elisp.el ends here
