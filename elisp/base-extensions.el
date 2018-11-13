@@ -1,5 +1,10 @@
-;; basic extensions
+;;; base-extensions.el --- Base extenstions config file
 
+;;; Commentary:
+
+;;; Code:
+
+;; basic extensions
 (use-package no-littering)
 
 ;; saveplace: save location in file when saving files
@@ -13,13 +18,12 @@
 
 ;; meaningful names for buffers with the same name
 (require 'uniquify)
-(progn
-  (setq uniquify-buffer-name-style 'forward
-	uniquify-separator "/"
-	;; rename after killing uniquified
-	uniquify-after-kill-buffer-p t
-	;; don't muck with special buffers
-	uniquify-ignore-buffers-re "^\\*"))
+(setq uniquify-buffer-name-style 'forward
+      uniquify-separator "/"
+      ;; rename after killing uniquified
+      uniquify-after-kill-buffer-p t
+      ;; don't muck with special buffers
+      uniquify-ignore-buffers-re "^\\*")
 
 (use-package avy
   :bind
@@ -43,11 +47,27 @@
   :init
   (require 'helm-config)
   :config
-  (setq helm-quick-update                     t ; do not display invisible candidates
-	helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-	helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
-	helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-	helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+  (setq helm-quick-update                     t ; do not display
+						; invisible candidates
+
+	helm-split-window-inside-p            t ; open helm buffer
+						; inside current
+						; window, not occupy
+						; whole other window
+
+	helm-buffers-fuzzy-matching           t ; fuzzy matching
+						; buffer names when
+						; non--nil
+
+	helm-move-to-line-cycle-in-source     t ; move to end or
+						; beginning of source
+						; when reaching top or
+						; bottom of source.
+
+	helm-ff-search-library-in-sexp        t ; search for library
+						; in `require' and
+						; `declare-function'
+						; sexp.
 	helm-ff-file-name-history-use-recentf t
         helm-split-window-default-side        'below
 	helm-idle-delay                       0.0
@@ -55,35 +75,24 @@
 	helm-ff-skip-boring-files             t)
   (helm-mode 1)
   :bind (("M-x" . helm-M-x)))
-         ;; ("C-x C-m" . helm-M-x)
-         ;; ("C-x C-f" . helm-find-files)
-         ;; ("C-x v" . helm-projectile)
-         ;; ("C-x c o" . helm-occur)
-         ;; ("C-x c p" . helm-projectile-ag)
-         ;; ("C-x c k" . helm-show-kill-ring)
-         ;; :map helm-map
-         ;; ("<tab>" . helm-execute-persistent-action)))
 
 (use-package helm-projectile
   :bind
-  (("M-?" . helm-projectile)))
+  ("M-?" . helm-projectile))
 
 (use-package helm-swoop
   :bind
   ("C-x c s" . helm-swoop))
 
 (use-package magit
-  :bind ("C-x g" . magit-status))
+  :bind
+  ("C-x g" . magit-status))
 
 (use-package projectile
   :config
   (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" psv/temp-dir)
 	projectile-enable-caching t
-	projectile-mode-line '(:eval (if (projectile-project-p)
-					 (format " p[%s]"
-						 (projectile-project-name))
-				       "")))
-
+	projectile-mode-line-function '(lambda () (format " p[%s]" (projectile-project-name))))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode))
 
@@ -94,26 +103,10 @@
 	recentf-max-menu-items 15)
   (recentf-mode 1))
 
-(use-package undo-tree
-  :config
-  ;; Remember undo history
-  (setq
-   undo-tree-auto-save-history nil
-   undo-tree-history-directory-alist `(("." . ,(concat psv/temp-dir "/undo/"))))
-  (global-undo-tree-mode 1)
-  :bind
-  ("s-/" . undo-tree-visualize))
-
-;; windmove
+;; todo: check why use-package doesn't work
 (require 'windmove)
 (windmove-default-keybindings 'meta)
 (setq windmove-wrap-around t)
-;; todo: check why use-package doesn't work
-;; (use-package windmove
-;;   :bind
-;;   :config
-;;   (windmove-default-keybindings 'meta)
-;;   (setq windmove-wrap-around t))
 
 (use-package yasnippet
   :config
@@ -122,10 +115,12 @@
   (yas-reload-all))
 
 (use-package markdown-mode
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "pandoc"))
+  :mode
+  (("README\\.md\\'" . gfm-mode)
+   ("\\.md\\'" . markdown-mode)
+   ("\\.markdown\\'" . markdown-mode))
+  :init
+  (setq markdown-command "pandoc"))
 
 (use-package elfeed
   :config
@@ -147,19 +142,11 @@
     (setq google-translate-default-source-language "auto")
     (setq google-translate-default-target-language "ru"))
   :bind
-  (("C-c t" . google-translate-at-point)))
-
-(use-package goto-chg
-  :bind
-  (("C-c b ," . goto-last-change)
-   ("C-c b ." . goto-last-change-reverse)))
+  ("C-c t" . google-translate-at-point))
 
 (use-package dockerfile-mode)
-
 (use-package yaml-mode)
-
 (use-package cmake-mode)
-
 (use-package wgrep)
 (use-package wgrep-ag)
 
@@ -183,7 +170,8 @@
   :config
   (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
 
-(defun langtool-autoshow-detail-popup (overlays)
+(defun psv/langtool-autoshow-detail-popup (overlays)
+  "Show error message w/ OVERLAYS in popup tip."
   (when (require 'popup nil t)
     ;; Do not interrupt current popup
     (unless (or popup-instances
@@ -194,13 +182,18 @@
 
 (use-package langtool
   :config
-  (setq langtool-language-tool-jar (expand-file-name "~/src/LanguageTool-4.0/languagetool-commandline.jar")
-	langtool-autoshow-message-function 'langtool-autoshow-detail-popup))
+  (setq
+   langtool-default-language          "en-US"
+   langtool-language-tool-jar         (expand-file-name "~/src/LanguageTool-4.0/languagetool-commandline.jar")
+   langtool-autoshow-message-function 'psv/langtool-autoshow-detail-popup)
+  :bind
+  ("C-c g" . langtool-check))
 
 (use-package string-inflection
   :bind
   (("C-c s" . string-inflection-all-cycle)))
 
+;; dash
 (defun psv/helm-dash-cpp-doc ()
   "Enable C++ dash docset for c++ buffers."
   (interactive)
@@ -212,6 +205,7 @@
   (setq-local helm-dash-docsets '("Python 2")))
 
 (defun psv/helm-dash-ensure-docset-installed (docset-name)
+  "Ensures that DOCSET-NAME is installed."
   (make-directory (expand-file-name "~/.docsets") t)
   (if (not (member docset-name (helm-dash-installed-docsets)))
       (helm-dash-install-docset (replace-regexp-in-string (rx whitespace) "_" docset-name))))
@@ -227,3 +221,4 @@
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc))
 
 (provide 'base-extensions)
+;;; base-extensions.el ends here
