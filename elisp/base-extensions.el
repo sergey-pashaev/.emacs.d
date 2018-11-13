@@ -128,7 +128,6 @@
                        "http://planet.emacsen.org/atom.xml"
                        "http://pragmaticemacs.com/feed/"
                        "http://habrahabr.ru/rss/all" ;it
-                       "https://news.ycombinator.com/rss"
                        "https://www.linux.org.ru/section-rss.jsp?section=1"
                                         ; "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
                        "http://stephenramsay.us/atom.xml"
