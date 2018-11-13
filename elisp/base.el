@@ -75,9 +75,6 @@
       ;; path
       exec-path                           (append exec-path '("/usr/local/bin/"))
 
-      ;; don't indent with tabs
-      indent-tabs-mode                    nil
-
       inhibit-startup-message             t
       inhibit-startup-screen              t
       fringes-outside-margins             t
@@ -117,6 +114,9 @@
       recenter-positions                  '(top middle bottom)
 
       use-package-always-ensure           t)
+
+(setq-default indent-tabs-mode nil)
+
 
 ;;; Bookmarks
 (setq
