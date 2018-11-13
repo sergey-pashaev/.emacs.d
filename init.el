@@ -35,7 +35,6 @@
 (require 'base-extensions)
 (require 'base-functions)
 (require 'base-global-keys)
-
 (require 'base-org)
 
 (require 'lang-elisp)
