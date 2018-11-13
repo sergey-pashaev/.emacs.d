@@ -17,9 +17,10 @@
       (list
        (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
                (if (eq window-system 'w32) ".exe" "") psv/trustfile)))
+
 (setq gnutls-verify-error t)
-; (setq gnutls-trustfiles (list psv/trustfile))
-; (add-to-list 'gnutls-trustfiles psv/trustfile)
+(setq gnutls-trustfiles (list psv/trustfile))
+
 ;;; install use-package if needed
 (setq load-prefer-newer t)
 (require 'package)
@@ -80,7 +81,6 @@
       inhibit-startup-message             t
       inhibit-startup-screen              t
       fringes-outside-margins             t
-      x-select-enable-clipboard           t
 
       ;; a proper stack trace is priceless
       debug-on-error                      t
@@ -239,17 +239,6 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'ibuffer-mode-hook 'psv/ibuffer-hook)
 
-;;; dired
-(defun psv/dired-hook ()
-  "Custom dired hook."
-  (progn
-    ;; (bind-key "C-o" 'dired-omit-mode dired-mode-map)
-    ;; (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
-    ;; todo: move listing switches to emacs customization part
-    ))
-
-(add-hook 'dired-mode-hook 'psv/dired-hook)
-
 ;;; UI
 
 ;; disable toolbar & menubar
@@ -262,8 +251,8 @@ If the new path's directories does not exist, create them."
   (blink-cursor-mode -1)
   (tooltip-mode -1))
 
-;; change cursor color with keyboard layout change
 (defun psv/update-cursor-color ()
+  "Change cursor color with keyboard layout change."
   (set-cursor-color (if current-input-method
                         "red"
                       "black")))
@@ -272,15 +261,15 @@ If the new path's directories does not exist, create them."
     (add-hook 'post-command-hook 'psv/update-cursor-color))
 
 ;; notify when compilation is done
-(require 'notifications)
+;; (require 'notifications)
 
-(defun emacs-notify-send-message (headline-string message-string)
-  """Send message to notification"""
-  (shell-command (concat "notify-send -u critical -i emacs \""
-                         headline-string
-                         "\" \""
-                         message-string
-                         "\"")))
+;; (defun emacs-notify-send-message (headline-string message-string)
+;;   "Send message with HEADLINE-STRING title and MESSAGE-STRING to notification system."
+;;   (shell-command (concat "notify-send -u critical -i emacs \""
+;;                          headline-string
+;;                          "\" \""
+;;                          message-string
+;;                          "\"")))
 
 ;; (setq compilation-finish-functions 'compile-finish-notify)
 
