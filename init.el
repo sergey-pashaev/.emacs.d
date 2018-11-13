@@ -39,8 +39,6 @@
 
 (require 'base-org)
 
-;; todo: checkout https://github.com/emacs-helm/helm-system-packages
-
 (require 'lang-elisp)
 (require 'lang-cpp)
 
