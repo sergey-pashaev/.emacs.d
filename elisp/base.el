@@ -37,12 +37,6 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;; auto compile emacs lisp files
-(use-package auto-compile
-  :config
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode))
-
 ;; utf-8
 (set-language-environment    "UTF-8")
 (set-charset-priority        'unicode)
