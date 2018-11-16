@@ -389,11 +389,23 @@ is already narrowed."
   (find-file (expand-file-name "~/Dropbox/org/gtd/tasks.org"))
   (goto-char (point-max)))
 
+(defun psv/work-todo-open (filepath)
+  "Open todo list at FILEPATH."
+  (if (f-exists? filepath)
+      (progn
+        (find-file filepath)
+        (goto-char (point-max)))
+    (message "%s not exist" filepath)))
+
 (defun psv/work-todo ()
   "Go to end of work todo list."
   (interactive)
-  (find-file (expand-file-name "~/Dropbox/org/work/tasks.org"))
-  (goto-char (point-max)))
+  (let ((global-todo (expand-file-name "~/Dropbox/org/gtd/tasks.org"))
+        (project-todo (expand-file-name "todo.org" (projectile-project-root)))
+        (in-project (not (string= (projectile-project-name) "-"))))
+    (if in-project
+        (psv/work-todo-open project-todo)
+      (psv/work-todo-open global-todo))))
 
 (defun psv/unfill-paragraph (&optional region)
   "Take a REGION and transform it into single line of text."
