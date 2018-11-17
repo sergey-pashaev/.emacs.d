@@ -31,12 +31,16 @@
 (use-package company
   :config
   (global-company-mode)
+  (setq company-idle-delay 0)
   :bind
   ("M-RET" . company-complete))
 
 (use-package company-c-headers)
 (use-package company-irony)
 (use-package company-irony-c-headers)
+(use-package company-quickhelp
+  :config
+  (company-quickhelp-mode))
 
 (eval-after-load 'company
   '(add-to-list
