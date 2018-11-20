@@ -403,9 +403,11 @@ is already narrowed."
   (let ((global-todo (expand-file-name "~/Dropbox/org/gtd/tasks.org"))
         (project-todo (expand-file-name "todo.org" (projectile-project-root)))
         (in-project (not (string= (projectile-project-name) "-"))))
-    (if in-project
+    (if (and in-project (f-exists? project-todo))
         (psv/work-todo-open project-todo)
-      (psv/work-todo-open global-todo))))
+      (progn
+        (psv/work-todo-open global-todo)
+        (message "%s not exist. Open global todo list instead." project-todo)))))
 
 (defun psv/unfill-paragraph (&optional region)
   "Take a REGION and transform it into single line of text."
