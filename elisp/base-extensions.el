@@ -222,5 +222,7 @@
   :config
   (load-theme 'nord t))
 
+(use-package git-timemachine)
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
