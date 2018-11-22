@@ -26,9 +26,16 @@
 (require 'package)
 (unless package--initialized (package-initialize t))
 (add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("org" . "https://orgmode.org/elpa/") t)
+
+(setq package-archive-priorities
+      '(("melpa-stable" . 15)
+        ("org" . 10)
+        ("melpa" . 5)))
 
 (when (not package-archive-contents)
   (package-refresh-contents))
