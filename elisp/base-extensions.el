@@ -224,5 +224,14 @@
 
 (use-package git-timemachine)
 
+(require 'diminish)
+(diminish 'abbrev-mode)
+(diminish 'irony-mode)
+(diminish 'yas-minor-mode)
+(diminish 'helm-mode)
+(diminish 'eldoc-mode)
+(diminish 'company-mode " ca")
+(diminish 'projectile-mode " p")
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
