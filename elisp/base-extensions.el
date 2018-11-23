@@ -233,5 +233,7 @@
 (diminish 'company-mode " ca")
 (diminish 'projectile-mode " p")
 
+(use-package org-pomodoro)
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
