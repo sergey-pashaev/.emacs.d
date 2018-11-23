@@ -400,7 +400,7 @@ is already narrowed."
 (defun psv/work-todo ()
   "Go to end of work todo list."
   (interactive)
-  (let ((global-todo (expand-file-name "~/Dropbox/org/gtd/tasks.org"))
+  (let ((global-todo (expand-file-name "~/Dropbox/org/work/tasks.org"))
         (project-todo (expand-file-name "todo.org" (projectile-project-root)))
         (in-project (not (string= (projectile-project-name) "-"))))
     (if (and in-project (f-exists? project-todo))
