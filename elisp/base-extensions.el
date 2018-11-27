@@ -125,6 +125,7 @@
   :config
   (setq elfeed-feeds '("https://www.reddit.com/.rss?feed=33a3018b0dbb339573b04a5c08c0a799e5c167f5&user=bioh" ;reddit
                        "http://planet.emacsen.org/ru/atom.xml"
+                       "https://changelog.com/feed"
                        "http://planet.emacsen.org/atom.xml"
                        "http://pragmaticemacs.com/feed/"
                        "http://habrahabr.ru/rss/all" ;it
