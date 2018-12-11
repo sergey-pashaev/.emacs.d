@@ -22,52 +22,50 @@
       gdb-show-main t)   ; non-nil means display source file
                          ; containing the main routine at startup
 
-(use-package irony)
-(use-package irony-eldoc)
-
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
 (use-package company
+  :ensure t
   :config
   (global-company-mode)
   (setq company-idle-delay 0)
   :bind
   ("M-RET" . company-complete))
 
-(use-package company-c-headers)
-(use-package company-irony)
-(use-package company-irony-c-headers)
 (use-package company-quickhelp
+  :ensure t
   :config
   (company-quickhelp-mode))
 
+(use-package company-c-headers :ensure t)
 (eval-after-load 'company
   '(add-to-list
-    'company-backends '(company-irony-c-headers company-irony)))
+    'company-backends '(company-irony-c-headers)))
 
-(use-package helm-company)
+(use-package rtags
+  :ensure t
+  :config
+  (progn
+    (setq rtags-completions-enabled t)
+    (setq rtags-autostart-diagnostics t)
+    (rtags-enable-standard-keybindings)
+    (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
+    (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)))
 
-(use-package flycheck-irony)
+(use-package company-rtags
+  :ensure t
+  :config
+  (eval-after-load 'company
+    '(add-to-list
+      'company-backends 'company-rtags)))
 
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+(use-package flycheck-rtags :ensure t)
 
-(use-package rtags)
-
-(use-package company-rtags)
-
-(setq rtags-completions-enabled t)
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends 'company-rtags))
-(setq rtags-autostart-diagnostics t)
-(rtags-enable-standard-keybindings)
-
-(use-package helm-rtags)
-(setq rtags-display-result-backend 'helm)
+(use-package helm-rtags
+  :ensure t
+  :config
+  (setq rtags-display-result-backend 'helm))
 
 (use-package clang-format
+  :ensure t
   :config
   (setq clang-format-style-option "Google")
   :bind
@@ -86,11 +84,6 @@
   "Add auto-save hook for clang-format-buffer-smart."
   (add-hook 'before-save-hook 'psv/clang-format-buffer-smart nil t))
 
-(use-package flycheck-clang-tidy)
-
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
-
 (defvar psv/cc-search-directories
   '("../src/*" "../../src/*" "../../../src/*" "../include/*" "../../include/*" "../../../include/*")
   "List of paths to search for other file (.h <-> .cpp).")
@@ -103,8 +96,6 @@
     (setq cc-search-directories (append cc-search-directories psv/cc-search-directories)))
   (bind-key (kbd "<C-tab>") 'ff-find-related-file c++-mode-map)
   (bind-key (kbd "<C-tab>") 'ff-find-related-file c-mode-map)
-  (irony-mode 1)
-  (rtags-start-process-unless-running)
   (psv/clang-format-buffer-smart-on-save))
 
 (add-hook 'c-mode-hook 'psv/c-mode-hook)
