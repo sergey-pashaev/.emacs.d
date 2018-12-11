@@ -100,7 +100,7 @@
   :config
   (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" psv/temp-dir)
         projectile-enable-caching t
-        projectile-mode-line-function '(lambda () (format " p[%s]" (projectile-project-name))))
+        projectile-mode-line '(:eval (format " p[%s]" (projectile-project-name))))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode))
 
