@@ -118,11 +118,10 @@
 
 (setq-default indent-tabs-mode nil)
 
-
 ;;; Bookmarks
 (setq
  ;; persistent bookmarks
- bookmark-save-flag                      t
+ bookmark-save-flag                 t
  bookmark-default-file              (concat psv/temp-dir "/bookmarks"))
 
 ;;; Lockfiles

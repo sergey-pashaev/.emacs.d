@@ -5,7 +5,7 @@
 ;;; Code:
 
 ;; basic extensions
-(use-package no-littering)
+(use-package no-littering :ensure t)
 
 ;; saveplace: save location in file when saving files
 (require 'saveplace)
@@ -26,24 +26,29 @@
       uniquify-ignore-buffers-re "^\\*")
 
 (use-package avy
+  :ensure t
   :bind
   ("C-;" . avy-goto-word-1))
 
 (use-package ag
+  :ensure t
   :config
   (setq ag-highlight-search t
         ag-reuse-buffers    t))
 
 (use-package expand-region
+  :ensure t
   :bind
   ("C-=" . er/expand-region))
 
 (use-package flycheck
+  :ensure t
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (global-flycheck-mode))
 
 (use-package helm
+  :ensure t
   :init
   (require 'helm-config)
   :config
@@ -76,18 +81,22 @@
   :bind (("M-x" . helm-M-x)))
 
 (use-package helm-projectile
+  :ensure t
   :bind
   ("M-?" . helm-projectile))
 
 (use-package helm-swoop
+  :ensure t
   :bind
   ("C-x c s" . helm-swoop))
 
 (use-package magit
+  :ensure t
   :bind
   ("C-x g" . magit-status))
 
 (use-package projectile
+  :ensure t
   :config
   (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" psv/temp-dir)
         projectile-enable-caching t
@@ -96,6 +105,7 @@
   (projectile-mode))
 
 (use-package recentf
+  :ensure t
   :config
   (setq recentf-save-file (concat psv/temp-dir "recentf")
         recentf-max-saved-items 100
@@ -108,12 +118,14 @@
 (setq windmove-wrap-around t)
 
 (use-package yasnippet
+  :ensure t
   :config
-  (use-package yasnippet-snippets)
+  (use-package yasnippet-snippets :ensure t)
   (yas-global-mode 1)
   (yas-reload-all))
 
 (use-package markdown-mode
+  :ensure t
   :mode
   (("README\\.md\\'" . gfm-mode)
    ("\\.md\\'" . markdown-mode)
@@ -122,6 +134,7 @@
   (setq markdown-command "pandoc"))
 
 (use-package elfeed
+  :ensure t
   :config
   (setq elfeed-feeds '("https://www.reddit.com/.rss?feed=33a3018b0dbb339573b04a5c08c0a799e5c167f5&user=bioh" ;reddit
                        "http://planet.emacsen.org/ru/atom.xml"
@@ -130,11 +143,12 @@
                        "http://pragmaticemacs.com/feed/"
                        "http://habrahabr.ru/rss/all" ;it
                        "https://www.linux.org.ru/section-rss.jsp?section=1"
-                                        ; "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
+                     ; "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
                        "http://stephenramsay.us/atom.xml"
                        )))
 
 (use-package google-translate
+  :ensure t
   :init
   (progn
     (require 'google-translate-default-ui)
@@ -143,13 +157,14 @@
   :bind
   ("C-c t" . google-translate-at-point))
 
-(use-package dockerfile-mode)
-(use-package yaml-mode)
-(use-package cmake-mode)
-(use-package wgrep)
-(use-package wgrep-ag)
+(use-package dockerfile-mode :ensure t)
+(use-package yaml-mode :ensure t)
+(use-package cmake-mode :ensure t)
+(use-package wgrep :ensure t)
+(use-package wgrep-ag :ensure t)
 
 (use-package skeletor
+  :ensure t
   :config
   (setq skeletor-project-directory (expand-file-name "~/workspace/cpp/"))
   (skeletor-define-template "cpp-make"
@@ -166,6 +181,7 @@
       (skeletor-shell-command "chmod +x build.sh" dir))))
 
 (use-package plantuml-mode
+  :ensure t
   :config
   (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
 
@@ -180,6 +196,7 @@
         (popup-tip msg)))))
 
 (use-package langtool
+  :ensure t
   :config
   (setq
    langtool-default-language          "en-US"
@@ -189,6 +206,7 @@
   ("C-c g" . langtool-check))
 
 (use-package string-inflection
+  :ensure t
   :bind
   (("C-c s" . string-inflection-all-cycle)))
 
@@ -213,6 +231,7 @@
   "My default docset list.")
 
 (use-package helm-dash
+  :ensure t
   :config
   (mapc 'psv/helm-dash-ensure-docset-installed psv/helm-dash-docsets)
   (setq helm-dash-common-docsets psv/helm-dash-docsets)
@@ -223,18 +242,16 @@
   :config
   (load-theme 'nord t))
 
-(use-package git-timemachine)
+(use-package git-timemachine :ensure t)
 
-(require 'diminish)
+(use-package diminish)
 (diminish 'abbrev-mode)
-(diminish 'irony-mode)
 (diminish 'yas-minor-mode)
 (diminish 'helm-mode)
 (diminish 'eldoc-mode)
 (diminish 'company-mode " ca")
-(diminish 'projectile-mode " p")
 
-(use-package org-pomodoro)
+(use-package org-pomodoro :ensure t)
 
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
