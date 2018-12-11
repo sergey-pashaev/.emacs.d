@@ -183,61 +183,9 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'before-save-hook 'psv/before-save-hook)
 
-;;; ido
-(ido-mode t)
-(icomplete-mode t)
-
-(setq ido-enable-flex-matching t
-      ido-use-filename-at-point 'guess
-      ido-everywhere t
-      ido-save-directory-list-file (concat psv/temp-dir "/ido.last"))
-
 ;;; personal info
 (setq user-mail-address "pashaev.sergey@gmail.com"
       user-full-name "Sergey Pashaev")
-
-;;; ibuffer
-(defun psv/ibuffer-hook ()
-  "Make ibuffer Use \"psv\" filter group."
-  (ibuffer-switch-to-saved-filter-groups "psv"))
-
-(setq ibuffer-saved-filter-groups
-      (quote (("psv"
-               ("dired" (mode . dired-mode))
-               ("elisp" (mode . emacs-lisp-mode))
-               ("org-mode" (or
-                            (name . "^org$")
-                            (mode . org-mode)))
-               ("vcs" (or (name . "^\\*magit")
-                          (name . "^\\*vc")))
-               ("search" (or (name . "^\\*ag")
-                             (name . "^\\*grep")
-                             (name . "^\\*Occur")))
-               ("emacs" (or
-                         (name . "^\\*scratch\\*$")
-                         (name . "^\\*Messages\\*$")
-                         (name . "^\\*Warnings\\*$")
-                         (name . "^\\*helm")
-                         (name . "^\\*elfeed")))
-               ("c++ / c" (or
-                           (mode . c-mode)
-                           (mode . c++-mode)))
-               ("cedet" (or
-                         (name . "^\\*CEDET Global\\*$")
-                         (name . "^\\*Semantic SymRef\\*$")
-                         (name . "^\\*Symref ")))
-               ("jabber / irc" (or
-                                (name . "^\\*-jabber-chat-")
-                                (name . "^\\*-jabber-roster-")
-                                (mode . jabber-chat)
-                                (mode . jabber-roster)
-                                (mode . erc-mode)))
-               ("go lang" (or
-                           (mode . go-mode)
-                           (name . "^\\*godoc")
-                           (name . "^\\*godef")))))))
-
-(add-hook 'ibuffer-mode-hook 'psv/ibuffer-hook)
 
 ;;; UI
 
