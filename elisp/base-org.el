@@ -95,5 +95,11 @@
    ("C-c a" . org-agenda)
    ("C-c C-x C-j" . org-clock-goto)))
 
+(use-package org-journal
+  :ensure t
+  :config
+  (setq org-journal-dir "~/Dropbox/org/journal"
+        org-journal-date-format "%d.%m.%d %A"))
+
 (provide 'base-org)
 ;;; base-org.el ends here
