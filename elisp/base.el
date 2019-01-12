@@ -112,16 +112,12 @@
       save-interprogram-paste-before-kill t
 
       ;; changing the recentering order
-      recenter-positions                  '(top middle bottom)
-
-      use-package-always-ensure           t)
+      recenter-positions                  '(top middle bottom))
 
 (setq-default indent-tabs-mode nil)
 
 ;;; Bookmarks
-(setq
- ;; persistent bookmarks
- bookmark-save-flag                 t)
+(setq bookmark-save-flag t) ; persistent bookmarks
 
 ;;; Lockfiles
 (setq create-lockfiles nil)
@@ -135,8 +131,7 @@
  make-backup-files                  t)
 
 ;;; Autosave
-(setq
- auto-save-default                  t)
+(setq auto-save-default t)
 
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -193,44 +188,6 @@
 
 (if window-system
     (add-hook 'post-command-hook 'psv/update-cursor-color))
-
-;; notify when compilation is done
-;; (require 'notifications)
-
-;; (defun emacs-notify-send-message (headline-string message-string)
-;;   "Send message with HEADLINE-STRING title and MESSAGE-STRING to notification system."
-;;   (shell-command (concat "notify-send -u critical -i emacs \""
-;;                          headline-string
-;;                          "\" \""
-;;                          message-string
-;;                          "\"")))
-
-;; (setq compilation-finish-functions 'compile-finish-notify)
-
-;; (defun compile-finish-notify (buffer string)
-;;   (progn
-;;     (notifications-notify
-;;      :app-name "emacs"
-;;      :body (concat "Compilation is " string))
-;;     (emacs-notify-send-message "emacs" (concat "Compilation is " string))))
-
-;; (defun psv/make-some-rest-msg ()
-;;   (interactive)
-;;   (message (concat "Get some rest and continue at "
-;;                 (format-time-string "%H:%M" (time-add (current-time)
-;;                                                       (* 2 60))))))
-;; (defun psv/make-some-rest-dbus ()
-;;   (interactive)
-;;   (notifications-notify
-;;    :app-name "emacs"
-;;    :body (concat "Get some rest and continue at "
-;;               (format-time-string "%H:%M" (time-add (current-time)
-;;                                                     (* 2 60))))))
-
-;; (if (dbus-ping :session "org.freedesktop.Notifications")
-;;   (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-dbus)
-;;   (run-with-timer (* 20 60) (* 20 60) 'psv/make-some-rest-msg))
-
 
 ;; default font
 (set-frame-font "Liberation Mono 11")
