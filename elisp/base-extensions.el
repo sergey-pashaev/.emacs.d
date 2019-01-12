@@ -9,7 +9,6 @@
 
 ;; saveplace: save location in file when saving files
 (require 'saveplace)
-(setq save-place-file (concat psv/temp-dir "/saveplace"))
 (save-place-mode 1)
 
 ;; tramp
@@ -98,8 +97,7 @@
 (use-package projectile
   :ensure t
   :config
-  (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" psv/temp-dir)
-        projectile-enable-caching t
+  (setq projectile-enable-caching t
         projectile-mode-line '(:eval (format " p[%s]" (projectile-project-name))))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode))
@@ -107,8 +105,7 @@
 (use-package recentf
   :ensure t
   :config
-  (setq recentf-save-file (concat psv/temp-dir "recentf")
-        recentf-max-saved-items 100
+  (setq recentf-max-saved-items 100
         recentf-max-menu-items 15)
   (recentf-mode 1))
 

@@ -121,8 +121,7 @@
 ;;; Bookmarks
 (setq
  ;; persistent bookmarks
- bookmark-save-flag                 t
- bookmark-default-file              (concat psv/temp-dir "/bookmarks"))
+ bookmark-save-flag                 t)
 
 ;;; Lockfiles
 (setq create-lockfiles nil)
@@ -133,24 +132,11 @@
  backup-by-copying                  t
  delete-old-versions                t
  version-control                    t
- make-backup-files                  t
- backup-directory-alist            `(("." . ,psv/backup-root-dir)))
-
-;; make backup to a designated dir, mirroring the full path
-(defun psv/backup-file-name (file-path)
-  "Return a new file path of a given FILE-PATH.
-If the new path's directories does not exist, create them."
-  (let* ((origin-file-path (replace-regexp-in-string "[A-Za-z]:" "" file-path)) ; remove Windows driver letter in path, for example, “C:”
-         (backup-file-path (replace-regexp-in-string "//" "/" (concat psv/backup-root-dir origin-file-path "~"))))
-    (make-directory (file-name-directory backup-file-path) (file-name-directory backup-file-path))
-    backup-file-path))
-
-(setq make-backup-file-name-function 'psv/backup-file-name)
+ make-backup-files                  t)
 
 ;;; Autosave
 (setq
- auto-save-default                  t
- auto-save-list-file-name           (concat psv/temp-dir "/autosave"))
+ auto-save-default                  t)
 
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)

@@ -16,18 +16,8 @@
 ;; - https://expoundite.net/guides/dotfile-management
 
 ;;; Code:
-(defconst psv/elisp-dir (concat user-emacs-directory "elisp")
+(defconst psv/elisp-dir (expand-file-name "elisp" user-emacs-directory)
   "Directory which contains all config modules.")
-
-;; todo: do we need fullpath here?
-(defconst psv/private-dir (expand-file-name "private" user-emacs-directory)
-  "Directory to store all private files.")
-
-(defconst psv/temp-dir (format "%s/cache" psv/private-dir)
-  "Directory to store all Emacs temp files are stored.")
-
-(defconst psv/backup-root-dir (concat psv/temp-dir "/backup/")
-  "Directory to store backup files.")
 
 (add-to-list 'load-path psv/elisp-dir)
 
