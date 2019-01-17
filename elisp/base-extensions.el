@@ -235,10 +235,6 @@
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc))
 
-(use-package nord-theme
-  :config
-  (load-theme 'nord t))
-
 (use-package git-timemachine :ensure t)
 
 (use-package diminish)

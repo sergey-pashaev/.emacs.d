@@ -32,5 +32,13 @@
 
 (require 'multi-magit)
 
+(defconst psv/hosts-dir (expand-file-name "hosts" psv/elisp-dir)
+  "Directory which contains all host-specific settings.")
+
+(add-to-list 'load-path psv/hosts-dir)
+
+(let ((host-specific-config (intern (system-name))))
+  (require host-specific-config nil 'noerror))
+
 (provide 'init)
 ;;; init.el ends here
