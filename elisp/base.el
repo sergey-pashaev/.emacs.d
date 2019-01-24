@@ -102,6 +102,7 @@
       ;; dired
       dired-dwim-target                   t ; guess target directory
       dired-listing-switches              "-alh"
+      wdired-allow-to-change-permissions  t
 
       ;; stop asking whether to save newly added abbrev when quitting emacs
       save-abbrevs                        nil
