@@ -244,7 +244,10 @@
 (diminish 'eldoc-mode)
 (diminish 'company-mode " ca")
 
-(use-package org-pomodoro :ensure t)
+(use-package org-pomodoro
+  :ensure t
+  :bind
+  (("C-c r" . org-pomodoro)))
 
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
