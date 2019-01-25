@@ -99,7 +99,7 @@
   :ensure t
   :config
   (setq org-journal-dir "~/Dropbox/org/journal"
-        org-journal-date-format "%d.%m.%d %A"))
+        org-journal-date-format "%d.%m.%Y %A"))
 
 (provide 'base-org)
 ;;; base-org.el ends here
