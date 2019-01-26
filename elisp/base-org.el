@@ -62,7 +62,7 @@
           (quote (("t" "Todo" entry (file "~/Dropbox/org/gtd/tasks.org")  "* TODO %?")
                   ("w" "Work Todo" entry (file "~/Dropbox/org/gtd/work/tasks.org")  "* TODO %?")
                   ("l" "Link" entry (file "~/Dropbox/org/links.org") "* %?")
-                  ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org") "* %?"))))
+                  ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org") "**** %<%H:%M>\n%?"))))
 
     (add-hook 'org-mode-hook 'psv/org-mode-hook)
 
@@ -94,12 +94,6 @@
    ("C-c c" . org-capture)
    ("C-c a" . org-agenda)
    ("C-c C-x C-j" . org-clock-goto)))
-
-(use-package org-journal
-  :ensure t
-  :config
-  (setq org-journal-dir "~/Dropbox/org/journal"
-        org-journal-date-format "%d.%m.%Y %A"))
 
 (provide 'base-org)
 ;;; base-org.el ends here
