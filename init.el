@@ -40,5 +40,23 @@
 (let ((host-specific-config (intern (system-name))))
   (require host-specific-config nil 'noerror))
 
+(require 'xterm-color)
+
+(setq compilation-environment '("TERM=xterm-256color"))
+
+(add-hook 'compilation-start-hook
+          (lambda (proc)
+            ;; We need to differentiate between compilation-mode buffers
+            ;; and running as part of comint (which at this point we assume
+            ;; has been configured separately for xterm-color)
+            (when (eq (process-filter proc) 'compilation-filter)
+              ;; This is a process associated with a compilation-mode buffer.
+              ;; We may call `xterm-color-filter' before its own filter function.
+              (set-process-filter
+               proc
+               (lambda (proc string)
+                 (funcall 'compilation-filter proc
+                          (xterm-color-filter string)))))))
+
 (provide 'init)
 ;;; init.el ends here
