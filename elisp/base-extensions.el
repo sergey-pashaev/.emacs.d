@@ -91,6 +91,8 @@
 
 (use-package magit
   :ensure t
+  :config
+  (setq magit-diff-refine-hunk 'all)
   :bind
   ("C-x g" . magit-status))
 
