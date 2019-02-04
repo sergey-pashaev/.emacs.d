@@ -737,6 +737,8 @@ like to select some using `multi-magit-list-repositories'? ")
 	(,(expand-file-name "~/workspace/cpp/exercises") . 0)
 	(,(expand-file-name "~/workspace/cpp/sedgewick-cpp") . 0)
 	(,(expand-file-name "~/workspace/cpp/socks") . 0)
+	(,(expand-file-name "~/workspace/cpp/aoc-cpp") . 0)
+	(,(expand-file-name "~/workspace/practice") . 0)
 	(,(expand-file-name "~/workspace/atr") . 0)))
 
 ;; select all repos if exists
