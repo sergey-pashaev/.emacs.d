@@ -446,5 +446,15 @@ is already narrowed."
   (dired (format "/ssh:%s:/"
                  (ido-completing-read "Host? " (psv/ssh-hosts)))))
 
+(defun psv/dired-appl()
+  "Run dired at selected appl directory."
+  (interactive)
+  (let* ((appl-dir (expand-file-name "~/workspace/Swift/appl/"))
+         (contents (directory-files appl-dir)))
+    (dired (concat appl-dir
+                   (ido-completing-read "APPL? "
+                                        (remove-if-not (lambda (name) (file-directory-p (concat appl-dir name)))
+                                                       contents))))))
+
 (provide 'base-functions)
 ;;; base-functions.el ends here
