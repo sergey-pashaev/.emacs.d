@@ -6,9 +6,9 @@
 (when window-system
   (set-frame-font "Liberation Mono 12" nil t)
 
-  (use-package nord-theme
+  (use-package solarized-theme
     :config
-    (load-theme 'nord t)))
+    (load-theme 'solarized-light t)))
 
 (provide 'thinkpad)
 ;;; thinkpad ends here
