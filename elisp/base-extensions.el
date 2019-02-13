@@ -239,7 +239,7 @@
 
 (use-package git-timemachine :ensure t)
 
-(use-package diminish)
+(use-package diminish :ensure t)
 (diminish 'abbrev-mode)
 (diminish 'yas-minor-mode)
 (diminish 'helm-mode)
