@@ -251,5 +251,11 @@
   :bind
   (("C-c r" . org-pomodoro)))
 
+(use-package ledger-mode
+  :ensure t
+  :mode "\\.dat\\'")
+
+(use-package flycheck-ledger :ensure t)
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
