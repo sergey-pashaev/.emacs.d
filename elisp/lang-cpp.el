@@ -26,7 +26,7 @@
   :ensure t
   :config
   (global-company-mode)
-  (setq company-idle-delay 0)
+  (setq company-idle-delay 1)
   :bind
   ("M-RET" . company-complete))
 
