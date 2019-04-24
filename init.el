@@ -29,6 +29,7 @@
 
 (require 'lang-elisp)
 (require 'lang-cpp)
+(require 'lang-py)
 
 (require 'multi-magit)
 
