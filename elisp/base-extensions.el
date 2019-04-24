@@ -239,6 +239,14 @@
 
 (use-package git-timemachine :ensure t)
 
+(use-package company
+  :ensure t
+  :config
+  (global-company-mode)
+  (setq company-idle-delay 1)
+  :bind
+  ("M-RET" . company-complete))
+
 (use-package diminish :ensure t)
 (diminish 'abbrev-mode)
 (diminish 'yas-minor-mode)

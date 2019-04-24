@@ -22,14 +22,6 @@
       gdb-show-main t)   ; non-nil means display source file
                          ; containing the main routine at startup
 
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode)
-  (setq company-idle-delay 1)
-  :bind
-  ("M-RET" . company-complete))
-
 (use-package clang-format
   :ensure t
   :config
