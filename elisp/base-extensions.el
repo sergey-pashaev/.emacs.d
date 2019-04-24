@@ -77,10 +77,14 @@
         helm-input-idle-delay                 0.01
         helm-ff-skip-boring-files             t)
   (helm-mode 1)
-  :bind (("M-x" . helm-M-x)))
+  :bind (
+         ("M-x" . helm-M-x)
+         ("C-x f" . helm-recentf)))
 
 (use-package helm-projectile
   :ensure t
+  :config
+  (helm-projectile-on)
   :bind
   ("M-?" . helm-projectile))
 
@@ -235,7 +239,9 @@
   (mapc 'psv/helm-dash-ensure-docset-installed psv/helm-dash-docsets)
   (setq helm-dash-common-docsets psv/helm-dash-docsets)
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
-  (add-hook 'python-mode-hook 'psv/helm-dash-python-doc))
+  (add-hook 'python-mode-hook 'psv/helm-dash-python-doc)
+  :bind
+  ("C-c ?" . helm-dash-at-point))
 
 (use-package git-timemachine :ensure t)
 

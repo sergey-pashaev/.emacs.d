@@ -45,8 +45,6 @@
 (bind-key "M--" 'psv/goto-match-paren)
 (bind-key "C-M-=" 'psv/diff-current-buffer-with-file)
 
-(bind-key "C-x f" 'helm-recentf)
-
 (bind-key "<f5>" 'psv/work-todo)
 (bind-key "<f6>" 'psv/todo)
 
@@ -61,8 +59,6 @@
 (global-unset-key (kbd "C-x C-z"))
 
 (bind-key "C-c >" 'psv/cycle-base-of-integer-at-point)
-
-(bind-key "C-c ?" 'helm-dash-at-point)
 
 (provide 'base-global-keys)
 ;;; base-global-keys.el ends here
