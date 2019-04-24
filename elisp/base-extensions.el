@@ -269,6 +269,9 @@
   :ensure t
   :mode "\\.dat\\'")
 
+(use-package rmsbolt
+  :ensure t)
+
 (use-package flycheck-ledger :ensure t)
 
 (provide 'base-extensions)
