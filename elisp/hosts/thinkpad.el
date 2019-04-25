@@ -21,5 +21,11 @@
 
 (use-package helm-lsp :ensure t)
 
+(use-package flycheck-clang-analyzer
+  :ensure t
+  :after flycheck
+  :config
+  (flycheck-clang-analyzer-setup))
+
 (provide 'thinkpad)
 ;;; thinkpad ends here
