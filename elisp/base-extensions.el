@@ -233,7 +233,7 @@
   (if (not (member docset-name (helm-dash-installed-docsets)))
       (helm-dash-install-docset (replace-regexp-in-string (rx whitespace) "_" docset-name))))
 
-(defconst psv/helm-dash-docsets '("C++" "C" "Boost" "Python 2" "Ansible" "Docker")
+(defconst psv/helm-dash-docsets '("C++" "C" "Boost" "Python 2" "Ansible" "Docker" "CMake")
   "My default docset list.")
 
 (use-package helm-dash
