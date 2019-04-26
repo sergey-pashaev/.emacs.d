@@ -270,5 +270,10 @@
 
 (use-package flycheck-ledger :ensure t)
 
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode))
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
