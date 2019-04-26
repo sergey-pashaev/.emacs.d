@@ -33,6 +33,8 @@
 
 (require 'multi-magit)
 
+(require 'base-diminish)
+
 (defconst psv/hosts-dir (expand-file-name "hosts" psv/elisp-dir)
   "Directory which contains all host-specific settings.")
 

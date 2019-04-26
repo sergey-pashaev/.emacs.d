@@ -23,5 +23,7 @@
 (bind-key "TAB" 'lisp-complete-symbol read-expression-map)
 (bind-key "M-." 'find-function-at-point emacs-lisp-mode-map)
 
+(use-package eldoc :diminish eldoc-mode)
+
 (provide 'lang-elisp)
 ;;; lang-elisp.el ends here

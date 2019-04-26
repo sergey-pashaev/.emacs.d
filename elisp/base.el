@@ -40,9 +40,15 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(unless (package-installed-p 'use-package)
+(unless (or (package-installed-p 'use-package)
+            (package-installed-p 'diminish))
   (package-refresh-contents)
-  (package-install 'use-package))
+  (package-install 'use-package)
+  (package-install 'diminish))
+
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
 
 ;; utf-8
 (set-language-environment    "UTF-8")
@@ -115,6 +121,7 @@
       ;; changing the recentering order
       recenter-positions                  '(top middle bottom))
 
+;; don't use tabls
 (setq-default indent-tabs-mode nil)
 
 ;;; Bookmarks

@@ -44,10 +44,12 @@
   :ensure t
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  (setq flycheck-mode-line-prefix " fc")
   (global-flycheck-mode))
 
 (use-package helm
   :ensure t
+  :diminish
   :init
   (require 'helm-config)
   :config
@@ -104,7 +106,7 @@
   :ensure t
   :config
   (setq projectile-enable-caching t
-        projectile-mode-line '(:eval (format " p[%s]" (projectile-project-name))))
+        projectile-mode-line-prefix " p")
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode))
 
@@ -122,6 +124,7 @@
 
 (use-package yasnippet
   :ensure t
+  :diminish yas-minor-mode
   :config
   (use-package yasnippet-snippets :ensure t)
   (yas-global-mode 1)
@@ -247,18 +250,11 @@
 
 (use-package company
   :ensure t
+  :diminish " ca"
   :config
   (global-company-mode)
-  (setq company-idle-delay 1)
   :bind
   ("M-RET" . company-complete))
-
-(use-package diminish :ensure t)
-(diminish 'abbrev-mode)
-(diminish 'yas-minor-mode)
-(diminish 'helm-mode)
-(diminish 'eldoc-mode)
-(diminish 'company-mode " ca")
 
 (use-package org-pomodoro
   :ensure t
