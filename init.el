@@ -16,35 +16,33 @@
 ;; - https://expoundite.net/guides/dotfile-management
 
 ;;; Code:
+
+;; load common configs
 (defconst psv/elisp-dir (expand-file-name "elisp" user-emacs-directory)
   "Directory which contains all config modules.")
 
 (add-to-list 'load-path psv/elisp-dir)
+(load "base")
+(load "base-extensions")
+(load "base-functions")
+(load "base-global-keys")
+(load "base-org")
+(load "lang-elisp")
+(load "lang-cpp")
+(load "lang-py")
+(load "base-diminish")
 
-(require 'base)
-(require 'base-extensions)
-(require 'base-functions)
-(require 'base-global-keys)
-(require 'base-org)
-
-(require 'lang-elisp)
-(require 'lang-cpp)
-(require 'lang-py)
-
-(require 'multi-magit)
-
-(require 'base-diminish)
-
+;; load host specific configs
 (defconst psv/hosts-dir (expand-file-name "hosts" psv/elisp-dir)
   "Directory which contains all host-specific settings.")
 
 (add-to-list 'load-path psv/hosts-dir)
-
 (let ((host-specific-config (intern (system-name))))
   (require host-specific-config nil 'noerror))
 
-(require 'xterm-color)
-
+;; make compilation buffers support colors
+(load "xterm-color")
+(require 'compile)
 (setq compilation-environment '("TERM=xterm-256color"))
 
 (add-hook 'compilation-start-hook
