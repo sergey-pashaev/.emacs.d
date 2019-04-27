@@ -46,6 +46,7 @@
   :config
   (push 'company-lsp company-backends))
 
+(require 'lsp-ui)
 (bind-key "C-c h" 'ccls-inheritance-hierarchy lsp-ui-mode-map)
 (bind-key "C-c m" 'ccls-member-hierarchy lsp-ui-mode-map)
 (bind-key "C-c c" 'ccls-call-hierarchy lsp-ui-mode-map)
