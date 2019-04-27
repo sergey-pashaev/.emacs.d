@@ -83,6 +83,14 @@
          ("M-x" . helm-M-x)
          ("C-x f" . helm-recentf)))
 
+(use-package projectile
+  :ensure t
+  :config
+  (setq projectile-enable-caching t
+        projectile-mode-line-prefix " p")
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode))
+
 (use-package helm-projectile
   :ensure t
   :bind
@@ -103,14 +111,6 @@
   (setq magit-diff-refine-hunk 'all)
   :bind
   ("C-x g" . magit-status))
-
-(use-package projectile
-  :ensure t
-  :config
-  (setq projectile-enable-caching t
-        projectile-mode-line-prefix " p")
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode))
 
 (use-package recentf
   :ensure t
@@ -269,8 +269,6 @@
 
 (use-package rmsbolt
   :ensure t)
-
-(use-package flycheck-ledger :ensure t)
 
 (use-package diff-hl
   :ensure t
