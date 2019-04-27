@@ -85,10 +85,12 @@
 
 (use-package helm-projectile
   :ensure t
-  :config
-  (helm-projectile-on)
   :bind
   ("M-?" . helm-projectile))
+(helm-projectile-on)
+
+(use-package helm-ag
+  :ensure t)
 
 (use-package helm-swoop
   :ensure t
