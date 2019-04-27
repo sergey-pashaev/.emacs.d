@@ -60,7 +60,7 @@
 (add-hook 'c++-mode-hook 'psv/c-mode-hook)
 
 (use-package modern-cpp-font-lock
-  :diminish
+  :diminish modern-c++-font-lock-mode
   :ensure t
   :config
   (modern-c++-font-lock-global-mode t))
