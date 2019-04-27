@@ -417,7 +417,7 @@ is already narrowed."
         (emacs-lisp-docstring-fill-column t))
     (fill-paragraph nil region)))
 
-(use-package popup)
+(use-package popup :ensure t)
 
 (defvar psv/cdecl-program "cdecl"
   "The program to run.")
@@ -433,7 +433,7 @@ is already narrowed."
 (defun psv/cdecl-explain-region (beg end)
   "Run cdecl 'explain' in region from BEG to END."
   (interactive "r")
-  (cdecl-explain (buffer-substring-no-properties beg end)))
+  (psv/cdecl-explain (buffer-substring-no-properties beg end)))
 
 (defun psv/ssh-hosts ()
   "Return lists of hosts from ~/.ssh/config."
