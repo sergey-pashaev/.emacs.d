@@ -60,5 +60,8 @@
 
 (bind-key "C-c >" 'psv/cycle-base-of-integer-at-point)
 
+(bind-key "C-<return>" 'psv/newline-below)
+(bind-key "C-S-<return>" 'psv/newline-above)
+
 (provide 'base-global-keys)
 ;;; base-global-keys.el ends here

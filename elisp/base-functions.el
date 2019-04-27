@@ -455,6 +455,19 @@ is already narrowed."
                    (ido-completing-read "APPL? "
                                         (remove-if-not (lambda (name) (file-directory-p (concat appl-dir name)))
                                                        contents))))))
+(defun psv/newline-below()
+  "Insert & indent new line below current line."
+  (interactive)
+  (end-of-line)
+  (newline-and-indent))
+
+(defun psv/newline-above()
+  "Insert & indent new line above current line."
+  (interactive)
+  (beginning-of-line)
+  (newline-and-indent)
+  (forward-line -1) ; previous line
+  (indent-according-to-mode))
 
 (provide 'base-functions)
 ;;; base-functions.el ends here
