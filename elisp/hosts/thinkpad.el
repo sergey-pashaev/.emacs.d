@@ -51,6 +51,12 @@
 (bind-key "C-c m" 'ccls-member-hierarchy lsp-ui-mode-map)
 (bind-key "C-c c" 'ccls-call-hierarchy lsp-ui-mode-map)
 (bind-key "C-c <" 'lsp-find-references lsp-ui-mode-map)
+(use-package helm-lsp
+  :ensure t
+  :commands helm-lsp-workspace-symbol
+  :bind
+  ("C-c o" . helm-lsp-workspace-symbol))
+
 
 (provide 'thinkpad)
 ;;; thinkpad ends here
