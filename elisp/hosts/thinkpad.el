@@ -51,6 +51,8 @@
 (bind-key "C-c m" 'ccls-member-hierarchy lsp-ui-mode-map)
 (bind-key "C-c c" 'ccls-call-hierarchy lsp-ui-mode-map)
 (bind-key "C-c <" 'lsp-find-references lsp-ui-mode-map)
+(bind-key "C-c r" 'lsp-rename lsp-ui-mode-map)
+
 (use-package helm-lsp
   :ensure t
   :commands helm-lsp-workspace-symbol
