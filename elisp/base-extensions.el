@@ -222,7 +222,7 @@
 (defun psv/helm-dash-cpp-doc ()
   "Enable C++ dash docset for c++ buffers."
   (interactive)
-  (setq-local helm-dash-docsets '("C++")))
+  (setq-local helm-dash-docsets '("C++" "C" "Boost")))
 
 (defun psv/helm-dash-python-doc ()
   "Enable python2 dash docset for python buffers."
