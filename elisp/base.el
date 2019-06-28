@@ -199,6 +199,7 @@
 
 ;; default font
 (set-frame-font "Liberation Mono 11")
+(add-to-list 'default-frame-alist '(font . "Liberation Mono 11"))
 
 ;; find file
 (setq ff-always-try-to-create nil)
