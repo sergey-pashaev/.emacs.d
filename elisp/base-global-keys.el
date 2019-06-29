@@ -33,6 +33,7 @@
 (bind-key "C-<backspace>" 'backward-kill-word)
 (bind-key "RET" 'newline-and-indent)
 (bind-key "M-/" 'dabbrev-expand)
+(bind-key "C-M-/" 'hippie-expand)
 (bind-key "M-[" 'backward-paragraph)
 (bind-key "M-]" 'forward-paragraph)
 
