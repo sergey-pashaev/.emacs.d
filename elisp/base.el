@@ -24,7 +24,7 @@
 ;;; install use-package if needed
 (setq load-prefer-newer t)
 (require 'package)
-(unless package--initialized (package-initialize t))
+(unless package--initialized (package-initialize))
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
