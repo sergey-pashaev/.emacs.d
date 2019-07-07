@@ -229,24 +229,35 @@
   (interactive)
   (setq-local helm-dash-docsets '("Python 2")))
 
+(defun psv/helm-dash-bash-doc ()
+  "Enable bash dash docset for shell buffers."
+  (interactive)
+  (setq-local helm-dash-docsets '("Bash")))
+
 (defun psv/helm-dash-ensure-docset-installed (docset-name)
   "Ensures that DOCSET-NAME is installed."
   (make-directory (expand-file-name "~/.docsets") t)
   (if (not (member docset-name (helm-dash-installed-docsets)))
-      (helm-dash-install-docset (replace-regexp-in-string (rx whitespace) "_" docset-name))))
+      (let ((tarball (replace-regexp-in-string (rx whitespace) "_" docset-name)))
+        (helm-dash-install-docset-from-file (concat psv/helm-dash-tarballs-path tarball)))))
 
-(defconst psv/helm-dash-docsets '("C++" "C" "Boost" "Python 2" "Ansible" "Docker" "CMake")
+(defconst psv/helm-dash-tarballs-path (expand-file-name "~/docsets/")
+  "My default path to downloaded docset tarballs.")
+
+(defconst psv/helm-dash-docsets '("C++" "C" "Boost" "Python 2" "Ansible" "Docker" "CMake" "Bash")
   "My default docset list.")
 
 (use-package helm-dash
   :ensure t
   :config
-  (mapc 'psv/helm-dash-ensure-docset-installed psv/helm-dash-docsets)
   (setq helm-dash-common-docsets psv/helm-dash-docsets)
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc)
+  (add-hook 'sh-mode-hook 'psv/helm-dash-bash-doc)
   :bind
-  ("C-c ?" . helm-dash-at-point))
+  ("C-c ?" . helm-dash-at-point)
+  (:map sh-mode-map
+        ("C-c ?" . helm-dash-at-point)))
 
 (use-package git-timemachine :ensure t)
 
