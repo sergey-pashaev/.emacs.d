@@ -204,5 +204,7 @@
 ;; find file
 (setq ff-always-try-to-create nil)
 
+(setq browse-url-browser-function 'browse-url-chromium)
+
 (provide 'base)
 ;;; base ends here
