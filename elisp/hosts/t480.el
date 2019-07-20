@@ -6,6 +6,12 @@
 (when window-system
   (set-frame-font "Liberation Mono 12" nil t))
 
+(when window-system
+  (use-package solarized-theme
+    :ensure t
+    :config
+    (load-theme 'solarized-light t)))
+
 ;;; C++
 (defun psv/lsp-mode-hook ()
   "My lsp-mode hook."
