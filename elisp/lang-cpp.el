@@ -33,6 +33,7 @@
   "Reformat buffer if .clang-format exists in the projectile root."
   (when (and
          (not (string= (projectile-project-name) "-"))
+         (not (string= (projectile-project-name) "src"))
          (not (string= (projectile-project-name) "cpptac"))
          (not (string= (projectile-project-name) "atr"))
          (f-exists? (expand-file-name ".clang-format" (projectile-project-root))))
