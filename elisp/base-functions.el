@@ -145,6 +145,35 @@ All permutations equally likely."
         (indent-region (region-beginning) (region-end))
       (psv/indent-buffer))))
 
+(defun psv/get-file-name ()
+  "Return current buffer filename."
+  (interactive)
+  (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name)))
+
+(defun psv/visit-file-in-other-project ()
+  "Visit file in other project with same relative path as current buffer."
+  (interactive)
+  (let ((projects (projectile-relevant-known-projects))
+        (path (if (string= (projectile-project-name) "src")
+                  (concat "src/"
+                          (substring (psv/get-file-name)
+                                     (length (projectile-project-root))))
+                (substring (psv/get-file-name)
+                           (length (projectile-project-root))))))
+    (if projects
+        (projectile-completing-read
+         "Switch to file in project: " projects
+         :action (lambda (project)
+                   (let ((filepath (if (string= project "~/workspace/ya/chromium/src/")
+                                       (concat "~/workspace/ya/chromium/" path)
+                                     (concat project path))))
+                     (if (f-exists? filepath)
+                         (find-file filepath)
+                       (user-error (format "path:%s doesn't exist" path))))))
+      (user-error "There are no open projects"))))
+
 (defun psv/copy-file-name-to-clipboard ()
   "Put the current file name to clipboard."
   (interactive)
