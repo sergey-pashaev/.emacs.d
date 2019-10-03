@@ -110,7 +110,8 @@
   :config
   (setq magit-diff-refine-hunk 'all)
   :bind
-  ("C-x g" . magit-status))
+  ("C-x g" . magit-status)
+  ("C-x =" . magit-diff-buffer-file))
 
 (use-package recentf
   :ensure t
