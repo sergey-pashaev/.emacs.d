@@ -60,6 +60,7 @@
 (global-unset-key (kbd "C-x C-z"))
 
 (bind-key "C-c >" 'psv/cycle-base-of-integer-at-point)
+(bind-key "C-c <" 'psv/visit-file-in-other-project)
 
 (bind-key "C-<return>" 'psv/newline-below)
 (bind-key "C-S-<return>" 'psv/newline-above)
