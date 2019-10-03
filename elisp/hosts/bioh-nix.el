@@ -27,8 +27,13 @@
 (defun psv/lsp-mode-hook ()
   "My lsp-mode hook."
   (require 'ccls)
-  (lsp)
-  )
+  ;; don't enable lsp for extra browser repos
+  (when (and
+         (not (string= (projectile-project-name) "src"))
+         (not (string= (projectile-project-name) "browser2"))
+         (not (string= (projectile-project-name) "browser3"))
+         (not (string= (projectile-project-name) "browser4")))
+    (lsp)))
 
 (use-package ccls
   :ensure t
