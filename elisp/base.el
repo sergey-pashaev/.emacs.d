@@ -206,5 +206,11 @@
 
 (setq browse-url-browser-function 'browse-url-chromium)
 
+;; show buffer filepath at frame title
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+
 (provide 'base)
 ;;; base ends here
