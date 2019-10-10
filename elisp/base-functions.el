@@ -152,6 +152,27 @@ All permutations equally likely."
                       default-directory
                     (buffer-file-name)))
 
+(defun psv/get-project-relative-path ()
+  "Return project-relative path."
+  (interactive)
+  (substring (psv/get-file-name)
+             (length (projectile-project-root))))
+
+(defun psv/make-include-statement ()
+  "Generate include statement for current file."
+  (interactive)
+  (format "#include \"%s\"" (psv/get-project-relative-path)))
+
+(defun psv/copy-include-statement-to-clipboard ()
+  "Put the current file include statement name to clipboard."
+  (interactive)
+  (let ((include (psv/make-include-statement)))
+    (when include
+      (with-temp-buffer
+        (insert include)
+        (clipboard-kill-region (point-min) (point-max)))
+      (message include))))
+
 (defun psv/visit-file-in-other-project ()
   "Visit file in other project with same relative path as current buffer."
   (interactive)
