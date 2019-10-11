@@ -65,5 +65,7 @@
 (bind-key "C-<return>" 'psv/newline-below)
 (bind-key "C-S-<return>" 'psv/newline-above)
 
+(bind-key (kbd "<f9>") 'psv/chromium-code-search-at-point)
+
 (provide 'base-global-keys)
 ;;; base-global-keys.el ends here

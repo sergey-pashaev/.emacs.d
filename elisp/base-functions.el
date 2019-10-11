@@ -519,5 +519,14 @@ is already narrowed."
   (forward-line -1) ; previous line
   (indent-according-to-mode))
 
+(defconst psv/chromium-code-search-format "https://cs.chromium.org/search/?q=%s&sq=package:chromium&type=cs"
+  "Chromium code search format, %s = SEARCH TERM.")
+
+(defun psv/chromium-code-search-at-point ()
+  "Search symbol at point at chromium sources."
+  (interactive
+   (let ((term (read-string "Search term: " (thing-at-point 'symbol))))
+     (browse-url-default-browser (format psv/chromium-code-search-format term)))))
+
 (provide 'base-functions)
 ;;; base-functions.el ends here
