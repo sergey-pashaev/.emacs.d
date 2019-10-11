@@ -177,6 +177,7 @@ All permutations equally likely."
   "Visit file in other project with same relative path as current buffer."
   (interactive)
   (let ((projects (projectile-relevant-known-projects))
+        (position (point))
         (path (if (string= (projectile-project-name) "src")
                   (concat "src/"
                           (substring (psv/get-file-name)
@@ -191,7 +192,9 @@ All permutations equally likely."
                                        (concat "~/workspace/ya/chromium/" path)
                                      (concat project path))))
                      (if (f-exists? filepath)
-                         (find-file filepath)
+                         (progn
+                           (find-file filepath)
+                           (goto-char position))
                        (user-error (format "path:%s doesn't exist" path))))))
       (user-error "There are no open projects"))))
 
