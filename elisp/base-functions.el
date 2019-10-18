@@ -152,6 +152,13 @@ All permutations equally likely."
                       default-directory
                     (buffer-file-name)))
 
+(defun psv/put-to-clipboard (str)
+  "Put STR into clipboard."
+  (when str
+    (with-temp-buffer
+      (insert str)
+      (clipboard-kill-region (point-min) (point-max)))))
+
 (defun psv/get-project-relative-path ()
   "Return project-relative path."
   (interactive)
@@ -167,11 +174,8 @@ All permutations equally likely."
   "Put the current file include statement name to clipboard."
   (interactive)
   (let ((include (psv/make-include-statement)))
-    (when include
-      (with-temp-buffer
-        (insert include)
-        (clipboard-kill-region (point-min) (point-max)))
-      (message include))))
+    (psv/put-to-clipboard include)
+    (message include)))
 
 (defun psv/visit-file-in-other-project ()
   "Visit file in other project with same relative path as current buffer."
@@ -201,14 +205,9 @@ All permutations equally likely."
 (defun psv/copy-file-name-to-clipboard ()
   "Put the current file name to clipboard."
   (interactive)
-  (let ((filename (if (equal major-mode 'dired-mode)
-                      default-directory
-                    (buffer-file-name))))
-    (when filename
-      (with-temp-buffer
-        (insert filename)
-        (clipboard-kill-region (point-min) (point-max)))
-      (message filename))))
+  (let ((filename (psv/get-file-name)))
+    (psv/put-to-clipboard filename)
+    (message filename)))
 
 (defun psv/duplicate-current-line-or-region (arg)
   "Duplicates the current line or region ARG times.
