@@ -71,6 +71,7 @@
       ring-bell-function                  'ignore
       custom-file                         (concat user-emacs-directory "custom.el")
 
+      ;; forbid to edit minibuffer prompt
       ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
       minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
