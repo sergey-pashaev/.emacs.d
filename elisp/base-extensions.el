@@ -108,7 +108,13 @@
 (use-package magit
   :ensure t
   :config
+  (setq magit-refresh-status-buffer nil)
+  (setq magit-refresh-verbose t)
+
   (setq magit-diff-refine-hunk 'all)
+
+  ; disable vc for git
+  (setq vc-handled-backends (delq 'Git vc-handled-backends))
   :bind
   ("C-x g" . magit-status)
   ("C-x =" . magit-diff-buffer-file))
