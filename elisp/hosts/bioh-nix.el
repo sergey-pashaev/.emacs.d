@@ -50,7 +50,7 @@
   (setq lsp-prefer-flymake nil))
 
 (defun psv/lsp-ui-mode-hook ()
-  "My lsp-ui-mode hooj."
+  "My lsp-ui-mode hook."
   (lsp-ui-flycheck-enable 1))
 
 (use-package lsp-ui
