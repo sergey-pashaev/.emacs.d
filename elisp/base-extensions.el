@@ -92,9 +92,8 @@
   (projectile-mode))
 
 (use-package helm-projectile
-  :ensure t
-  :bind
-  ("M-?" . helm-projectile))
+  :ensure t)
+
 (helm-projectile-on)
 
 (use-package helm-ag
