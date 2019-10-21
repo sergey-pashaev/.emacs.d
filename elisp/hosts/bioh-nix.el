@@ -203,7 +203,8 @@
   ("D" psv/ccls-tree-inheritance-derived "tree derived")
   ("m" psv/ccls-peek-member "member")
   ("n" psv/ccls-references-not-call "not call")
-  ("a" psv/ccls-peek-references "references"))
+  ("a" psv/ccls-peek-references "references")
+  ("v" psv/ccls-peek-variables "variables"))
 
 (bind-key "C-c w" 'psv/hydra-ccls/body lsp-ui-mode-map)
 
