@@ -145,6 +145,19 @@ All permutations equally likely."
         (indent-region (region-beginning) (region-end))
       (psv/indent-buffer))))
 
+(defun psv/gn-refs ()
+  "Run gn refs for current file."
+  (interactive)
+  (when (projectile-project-root)
+    (let ((file (psv/get-file-name))
+          (dir (concat (projectile-project-root) "src/")))
+      (let ((default-directory dir)
+            (program "/home/bioh/workspace/ya/depot_tools/gn")
+            (cmd (format " refs out/Debug/ --all %s" file)))
+        (start-process "psv/gn-ref-proc" "*psv/gn-ref*" program "refs" "out/Debug/" "-all" file)
+        (message "gn refs started...")
+        (switch-to-buffer-other-window "*psv/gn-ref*")))))
+
 (defun psv/get-file-name ()
   "Return current buffer filename."
   (interactive)
