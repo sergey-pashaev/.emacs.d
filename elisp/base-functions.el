@@ -180,7 +180,6 @@ All permutations equally likely."
 
 (defun psv/make-include-statement ()
   "Generate include statement for current file."
-  (interactive)
   (format "#include \"%s\"" (psv/get-project-relative-path)))
 
 (defun psv/copy-include-statement-to-clipboard ()
