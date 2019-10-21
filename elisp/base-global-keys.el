@@ -59,12 +59,14 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
-(bind-key "C-c >" 'psv/cycle-base-of-integer-at-point)
+(bind-key "C-c >" 'psv/visit-file-in-other-project)
 
 (bind-key "C-<return>" 'psv/newline-below)
 (bind-key "C-S-<return>" 'psv/newline-above)
 
 (bind-key (kbd "<f9>") 'psv/chromium-code-search-at-point)
+
+(bind-key "C-x l" 'magit-blame)
 
 (provide 'base-global-keys)
 ;;; base-global-keys.el ends here
