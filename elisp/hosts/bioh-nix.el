@@ -89,20 +89,6 @@
 (use-package projectile-ripgrep
   :ensure t)
 
-;; eglot
-
-;; (defun psv/eglot-mode-hook ()
-;;   "My eglot-mode hook."
-;;   (eglot-ensure))
-
-;; (use-package eglot
-;;   :ensure t
-;;   :config
-;;   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd-8"))
-;;   :hook
-;;   ((c-mode c++-mode) . psv/eglot-mode-hook))
-
-
 ;; fix font for all unicode characters
 (set-fontset-font t 'unicode "Symbola" nil 'prepend)
 
