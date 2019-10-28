@@ -121,8 +121,8 @@
 (use-package recentf
   :ensure t
   :config
-  (setq recentf-max-saved-items 100
-        recentf-max-menu-items 15)
+  (setq recentf-max-saved-items 1000
+        recentf-max-menu-items 100)
   (recentf-mode 1))
 
 ;; todo: check why use-package doesn't work
