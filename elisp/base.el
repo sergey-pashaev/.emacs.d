@@ -120,7 +120,7 @@
       save-interprogram-paste-before-kill t
 
       ;; changing the recentering order
-      recenter-positions                  '(top middle bottom))
+      recenter-positions                  '(middle top bottom))
 
 ;; don't use tabls
 (setq-default indent-tabs-mode nil)
