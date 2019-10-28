@@ -149,7 +149,7 @@ All permutations equally likely."
   "Run gn refs for current file."
   (interactive)
   (when (projectile-project-root)
-    (let ((file (psv/get-file-name))
+    (let ((file (psv/buffer-file-path))
           (dir (concat (projectile-project-root) "src/")))
       (let ((default-directory dir)
             (program "/home/bioh/workspace/ya/depot_tools/gn")
@@ -158,12 +158,9 @@ All permutations equally likely."
         (message "gn refs started...")
         (switch-to-buffer-other-window "*psv/gn-ref*")))))
 
-(defun psv/get-file-name ()
-  "Return current buffer filename."
-  (interactive)
-  (if (equal major-mode 'dired-mode)
-                      default-directory
-                    (buffer-file-name)))
+(defconst *psv/chromium-project-root-path*
+  "~/workspace/ya/chromium/src/"
+  "Chromium project root path.")
 
 (defun psv/put-to-clipboard (str)
   "Put STR into clipboard."
@@ -172,15 +169,32 @@ All permutations equally likely."
       (insert str)
       (clipboard-kill-region (point-min) (point-max)))))
 
-(defun psv/get-project-relative-path ()
+(defun psv/buffer-file-path ()
+  "Return current buffer filename."
+  (interactive)
+  (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name)))
+
+(defun psv/projectile-buffer-relative-path ()
   "Return project-relative path."
   (interactive)
-  (substring (psv/get-file-name)
-             (length (projectile-project-root))))
+  (let ((path (substring (psv/buffer-file-path)
+                         (length (projectile-project-root)))))
+    (if (string= (projectile-project-root) (expand-file-name *psv/chromium-project-root-path*))
+        (concat "src/" path)
+      path)))
 
 (defun psv/make-include-statement ()
   "Generate include statement for current file."
-  (format "#include \"%s\"" (psv/get-project-relative-path)))
+  (let ((path (if (string= (projectile-project-root)
+                           (expand-file-name *psv/chromium-project-root-path*))
+                  (substring (psv/projectile-buffer-relative-path)
+                             (length "src/"))
+                (psv/projectile-buffer-relative-path))))
+    (if (s-starts-with? "src/" path)
+        (format "#include \"%s\"" (substring path (length "src/")))
+      (format "#include \"%s\"" path))))
 
 (defun psv/copy-include-statement-to-clipboard ()
   "Put the current file include statement name to clipboard."
@@ -190,34 +204,58 @@ All permutations equally likely."
     (message include)))
 
 (defun psv/visit-file-in-other-project ()
-  "Visit file in other project with same relative path as current buffer."
+  "Visit file in other project with same relative path as current buffer.
+With passed unversal argument it visits file in other
+window."
   (interactive)
   (let ((projects (projectile-relevant-known-projects))
         (position (point))
-        (path (if (string= (projectile-project-name) "src")
-                  (concat "src/"
-                          (substring (psv/get-file-name)
-                                     (length (projectile-project-root))))
-                (substring (psv/get-file-name)
-                           (length (projectile-project-root))))))
+        (path (psv/projectile-buffer-relative-path)))
     (if projects
         (projectile-completing-read
          "Switch to file in project: " projects
          :action (lambda (project)
-                   (let ((filepath (if (string= project "~/workspace/ya/chromium/src/")
+                   (let ((filepath (if (string= project *psv/chromium-project-root-path*)
                                        (concat "~/workspace/ya/chromium/" path)
                                      (concat project path))))
                      (if (f-exists? filepath)
-                         (progn
-                           (find-file filepath)
-                           (goto-char position))
+                         (if current-prefix-arg
+                             (progn
+                               (delete-other-windows)
+                               (split-window-right)
+                               (other-window 1)
+                               (find-file filepath)
+                               (goto-char position)
+                               (other-window 1))
+                           (progn
+                             (find-file filepath)
+                             (goto-char position)))
                        (user-error (format "path:%s doesn't exist" path))))))
+      (user-error "There are no open projects"))))
+
+(defun psv/diff-with-same-file-in-other-project ()
+  "Diff current file with file on same path in other project."
+  (interactive)
+  (let ((projects (projectile-relevant-known-projects))
+        (project (projectile-project-root))
+        (filepath (psv/projectile-buffer-relative-path)))
+    (if projects
+        (projectile-completing-read
+         "Diff with file in project: " projects
+         :action (lambda (other-project)
+                   (let ((other-filepath (if (string= other-project *psv/chromium-project-root-path*)
+                                             (concat (expant-file-name *psv/chromium-project-root-path*)
+                                                     (substring filepath (length "src/")))
+                                           (concat other-project filepath))))
+                     (if (f-exists? other-filepath)
+                         (ediff (concat project filepath) other-filepath)
+                       (user-error (format "path:%s doesn't exist" other-filepath))))))
       (user-error "There are no open projects"))))
 
 (defun psv/copy-file-name-to-clipboard ()
   "Put the current file name to clipboard."
   (interactive)
-  (let ((filename (psv/get-file-name)))
+  (let ((filename (psv/buffer-file-path)))
     (psv/put-to-clipboard filename)
     (message filename)))
 
