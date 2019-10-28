@@ -68,5 +68,8 @@
 
 (bind-key "C-x l" 'magit-blame)
 
+
+(bind-key "C-x C-j" 'dired-jump)
+
 (provide 'base-global-keys)
 ;;; base-global-keys.el ends here
