@@ -97,12 +97,15 @@
   (require 'lsp-ui)
   (require 'lsp-ui-flycheck)
   (add-hook 'lsp-after-open-hook 'psv/lsp-ui-mode-hook)
-  (setq lsp-ui-sideline-show-hover nil)
+  (setq lsp-ui-doc-header t)
   (setq lsp-ui-doc-include-signature nil)
-  (setq lsp-ui-sideline-show-symbol nil)
+  (setq lsp-ui-doc-position 'at-point)
+  (setq lsp-ui-doc-use-childframe nil)
   (setq lsp-ui-flycheck-live-reporting nil)
-  (setq lsp-ui-peek-list-width 60)
   (setq lsp-ui-peek-always-show t))
+  (setq lsp-ui-peek-list-width 60)
+  (setq lsp-ui-sideline-show-hover nil)
+  (setq lsp-ui-sideline-show-symbol nil)
 
 (use-package company-lsp
   :ensure t
