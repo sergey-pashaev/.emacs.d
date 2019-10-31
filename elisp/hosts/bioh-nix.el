@@ -206,5 +206,9 @@ Rooted at the `DIR' with list of included globs `INCLUDE' and
                           (mapcar (lambda (val) (concat "--glob !" val))
                                   exclude))))
 
+(define-key projectile-mode-map (kbd "C-c p s p") 'psv/projectile-ripgrep-cpp)
+(define-key projectile-mode-map (kbd "C-c p s m") 'psv/projectile-ripgrep-mojom)
+(define-key projectile-mode-map (kbd "C-c p s t") 'psv/projectile-ripgrep-tests)
+
 (provide 'bioh-nix)
 ;;; bioh-nix ends here
