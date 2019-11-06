@@ -157,6 +157,16 @@ window."
                           nil
                           *psv/ripgrep-cpp-test-files*))
 
+(defun psv/projectile-ripgrep-py (regexp)
+    "Run a Ripgrep search with `REGEXP' rooted at the current projectile project root."
+  (interactive
+   (list
+    (read-from-minibuffer "Ripgrep python files for: " (thing-at-point 'symbol))))
+  (psv/projectile-ripgrep regexp
+                          '("-tpy")
+                          nil
+                          nil))
+
 (defun psv/projectile-ripgrep-mojom (regexp)
     "Run a Ripgrep search with `REGEXP' rooted at the current projectile project root."
   (interactive
@@ -207,6 +217,7 @@ Rooted at the `DIR' with list of included globs `INCLUDE' and
                                   exclude))))
 
 (define-key projectile-mode-map (kbd "C-c p s p") 'psv/projectile-ripgrep-cpp)
+(define-key projectile-mode-map (kbd "C-c p s y") 'psv/projectile-ripgrep-py)
 (define-key projectile-mode-map (kbd "C-c p s m") 'psv/projectile-ripgrep-mojom)
 (define-key projectile-mode-map (kbd "C-c p s t") 'psv/projectile-ripgrep-tests)
 
