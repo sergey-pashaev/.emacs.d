@@ -95,7 +95,7 @@ window."
         (projectile-completing-read
          "Switch to file in project: " projects
          :action (lambda (project)
-                   (let ((filepath (if (string= project *psv/chromium-project-root-path*)
+                   (let ((filepath (if (string= (expand-file-name project) *psv/chromium-project-root-path*)
                                        (concat "~/workspace/ya/chromium/" path)
                                      (concat project path))))
                      (if (f-exists? filepath)
@@ -110,7 +110,7 @@ window."
                            (progn
                              (find-file filepath)
                              (goto-char position)))
-                       (user-error (format "[%s] path:%s doesn't exist" project path))))))
+                       (user-error (format "[%s] path:%s doesn't exist" project filepath))))))
       (user-error "There are no open projects"))))
 
 ;; diff with same file in other repo/project
@@ -124,7 +124,7 @@ window."
         (projectile-completing-read
          "Diff with file in project: " projects
          :action (lambda (other-project)
-                   (let ((other-filepath (if (string= other-project *psv/chromium-project-root-path*)
+                   (let ((other-filepath (if (string= (expand-file-name other-project) *psv/chromium-project-root-path*)
                                              (concat *psv/chromium-project-root-path*
                                                      (substring filepath (length "src/")))
                                            (concat other-project filepath))))
