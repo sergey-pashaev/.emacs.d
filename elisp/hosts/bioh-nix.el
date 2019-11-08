@@ -106,10 +106,12 @@ window."
                                (other-window 1)
                                (find-file filepath)
                                (goto-char position)
+                               (recenter-top-bottom)
                                (other-window 1))
                            (progn
                              (find-file filepath)
-                             (goto-char position)))
+                             (goto-char position)
+                             (recenter-top-bottom)))
                        (user-error (format "[%s] path:%s doesn't exist" project filepath))))))
       (user-error "There are no open projects"))))
 
