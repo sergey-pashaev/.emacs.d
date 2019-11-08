@@ -194,8 +194,7 @@
 (defun psv/ccls-peek-inheritance-derived ()
   "Peek derived classes."
   (interactive)
-  (lsp-ui-peek-find-custom "$ccls/inheritance" `(:levels 1 :derived t))
-  (psv/ccls/derived 1))
+  (lsp-ui-peek-find-custom "$ccls/inheritance" `(:levels 1 :derived t)))
 
 (defun psv/ccls-tree-inheritance-base ()
   "Show base tree of type."
