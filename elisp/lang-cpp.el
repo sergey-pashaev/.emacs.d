@@ -138,8 +138,6 @@
 (use-package projectile-ripgrep
   :ensure t)
 
-;; use firefox
-(setq browse-url-browser-function 'browse-url-firefox)
 ;; https://github.com/MaskRay/ccls/wiki/lsp-mode#cross-reference-extensions
 (defun psv/ccls-peek-references ()
   "Peek references."
