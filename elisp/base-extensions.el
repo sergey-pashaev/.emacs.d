@@ -29,12 +29,6 @@
   :bind
   ("C-;" . avy-goto-word-1))
 
-(use-package ag
-  :ensure t
-  :config
-  (setq ag-highlight-search t
-        ag-reuse-buffers    t))
-
 (use-package expand-region
   :ensure t
   :bind
@@ -95,14 +89,6 @@
   :ensure t)
 
 (helm-projectile-on)
-
-(use-package helm-ag
-  :ensure t)
-
-(use-package helm-swoop
-  :ensure t
-  :bind
-  ("C-x c s" . helm-swoop))
 
 (use-package magit
   :ensure t
@@ -175,7 +161,6 @@
 (use-package yaml-mode :ensure t)
 (use-package cmake-mode :ensure t)
 (use-package wgrep :ensure t)
-(use-package wgrep-ag :ensure t)
 
 (use-package skeletor
   :ensure t
@@ -219,10 +204,7 @@
   :bind
   ("C-c g" . langtool-check))
 
-(use-package string-inflection
-  :ensure t
-  :bind
-  (("C-c s" . string-inflection-all-cycle)))
+(use-package string-inflection :ensure t)
 
 ;; dash
 (defun psv/helm-dash-cpp-doc ()
