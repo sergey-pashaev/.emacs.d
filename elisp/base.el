@@ -168,9 +168,8 @@
 
 ;; delete trailing whitespace before save
 (defun psv/before-save-hook ()
-  "Delete trailing ws everywhere but at SwiftBack project."
-  (when (not (string= (projectile-project-name) "SwiftBack"))
-    (delete-trailing-whitespace)))
+  "Delete trailing whitespace everywhere."
+  (delete-trailing-whitespace))
 
 (add-hook 'before-save-hook 'psv/before-save-hook)
 
