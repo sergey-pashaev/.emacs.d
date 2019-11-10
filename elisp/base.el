@@ -13,6 +13,7 @@
                           (shell-command-to-string "python -m certifi")))
   "Path to file with trusted certificates from python certifi package.")
 
+(require 'tls)
 (setq tls-program
       (list
        (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
@@ -203,6 +204,7 @@
 (add-to-list 'default-frame-alist '(font . "Liberation Mono 11"))
 
 ;; find file
+(require 'find-file)
 (setq ff-always-try-to-create nil)
 
 (setq browse-url-browser-function 'browse-url-chromium)
