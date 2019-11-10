@@ -15,9 +15,11 @@
 
 (c-add-style "psv/cc-mode" psv/cc-style)
 
+(require 'cc-vars)
 (setq c-default-style "linux"
       c-basic-offset 2)
 
+(require 'gdb-mi)
 (setq gdb-many-windows t ; use gdb-many-windows by default
       gdb-show-main t)   ; non-nil means display source file
                          ; containing the main routine at startup
