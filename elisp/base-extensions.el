@@ -134,6 +134,7 @@
   :init
   (progn
     (require 'google-translate-default-ui)
+    (setq google-translate-output-destination 'echo-area)
     (setq google-translate-default-source-language "auto")
     (setq google-translate-default-target-language "ru"))
   :bind
