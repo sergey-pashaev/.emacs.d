@@ -214,5 +214,22 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
+;; saveplace: save location in file when saving files
+(require 'saveplace)
+(save-place-mode 1)
+
+;; tramp
+(require 'tramp)
+(setq tramp-default-method "ssh")
+
+;; meaningful names for buffers with the same name
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward
+      uniquify-separator "/"
+      ;; rename after killing uniquified
+      uniquify-after-kill-buffer-p t
+      ;; don't muck with special buffers
+      uniquify-ignore-buffers-re "^\\*")
+
 (provide 'base)
 ;;; base ends here
