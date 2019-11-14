@@ -240,7 +240,7 @@
   ("d" psv/ccls-peek-inheritance-derived "peek derived")
   ("D" psv/ccls-tree-inheritance-derived "tree derived")
   ("m" psv/ccls-peek-member "member")
-  ("n" psv/ccls-references-not-call "not call")
+  ("n" psv/ccls-peek-references-not-call "not call")
   ("a" psv/ccls-peek-references "references")
   ("v" psv/ccls-peek-variables "variables"))
 
