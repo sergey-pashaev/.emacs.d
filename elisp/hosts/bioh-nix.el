@@ -53,6 +53,13 @@ current file in *psv/gn-ref* buffer."
         (message "gn refs started...")
         (switch-to-buffer-other-window "*psv/gn-ref*")))))
 
+(defun psv/copy-projectile-buffer-relative-path-to-clipboard ()
+  "Put the current file name to clipboard."
+  (interactive)
+  (let ((filename (psv/projectile-buffer-relative-path)))
+    (psv/put-to-clipboard filename)
+    (message "Copied: %s" filename)))
+
 ;; generate include statements for current file
 (defun psv/projectile-buffer-relative-path ()
   "Return current buffer path relative to project root."
