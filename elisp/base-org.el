@@ -95,5 +95,14 @@
    ("C-c a" . org-agenda)
    ("C-c C-x C-j" . org-clock-goto)))
 
+(use-package org-pomodoro
+  :ensure t
+  :bind
+  (("C-c r" . org-pomodoro)))
+
+(use-package ledger-mode
+  :ensure t
+  :mode "\\.dat\\'")
+
 (provide 'base-org)
 ;;; base-org.el ends here

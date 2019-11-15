@@ -240,15 +240,6 @@
   :bind
   ("M-RET" . company-complete))
 
-(use-package org-pomodoro
-  :ensure t
-  :bind
-  (("C-c r" . org-pomodoro)))
-
-(use-package ledger-mode
-  :ensure t
-  :mode "\\.dat\\'")
-
 (use-package rmsbolt
   :ensure t)
 
@@ -265,7 +256,7 @@
   (setq shell-pop-term-shell "/bin/bash")
   (setq shell-pop-full-span t)
   ;; need to do this manually or not picked up by `shell-pop'
- (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
+  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
 (when window-system
   (set-frame-font "Liberation Mono 12" nil t))
