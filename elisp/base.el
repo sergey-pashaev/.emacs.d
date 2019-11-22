@@ -164,7 +164,7 @@
 (show-paren-mode t)
 
 ;; delete the selection with a keypress
-(delete-selection-mode t)
+(delete-selection-mode -1)
 
 ;; delete trailing whitespace before save
 (defun psv/before-save-hook ()
