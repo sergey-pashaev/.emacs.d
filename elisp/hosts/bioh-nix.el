@@ -48,7 +48,11 @@ current file in *psv/gn-ref* buffer."
           (dir (concat (projectile-project-root) "src/")))
       (let ((default-directory dir)
             (program "/home/bioh/workspace/ya/depot_tools/gn")
-            (cmd (format " refs out/Debug/ --all %s" file)))
+            (cmd (format " refs out/Debug/ --all %s" file))
+            (buf "*psv/gn-ref*"))
+        (if (get-buffer buf)
+            (with-current-buffer buf
+              (kill-region (point-min) (point-max))))
         (start-process "psv/gn-ref-proc" "*psv/gn-ref*" program "refs" "out/Debug/" "-all" file)
         (message "gn refs started...")
         (switch-to-buffer-other-window "*psv/gn-ref*")))))
