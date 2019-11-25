@@ -158,6 +158,15 @@ window."
 (defconst *psv/ripgrep-cpp-test-files* '("*test.cc" "*tests.cc"))
 (defconst *psv/ripgrep-cpp-browsertest-files* '("*browsertest.cc" "*browsertests.cc"))
 
+(require 'rx)
+
+(defun psv/projectile-ripgrep-current-filename ()
+  "Run a Ripgrep serach with current buffer filename at the current projectile project root."
+  (interactive)
+  (psv/projectile-ripgrep (regexp-quote (ff-basename (psv/buffer-file-path)))
+                          nil
+                          nil
+                          nil))
 
 (defun psv/projectile-ripgrep-cpp (regexp)
     "Run a Ripgrep search with `REGEXP' rooted at the current projectile project root."
@@ -248,6 +257,7 @@ Rooted at the `DIR' with list of included globs `INCLUDE' and
                           (mapcar (lambda (val) (concat "--glob !" val))
                                   exclude))))
 
+(define-key projectile-mode-map (kbd "C-c p s f") 'psv/projectile-ripgrep-current-filename)
 (define-key projectile-mode-map (kbd "C-c p s p") 'psv/projectile-ripgrep-cpp)
 (define-key projectile-mode-map (kbd "C-c p s y") 'psv/projectile-ripgrep-py)
 (define-key projectile-mode-map (kbd "C-c p s b") 'psv/projectile-ripgrep-build)
