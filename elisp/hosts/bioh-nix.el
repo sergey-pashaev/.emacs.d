@@ -156,6 +156,8 @@ window."
 (defconst *psv/ripgrep-mojom-files* '("*.mojom"))
 (defconst *psv/ripgrep-build-files* '("*.gn" "DEPS"))
 (defconst *psv/ripgrep-cpp-test-files* '("*test.cc" "*tests.cc"))
+(defconst *psv/ripgrep-cpp-browsertest-files* '("*browsertest.cc" "*browsertests.cc"))
+
 
 (defun psv/projectile-ripgrep-cpp (regexp)
     "Run a Ripgrep search with `REGEXP' rooted at the current projectile project root."
@@ -195,6 +197,16 @@ window."
   (psv/projectile-ripgrep regexp
                           nil
                           *psv/ripgrep-cpp-test-files*
+                          nil))
+
+(defun psv/projectile-ripgrep-browsertests (regexp)
+    "Run a Ripgrep search with `REGEXP' rooted at the current projectile project root."
+  (interactive
+   (list
+    (read-from-minibuffer "Ripgrep c++ browsertests for: " (thing-at-point 'symbol))))
+  (psv/projectile-ripgrep regexp
+                          nil
+                          *psv/ripgrep-cpp-browsertest-files*
                           nil))
 
 (defun psv/projectile-ripgrep-build (regexp)
