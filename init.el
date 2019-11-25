@@ -30,6 +30,7 @@
 (load "lang-elisp")
 (load "lang-cpp")
 (load "lang-py")
+(load "lang-js")
 (load "base-diminish")
 
 ;; load host specific configs
