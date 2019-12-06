@@ -2,4 +2,4 @@
 #name : dlog info variable
 #contributor: pashaev.sergey@gmail.com
 # --
-DLOG(INFO) << __func__ << " " << this << " ${1:var}: " << $1;
+DLOG(INFO) << this << ' ' << __func__ << " ${1:var}: " << $1;
