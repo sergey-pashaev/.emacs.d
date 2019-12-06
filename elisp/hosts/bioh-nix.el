@@ -49,13 +49,13 @@ current file in *psv/gn-ref* buffer."
       (let ((default-directory dir)
             (program "/home/bioh/workspace/ya/depot_tools/gn")
             (cmd (format " refs out/Debug/ --all %s" file))
-            (buf "*psv/gn-ref*"))
-        (if (get-buffer buf)
-            (with-current-buffer buf
-              (kill-region (point-min) (point-max))))
-        (start-process "psv/gn-ref-proc" "*psv/gn-ref*" program "refs" "out/Debug/" "-all" file)
+            (buf (get-buffer-create "*psv/gn-ref*")))
+        (with-current-buffer buf
+          (kill-region (point-min) (point-max))
+          (insert (format "cmd: %s refs out/Debug/ -all %s\n\n" program file)))
+        (start-process "psv/gn-ref-proc" buf program "refs" "out/Debug/" "-all" file)
         (message "gn refs started...")
-        (switch-to-buffer-other-window "*psv/gn-ref*")))))
+        (switch-to-buffer-other-window buf)))))
 
 (defun psv/copy-projectile-buffer-relative-path-to-clipboard ()
   "Put the current file name to clipboard."
