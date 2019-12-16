@@ -80,6 +80,9 @@
     (eval-after-load "org"
       '(require 'ox-rst nil t))
 
+    (eval-after-load "org"
+      '(require 'ox-man nil t))
+
     (org-babel-do-load-languages 'org-babel-load-languages
                                  '((emacs-lisp . t)
                                    (shell . t)
