@@ -159,6 +159,7 @@ window."
 ;; ripgrep specific files
 (defconst *psv/ripgrep-mojom-files* '("*.mojom"))
 (defconst *psv/ripgrep-build-files* '("*.gn" "DEPS"))
+(defconst *psv/ripgrep-yaml-files* '("*.yaml"))
 (defconst *psv/ripgrep-cpp-test-files* '("*test.cc" "*tests.cc"))
 (defconst *psv/ripgrep-cpp-browsertest-files* '("*browsertest.cc" "*browsertests.cc"))
 
@@ -210,6 +211,16 @@ window."
   (psv/projectile-ripgrep regexp
                           nil
                           *psv/ripgrep-cpp-test-files*
+                          nil))
+
+(defun psv/projectile-ripgrep-yaml (regexp)
+    "Run a Ripgrep search with `REGEXP' rooted at the current projectile project root."
+  (interactive
+   (list
+    (read-from-minibuffer "Ripgrep yaml for: " (thing-at-point 'symbol))))
+  (psv/projectile-ripgrep regexp
+                          nil
+                          *psv/ripgrep-yaml-files*
                           nil))
 
 (defun psv/projectile-ripgrep-browsertests (regexp)
@@ -267,6 +278,7 @@ Rooted at the `DIR' with list of included globs `INCLUDE' and
 (define-key projectile-mode-map (kbd "C-c p s b") 'psv/projectile-ripgrep-build)
 (define-key projectile-mode-map (kbd "C-c p s m") 'psv/projectile-ripgrep-mojom)
 (define-key projectile-mode-map (kbd "C-c p s t") 'psv/projectile-ripgrep-tests)
+(define-key projectile-mode-map (kbd "C-c p s y") 'psv/projectile-ripgrep-yaml)
 
 (defhydra psv/hydra-buffer (:hint t)
   "Current buffer operations"
@@ -283,6 +295,7 @@ Rooted at the `DIR' with list of included globs `INCLUDE' and
   ("b" psv/projectile-ripgrep-build "build files")
   ("m" psv/projectile-ripgrep-mojom "mojom files (*.mojom)")
   ("t" psv/projectile-ripgrep-tests "c++ test files (*test.cc)")
+  ("y" psv/projectile-ripgrep-yaml "yaml files (*.yaml)")
   )
 
 (provide 'bioh-nix)
