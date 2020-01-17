@@ -87,8 +87,7 @@ used."
 ;; gn refs
 (defun psv/gn-refs ()
   "Run gn refs for current file.
-List all gn refs that using
-current file in *psv/gn-ref* buffer."
+List all gn refs that using current file in *psv/gn-ref* buffer."
   (interactive)
   (when (projectile-project-root)
     (let ((file (psv/buffer-file-path))
@@ -100,9 +99,56 @@ current file in *psv/gn-ref* buffer."
         (with-current-buffer buf
           (kill-region (point-min) (point-max))
           (insert (format "cmd: %s refs out/Debug/ -all %s\n\n" program file)))
-        (start-process "psv/gn-ref-proc" buf program "refs" "out/Debug/" "-all" file)
-        (message "gn refs started...")
-        (switch-to-buffer-other-window buf)))))
+        (let ((proc (start-process "psv/gn-ref-proc" buf program "refs" "out/Debug/" "-all" file)))
+;          (set-process-filter proc 'psv/gn-refs-filter-function)
+          (set-process-sentinel proc 'psv/gn-refs-sentinel)
+          (message "gn refs started...")
+          (switch-to-buffer-other-window buf))))))
+
+(defcustom psv/gn-refs-test-cmd "format string %s"
+  "doc"
+  :type 'string)
+
+(defun psv/gn-refs-sentinel (proc _msg)
+  "Process entire output of PROC line-wise."
+  (when (and (eq (process-status proc) 'exit)
+             (zerop (process-exit-status proc))
+             (buffer-live-p (process-buffer proc)))
+    (with-current-buffer (process-buffer proc)
+      (save-excursion
+        (goto-char (point-min))
+        (let ((case-fold-search t))
+          (while (re-search-forward ":\\([a-zA-Z_]+\\)" (point-max) t)
+            (let ((target (match-string 1)))
+              (psv/gn-refs-match-button 0 (format
+                                           "ninja -C out/Debug -j 50 %s && ./out/Debug/%s --enable-pixel-output-in-tests --gtest_filter= --gtest_repeat=1 2>&1 | browser_log.py" target target)))))))))
+
+(defun psv/gn-refs-filter-function (proc string)
+  "Nop process filter function."
+  (when (buffer-live-p (process-buffer proc))
+    (with-current-buffer (process-buffer proc)
+      (let ((moving (= (point) (process-mark proc))))
+        (save-excursion
+          ;; Insert the text, advancing the process marker.
+          (goto-char (process-mark proc))
+          (insert string)
+          (set-marker (process-mark proc) (point)))
+        (if moving (goto-char (process-mark proc)))))))
+
+(defun psv/gn-refs-button-action (button)
+  (psv/put-to-clipboard (button-get button 'cmd))
+  (message "Copied: %s" (button-get button 'cmd)))
+
+(defun psv/gn-refs-make-button (beg end cmd)
+  (make-button beg end
+               'action 'psv/gn-refs-button-action
+               'follow-link t
+               'cmd cmd
+               'help-echo cmd))
+
+(defun psv/gn-refs-match-button (match cmd)
+  "Create button out of MATCH with given CMD as action."
+  (psv/gn-refs-make-button (match-beginning match) (match-end match) cmd))
 
 (defun psv/copy-projectile-buffer-relative-path-to-clipboard ()
   "Put the current file name to clipboard."
