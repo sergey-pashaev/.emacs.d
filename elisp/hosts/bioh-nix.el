@@ -37,6 +37,53 @@ used."
 (defconst *psv/chromium-project-root-path* (expand-file-name "~/workspace/ya/chromium/src/")
   "Chromium project root path.")
 
+(defun psv/chromium-project-path-p (path)
+  "Whether given PATH is chromium project path."
+  (s-starts-with? *psv/chromium-project-root-path* path))
+
+;; (defun psv/chromium-buffer-relative-path()
+;;   "Return current buffer path relative to chromium project root."
+;;   (interactive)
+;;   (let ((root (projectile-project-root)))
+;;     (if (and root (psv/chromium-project-path-p root))
+;;         (let* ((abs-path (psv/buffer-file-path))
+;;                (rel-path (substring abs-path (length root))))
+;;           (if (s-starts-with? "src/" rel-path)
+;;               (substring rel-path (length "src/"))
+;;             rel-path))
+;;       (user-error "Not in chromium project"))))
+
+(defun psv/chromium-buffer-relative-path()
+  "Return current buffer path relative to chromium project root."
+  (interactive)
+  (let ((root (projectile-project-root)))
+    (if root
+        (let* ((abs-path (psv/buffer-file-path))
+               (rel-path (substring abs-path (length root))))
+          (if (s-starts-with? "src/" rel-path)
+              (substring rel-path (length "src/"))
+            rel-path)))))
+
+  ;; (let ((path (substring (psv/buffer-file-path) ; cut project root
+  ;;                        (length (projectile-project-root)))))
+  ;;   (if (s-starts-with? "src/" path)
+  ;;       (substring path (length "src/"))
+  ;;     path)))
+
+(defun psv/yb-project-path-p (path)
+  "Whether given PATH is yandex-browser project path."
+  (s-starts-with? (expand-file-name "~/workspace/ya/browser") path))
+
+(defun psv/yb-buffer-relative-path ()
+  "Return current buffer path relative to browser project root."
+  (interactive)
+  (let ((root (projectile-project-root)))
+    (if (and root (psv/yb-project-path-p root))
+        (let* ((abs-path (psv/buffer-file-path))
+               (rel-path (substring abs-path (length root))))
+          rel-path)
+      (user-error "Not in yandex-browser project"))))
+
 ;; gn refs
 (defun psv/gn-refs ()
   "Run gn refs for current file.
@@ -149,6 +196,65 @@ window."
 ;; search think at point at cs.chromium.org
 (defconst psv/chromium-code-search-format "https://cs.chromium.org/search/?q=%s&sq=package:chromium&type=cs"
   "Chromium code search format, %s = SEARCH TERM.")
+
+;; symbol reference url
+(defconst psv/chromium-symbol-reference-format "https://source.chromium.org/chromium/chromium/src/+/%s:%s;?q=%s&ss=chromium"
+  "Chromium code search symbol reference format.")
+
+(defconst psv/yb-symbol-reference-format "<project_url>/browse/%s?at=refs%%2Fheads%%2F%s#%d"
+  "YB bitbucket code reference format.")
+
+(require 'url-util)
+
+(defun psv/yb-make-line-reference (branch path line)
+  "BRANCH = 'master', PATH = 'src/base/files/file.h', LINE = '32'."
+  (format psv/yb-symbol-reference-format path (url-hexify-string branch) line))
+
+(defun psv/yb-line-reference ()
+  (interactive)
+  (psv/yb-make-line-reference "master" ;(magit-get-current-branch)
+                              (psv/yb-buffer-relative-path)
+                              (line-number-at-pos (point))))
+
+(defun psv/yb-code-go-to-line ()
+  (interactive)
+  (browse-url-default-browser (psv/yb-line-reference)))
+
+(defun psv/yb-code-line-org (start end)
+  (interactive "r")
+  (let ((symbol (buffer-substring-no-properties start end))
+        (url (psv/yb-line-reference)))
+    (psv/put-to-clipboard (format "[[%s][%s]]" url symbol))))
+
+(defun psv/make-chromium-symbol-reference (branch path symbol)
+  "BRANCH = 'master', PATH =
+'components/viz/service/surfaces/surface.cc', SYMBOL =
+Surface::OnActivationDependencyResolved'."
+  (format psv/chromium-symbol-reference-format branch path symbol))
+
+(defun psv/chromium-symbol-reference ()
+  (let ((symbol (read-string "Symbol: " (thing-at-point 'symbol)))
+        (filepath (psv/chromium-buffer-relative-path)))
+    (psv/make-chromium-symbol-reference "master" filepath symbol)))
+
+(defun psv/chromium-copy-symbol-reference-org (start end)
+  (interactive "r")
+  (let ((symbol (buffer-substring-no-properties start end))
+        (path (psv/chromium-buffer-relative-path)))
+    (psv/put-to-clipboard (format "[[%s][%s]]"
+                                  (psv/make-chromium-symbol-reference "master" path symbol)
+                                  symbol))))
+
+(defun psv/chromium-code-go-to-symbol-at-point ()
+  (interactive)
+  (let ((ref (psv/chromium-symbol-reference)))
+    (browse-url-default-browser ref)))
+
+(defun psv/chromium-code-go-to-symbol (start end)
+  (interactive "r")
+  (let ((symbol (buffer-substring-no-properties start end))
+        (path (psv/chromium-buffer-relative-path)))
+    (browse-url-default-browser (psv/make-chromium-symbol-reference "master" path symbol))))
 
 (defun psv/chromium-code-search-at-point ()
   "Search symbol at point at chromium sources."
