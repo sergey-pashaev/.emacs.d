@@ -2,4 +2,4 @@
 #name : dlog info
 #contributor: pashaev.sergey@gmail.com
 # --
-DLOG(INFO) << __func__;
+DLOG(INFO) << ' ' << __func__;
