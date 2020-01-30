@@ -71,59 +71,6 @@ used."
     (psv/put-to-clipboard filename)
     (message "Copied: %s" filename)))
 
-;; jump to same file in other repo/project
-(defun psv/visit-file-in-other-project ()
-  "Visit file in other project with same relative path as current buffer.
-With passed unversal argument it visits file in other
-window."
-  (interactive)
-  (let ((projects (projectile-relevant-known-projects))
-        (position (point))
-        (path (psv/projectile-buffer-relative-path)))
-    (if projects
-        (projectile-completing-read
-         "Switch to file in project: " projects
-         :action (lambda (project)
-                   (let ((filepath (if (string= (expand-file-name project) *psv/chromium-project-root-path*)
-                                       (concat "~/workspace/ya/chromium/" path)
-                                     (concat project path))))
-                     (if (f-exists? filepath)
-                         (if current-prefix-arg
-                             (progn
-                               (delete-other-windows)
-                               (split-window-right)
-                               (other-window 1)
-                               (find-file filepath)
-                               (goto-char position)
-                               (recenter-top-bottom)
-                               (other-window 1))
-                           (progn
-                             (find-file filepath)
-                             (goto-char position)
-                             (recenter-top-bottom)))
-                       (user-error (format "[%s] path:%s doesn't exist" project filepath))))))
-      (user-error "There are no open projects"))))
-
-;; diff with same file in other repo/project
-(defun psv/diff-with-same-file-in-other-project ()
-  "Diff current file with file on same path in other project."
-  (interactive)
-  (let ((projects (projectile-relevant-known-projects))
-        (project (projectile-project-root))
-        (filepath (psv/projectile-buffer-relative-path)))
-    (if projects
-        (projectile-completing-read
-         "Diff with file in project: " projects
-         :action (lambda (other-project)
-                   (let ((other-filepath (if (string= (expand-file-name other-project) *psv/chromium-project-root-path*)
-                                             (concat *psv/chromium-project-root-path*
-                                                     (substring filepath (length "src/")))
-                                           (concat other-project filepath))))
-                     (if (f-exists? other-filepath)
-                         (ediff (concat project filepath) other-filepath)
-                       (user-error (format "path:%s doesn't exist" other-filepath))))))
-      (user-error "There are no open projects"))))
-
 ;; ripgrep specific files
 (defconst *psv/ripgrep-mojom-files* '("*.mojom"))
 (defconst *psv/ripgrep-build-files* '("*.gn" "DEPS"))

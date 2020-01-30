@@ -470,6 +470,68 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
     (yb-put-to-clipboard include)
     (message "Copied: %s" include)))
 
+;; jump to file in other project
+(defun yb-select-other-project ()
+  "Select other project root."
+  (projectile-completing-read
+   "Switch to file in project: "
+   (projectile-relevant-known-projects)))
+
+(defun yb-select-other-project-file ()
+  "Return path to file in other project."
+  (let* ((from-project (projectile-project-root))
+         (from-project-type (yb-what-project from-project))
+         (from-path (yb-buffer-relative-path))
+         (to-project (yb-select-other-project))
+         (to-project-type (yb-what-project to-project)))
+    (cond
+     ;; chromium -> yandex-browser (add src/)
+     ((and (eq from-project-type 'chromium)
+           (eq to-project-type 'yandex-browser))
+      (concat to-project "src/" from-path))
+     ;; yandex-browser -> chromium (cut src/)
+     ((and (eq from-project-type 'yandex-browser)
+           (eq to-project-type 'chromium))
+      (concat to-project (substring from-path (length "src/"))))
+     ;; others -> do nothing
+     (t
+      (concat to-project from-path)))))
+
+(defun yb-visit-file-other-project ()
+  "Visit file in other project with same relative path as current buffer.
+With passed universal argument it visits file in other window."
+  (interactive)
+  (let ((position (point))
+        (from-path (yb-buffer-relative-path))
+        (to-path (yb-select-other-project-file)))
+    (if (f-exists? to-path)
+        (if current-prefix-arg
+            ;; visit in other window
+            (progn
+              (delete-other-windows)
+              (split-window-right)
+              (other-window 1)
+              (find-file to-path)
+              (goto-char position)
+              (recenter-top-bottom)
+              (other-window 1))
+          ;; visit in current window
+          (progn
+            (find-file to-path)
+            (goto-char position)
+            (recenter-top-bottom)))
+      (user-error (format "file [%s] doesn't exist" to-path)))))
+
+(defun yb-diff-file-other-project ()
+  "Diff current file with file on same path in other project."
+  (interactive)
+  (let ((from-path (yb-buffer-relative-path))
+        (from-project (projectile-project-root))
+        (to-path (yb-select-other-project-file)))
+    (if (f-exists? to-path)
+        (ediff (concat from-project from-path) to-path)
+      (user-error (format "file [%s] doesn't exist" to-path)))))
+
 ;; ticket dir
 (defun yb-guess-ticket ()
   "Guess current ticket from branch."
