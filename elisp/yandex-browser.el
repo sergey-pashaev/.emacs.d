@@ -363,6 +363,7 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
                               line-text
                               line-num
                               &optional
+                              branch
                               note
                               symbol)))
   "Trace frame struct."
@@ -371,12 +372,12 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
   filepath
   line-text
   line-num
+  branch
   note
   symbol)
 
-(defun yb-trace-add-frame (note)
-  "Add trace frame to buffer local list of frames with NOTE."
-  (interactive "s Trace frame note (optional): ")
+(defun yb-trace-get-frame ()
+  "Return yb-trace-frame for current line."
   (let ((project-type (yb-what-project))
         (project-root (projectile-project-root))
         (filepath (yb-buffer-relative-path))
@@ -386,16 +387,38 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
                      (line-end-position))))
         (line-num (line-number-at-pos (point)))
         (cur-symbol (thing-at-point 'symbol)))
-    (add-to-list 'yb-trace-frames
-                 (yb-trace-make-frame
-                  project-type
-                  project-root
-                  filepath
-                  line-text
-                  line-num
-                  note
-                  cur-symbol)
-                 t)))
+    (yb-trace-make-frame
+     project-type
+     project-root
+     filepath
+     line-text
+     line-num
+     (magit-get-current-branch)
+     nil
+     cur-symbol)))
+
+(defun yb-trace-make-link (frame)
+  "Convert FRAME struct into `org-mode' link."
+  (format "** [[%s][|YANDEX|]] [[%s][|CHROMIUM|]] [[file:%s::%s][%s]]\n"
+          ;; remote yandex link
+          (yb-make-line-reference-url
+           (yb-trace-frame-branch frame)
+           (yb-trace-frame-filepath frame)
+           (yb-trace-frame-line-num frame))
+          ;; remote chromium link
+          (chromium-make-symbol-reference-url
+           "master" ;; todo: fix it somehow
+           (substring (yb-trace-frame-filepath frame) (length "src/"))
+           (yb-trace-frame-line-num frame)
+           nil ;; todo: fix symbol
+           )
+          ;; local link
+          (concat (yb-trace-frame-project-root frame)
+                  (yb-trace-frame-filepath frame))
+          (yb-trace-frame-line-text frame)
+          ;; local text
+          (yb-trace-frame-line-text frame)
+          ))
 
 (defun yb-trace-clear ()
   "Clear current trace."
@@ -413,42 +436,24 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
       (org-insert-heading)
       (insert (format "%s\n" name)))))
 
-(defun yb-trace-add (note)
-  "Add current line reference to trace buffer with NOTE."
-  (interactive "s Trace frame note (optional): ")
+;; todo: what to do with local uncommited changes in local branch?
+(defun yb-trace-add ()
+  "Add current line reference to trace buffer."
+  (interactive)
   (let ((buf (get-buffer yb-trace-buffer-name))
-        (text (string-trim
-               (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
-        (filepath (psv/buffer-file-path)))
+        (frame (yb-trace-get-frame)))
     (when buf
       (with-current-buffer buf
         (goto-char (point-max))
-        (insert (format "** [[file:%s::%s][%s]]\n" filepath (url-hexify-string text) text))
-        (when (not (string-empty-p note))
-          (insert (format "%s\n" note)))
+        (insert (yb-trace-make-link frame))
         (goto-char (point-max))))))
-
-;; TODO: finish converting trace frame struct to urls
-(defun yb-trace-export (type))
-
-(defun yb-trace-export-remote ()
-  (yb-trace-export 'remote))
-
-(defun yb-trace-export-local ()
-  (yb-trace-export 'local))
-
-(defhydra yb-trace-export-hydra (:hint t)
-  "trace export actions"
-  ("l" yb-trace-export-local)
-  ("r" yb-trace-export-remote))
 
 (defhydra yb-trace-action-hydra (:hint t)
   "trace actions"
   ("b" yb-trace-start "begin")
   ("a" yb-trace-add "add")
-  ("f" yb-trace-add-frame "add frame")
-  ("c" yb-trace-clear "clear")
-  ("e" yb-trace-export-hydra/body :exit t))
+  ("c" yb-trace-clear "clear"))
+
 ;; include statement
 (defun yb-buffer-relative-path-include ()
   "Return buffer relative path (and cut \"src/\" if needed."
