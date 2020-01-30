@@ -45,14 +45,16 @@ Read branch name from minibuffer if called with prefix argument."
   "Return org link to URL with TEXT."
   (format "[[%s][%s]]" url text))
 
-(defun yb-what-project ()
-  "Return type of browser project you are currently in.
+(defun yb-what-project (&optional root)
+  "Return type of browser project for ROOT path.
 Returns 'chromium, 'yandex-browser or nil if other."
-  (let ((root (projectile-project-root)))
+  (let ((path (if root
+                  root
+                (projectile-project-root))))
     (cond
-     ((chromium-project-path-p root)
+     ((chromium-project-path-p path)
       'chromium)
-     ((yb-project-path-p root)
+     ((yb-project-path-p path)
       'yandex-browser)
      (t
       nil))))
