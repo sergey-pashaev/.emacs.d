@@ -507,6 +507,7 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
 With passed universal argument it visits file in other window."
   (interactive)
   (let ((position (point))
+        (line-num (line-number-at-pos (point)))
         (from-path (yb-buffer-relative-path))
         (to-path (yb-select-other-project-file)))
     (if (f-exists? to-path)
@@ -517,13 +518,15 @@ With passed universal argument it visits file in other window."
               (split-window-right)
               (other-window 1)
               (find-file to-path)
-              (goto-char position)
+              (goto-line line-num)
+              ;; (goto-char position)
               (recenter-top-bottom)
               (other-window 1))
           ;; visit in current window
           (progn
             (find-file to-path)
-            (goto-char position)
+            (goto-line line-num)
+            ;; (goto-char position)
             (recenter-top-bottom)))
       (user-error (format "file [%s] doesn't exist" to-path)))))
 
@@ -536,6 +539,8 @@ With passed universal argument it visits file in other window."
     (if (f-exists? to-path)
         (ediff (concat from-project from-path) to-path)
       (user-error (format "file [%s] doesn't exist" to-path)))))
+
+(bind-key "C-c >" 'yb-visit-file-other-project)
 
 ;; ticket dir
 (defun yb-guess-ticket ()
@@ -570,6 +575,7 @@ With passed universal argument it visits file in other window."
   ("r" yb-reference-hydra/body "line/symbol reference operations" :exit t)
   ("g" yb-gn-refs "gn refs")
   ("t" yb-trace-action-hydra/body "trace" :exit t)
+  ("o" yb-visit-file-other-project "other project")
   ("d" yb-goto-ticket-dir "ticket dir"))
 
 (bind-key "C-c y" 'yb-tools/body)
