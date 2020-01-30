@@ -83,7 +83,7 @@ Returns 'chromium, 'yandex-browser or nil if other."
 
 (defun chromium-project-path-p (path)
   "Whether given PATH is chromium project path."
-  (string-prefix-p chromium-repo-path path))
+  (string-prefix-p chromium-repo-path (expand-file-name path)))
 
 (defun chromium-buffer-relative-path ()
   "Return current buffer path relative to chromium project root."
@@ -147,7 +147,7 @@ Returns 'chromium, 'yandex-browser or nil if other."
 
 (defun yb-project-path-p (path)
   "Whether given PATH is yandex-browser project path."
-  (string-prefix-p yb-repo-path path t))
+  (string-prefix-p yb-repo-path (expand-file-name path) t))
 
 (defun yb-buffer-relative-path ()
   "Return current buffer path relative to browser project
