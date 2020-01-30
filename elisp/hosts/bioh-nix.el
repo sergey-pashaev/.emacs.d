@@ -71,35 +71,6 @@ used."
     (psv/put-to-clipboard filename)
     (message "Copied: %s" filename)))
 
-;; generate include statements for current file
-(defun psv/projectile-buffer-relative-path ()
-  "Return current buffer path relative to project root."
-  (interactive)
-  (let ((path (substring (psv/buffer-file-path) ; cut project root
-                         (length (projectile-project-root)))))
-    (if (string= (projectile-project-root)
-                 *psv/chromium-project-root-path*)
-        (concat "src/" path)
-      path)))
-
-(defun psv/make-include-statement ()
-  "Generate include statement for current file."
-  (let ((path (if (string= (projectile-project-root)
-                           *psv/chromium-project-root-path*)
-                  (substring (psv/projectile-buffer-relative-path) ; cut src/ for chromium
-                             (length "src/"))
-                (psv/projectile-buffer-relative-path))))
-    (if (s-starts-with? "src/" path)
-        (format "#include \"%s\"" (substring path (length "src/")))
-      (format "#include \"%s\"" path))))
-
-(defun psv/copy-include-statement-to-clipboard ()
-  "Put the current file include statement name to clipboard."
-  (interactive)
-  (let ((include (psv/make-include-statement)))
-    (psv/put-to-clipboard include)
-    (message "Copied: %s" include)))
-
 ;; jump to same file in other repo/project
 (defun psv/visit-file-in-other-project ()
   "Visit file in other project with same relative path as current buffer.

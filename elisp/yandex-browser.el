@@ -447,6 +447,26 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
   ("f" yb-trace-add-frame "add frame")
   ("c" yb-trace-clear "clear")
   ("e" yb-trace-export-hydra/body :exit t))
+;; include statement
+(defun yb-buffer-relative-path-include ()
+  "Return buffer relative path (and cut \"src/\" if needed."
+  (let ((project (yb-what-project)))
+    (cond ((eq project 'yandex-browser)
+           (substring (yb-buffer-relative-path)
+                      (length "src/")))
+          ((eq project 'chromium)
+           (chromium-buffer-relative-path)))))
+
+(defun yb-make-include-statement ()
+  "Generate include statement for current file."
+  (format "#include \"%s\"" (yb-buffer-relative-path-include)))
+
+(defun yb-copy-include-statement ()
+  "Put the current file include statement into clipboard."
+  (interactive)
+  (let ((include (yb-make-include-statement)))
+    (yb-put-to-clipboard include)
+    (message "Copied: %s" include)))
 
 ;; ticket dir
 (defun yb-guess-ticket ()
