@@ -75,6 +75,7 @@ used."
 (defconst *psv/ripgrep-mojom-files* '("*.mojom"))
 (defconst *psv/ripgrep-build-files* '("*.gn" "DEPS"))
 (defconst *psv/ripgrep-yaml-files* '("*.yaml"))
+(defconst *psv/ripgrep-java-files* '("*.java"))
 (defconst *psv/ripgrep-cpp-test-files* '("*test.cc" "*tests.cc"))
 (defconst *psv/ripgrep-cpp-browsertest-files* '("*browsertest.cc" "*browsertests.cc"))
 
@@ -158,6 +159,16 @@ used."
                           *psv/ripgrep-build-files*
                           nil))
 
+(defun psv/projectile-ripgrep-java (regexp)
+    "Run a Ripgrep search with `REGEXP' rooted at the current projectile project root."
+  (interactive
+   (list
+    (read-from-minibuffer "Ripgrep java files for: " (thing-at-point 'symbol))))
+  (psv/projectile-ripgrep regexp
+                          nil
+                          *psv/ripgrep-java-files*
+                          nil))
+
 (defun psv/projectile-ripgrep (regexp args include exclude)
   "Run a Ripgrep search with `REGEXP' rooted at the current project root.
 
@@ -194,6 +205,7 @@ Rooted at the `DIR' with list of included globs `INCLUDE' and
 (define-key projectile-mode-map (kbd "C-c p s m") 'psv/projectile-ripgrep-mojom)
 (define-key projectile-mode-map (kbd "C-c p s t") 'psv/projectile-ripgrep-tests)
 (define-key projectile-mode-map (kbd "C-c p s y") 'psv/projectile-ripgrep-yaml)
+(define-key projectile-mode-map (kbd "C-c p s j") 'psv/projectile-ripgrep-java)
 
 (defhydra psv/hydra-buffer (:hint t)
   "Current buffer operations"
