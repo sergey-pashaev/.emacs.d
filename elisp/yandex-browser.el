@@ -299,6 +299,7 @@ Returns 'chromium, 'yandex-browser or nil if other."
 (defconst yb-depot-tools-path (expand-file-name "~/workspace/ya/depot_tools/"))
 (defconst yb-gn-path (expand-file-name "gn" yb-depot-tools-path))
 (defconst yb-gn-refs-buffer-name "*yb-gn-refs*")
+(defconst yb-yakuza-path (expand-file-name "yakuza" yb-depot-tools-path))
 
 (defvar yb-current-build-dir "")
 
@@ -582,6 +583,7 @@ With passed universal argument it visits file in other window."
       (f-write-text "" 'utf-8 notes))
     (dired path)))
 
+;; compile single file
 (defun yb-select-build-profile ()
   "Select build profile of current project."
   (interactive)
@@ -591,11 +593,24 @@ With passed universal argument it visits file in other window."
         (concat out-dir (yb-complete-dir out-dir
                                          "Profile:")))))
 
+(defun yb-compile-single-file ()
+  "Compile current file."
+  (interactive)
+  (let* ((build-dir (yb-select-build-profile))
+         (path (substring (yb-buffer-relative-path) (length "src/")))
+         (cmd (format "%s -i all -k 10000 -C %s ../../%s^"
+                      yb-yakuza-path
+                      build-dir
+                      path)))
+    (let ((default-directory (concat (projectile-project-root) "src/")))
+      (compile cmd))))
+
 ;; hydra
 (defhydra yb-tools (:hint t)
   "yandex-browser tools"
   ("r" yb-reference-hydra/body "line/symbol reference operations" :exit t)
   ("g" yb-gn-refs "gn refs")
+  ("c" yb-compile-single-file "compile file")
   ("t" yb-trace-action-hydra/body "trace" :exit t)
   ("o" yb-visit-file-other-project "other project")
   ("d" yb-goto-ticket-dir "ticket dir"))
