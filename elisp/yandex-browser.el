@@ -150,8 +150,7 @@ Returns 'chromium, 'yandex-browser or nil if other."
   (string-prefix-p yb-repo-path (expand-file-name path) t))
 
 (defun yb-buffer-relative-path ()
-  "Return current buffer path relative to browser project
-root (chromium or yandex-browser)."
+  "Return current buffer path relative to browser project root."
   (interactive)
   (let ((project (yb-what-project)))
     (cond
@@ -313,12 +312,14 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
       (user-error "Not in yandex-browser project"))))
 
 (defun yb-gn-refs-button-action (button)
+  "Action function for BUTTON in gn-refs buffer."
   (psv/put-to-clipboard (button-get button 'cmd))
   (message "Copied: %s for %s"
            (button-get button 'cmd)
            (button-get button 'dir)))
 
 (defun yb-gn-refs-make-button (beg end cmd dir)
+  "Make button from BEG to END with action w/ CMD & DIR."
   (make-button beg end
                'action 'yb-gn-refs-button-action
                'follow-link t
@@ -327,7 +328,7 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
                'help-echo cmd))
 
 (defun yb-gn-refs-match-button (match cmd dir)
-  "Create button out of MATCH with given CMD as action."
+  "Create button out of MATCH with given CMD & DIR as action."
   (yb-gn-refs-make-button (match-beginning match) (match-end match) cmd dir))
 
 (defun yb-gn-refs-sentinel (proc _msg)
