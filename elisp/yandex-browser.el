@@ -59,6 +59,14 @@ Returns 'chromium, 'yandex-browser or nil if other."
      (t
       nil))))
 
+(defun yb-complete-dir (dir prompt)
+  "Complete dir name inside DIR with PROMPT."
+  (let ((dir-contents (directory-files dir)))
+    (ido-completing-read (concat prompt " ")
+                         (cl-remove-if-not (lambda (name)
+                                             (file-directory-p (concat dir name)))
+                                           dir-contents))))
+
 ;; code search
 (defconst chromium-repo-path (expand-file-name "~/workspace/ya/chromium/src/")
   "Chromium project root path.")
@@ -292,6 +300,8 @@ Returns 'chromium, 'yandex-browser or nil if other."
 (defconst yb-gn-path (expand-file-name "gn" yb-depot-tools-path))
 (defconst yb-gn-refs-buffer-name "*yb-gn-refs*")
 
+(defvar yb-current-build-dir "")
+
 (defun yb-gn-refs ()
   "Run gn refs for current source file.
 List all gn refs that using current file in *yb-gn-refs* buffer."
@@ -300,12 +310,17 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
     (if (and root (yb-project-path-p root))
         (let* ((file (psv/buffer-file-path))
                (dir (concat root "src/"))
+               (build-dir (substring (yb-select-build-profile) (length dir)))
                (default-directory dir) ; used by process as default directory
                (buf (get-buffer-create yb-gn-refs-buffer-name)))
           (with-current-buffer buf
             (kill-region (point-min) (point-max))
-            (insert (format "cmd: %s refs out/Debug/ -all %s\n\n" yb-gn-path file)))
-          (let ((proc (start-process "yv-gn-refs-proc" buf yb-gn-path "refs" "out/Debug/" "-all" file)))
+            (insert (format "cmd: %s refs %s --all %s\n\n"
+                            yb-gn-path
+                            build-dir
+                            file)))
+          (setq yb-current-build-dir build-dir)
+          (let ((proc (start-process "yv-gn-refs-proc" buf yb-gn-path "refs" build-dir "--all" file)))
             (set-process-sentinel proc 'yb-gn-refs-sentinel)
             (message "gn refs started...")
             (switch-to-buffer-other-window buf)))
@@ -346,10 +361,7 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
                    (target (if component
                                (format "%s:%s" component binary)
                              binary)))
-              (yb-gn-refs-match-button 0 (format
-                                          "ninja -C out/Debug -j 50 %s"
-                                          target
-                                          binary)
+              (yb-gn-refs-match-button 0 (format "ninja -C %s -j 50 %s" yb-current-build-dir target)
                                        (concat (projectile-project-root) "src/")))))))))
 
 ;; yb trace
@@ -569,6 +581,15 @@ With passed universal argument it visits file in other window."
     (when (not (file-exists-p notes))
       (f-write-text "" 'utf-8 notes))
     (dired path)))
+
+(defun yb-select-build-profile ()
+  "Select build profile of current project."
+  (interactive)
+  (let* ((root (projectile-project-root))
+         (out-dir (concat root "src/out/")))
+    (if (f-exists? out-dir)
+        (concat out-dir (yb-complete-dir out-dir
+                                         "Profile:")))))
 
 ;; hydra
 (defhydra yb-tools (:hint t)
