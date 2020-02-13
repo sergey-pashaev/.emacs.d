@@ -267,5 +267,11 @@
     :config
     (load-theme 'solarized-light t)))
 
+
+(use-package git-ps1-mode
+  :ensure t
+  :config
+  (git-ps1-mode +1))
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
