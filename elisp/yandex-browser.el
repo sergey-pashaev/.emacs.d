@@ -400,7 +400,10 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
                      (line-beginning-position)
                      (line-end-position))))
         (line-num (line-number-at-pos (point)))
-        (cur-symbol (thing-at-point 'symbol)))
+        (cur-symbol
+         (if (region-active-p)
+             (buffer-substring-no-properties (region-beginning) (region-end))
+           (thing-at-point 'symbol))))
     (yb-trace-make-frame
      project-type
      project-root
@@ -424,7 +427,7 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
            "master" ;; todo: fix it somehow
            (substring (yb-trace-frame-filepath frame) (length "src/"))
            (yb-trace-frame-line-num frame)
-           nil ;; todo: fix symbol
+           (yb-trace-frame-symbol frame)
            )
           ;; local link
           (concat (yb-trace-frame-project-root frame)
