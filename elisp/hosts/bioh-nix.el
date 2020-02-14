@@ -33,37 +33,6 @@ used."
 
 (setq browse-url-browser-function 'psv/browse-url-yandex-browser)
 
-;; Chromium project related functions
-(defconst *psv/chromium-project-root-path* (expand-file-name "~/workspace/ya/chromium/src/")
-  "Chromium project root path.")
-
-(defun psv/chromium-project-path-p (path)
-  "Whether given PATH is chromium project path."
-  (s-starts-with? *psv/chromium-project-root-path* path))
-
-(defun psv/chromium-buffer-relative-path()
-  "Return current buffer path relative to chromium project root."
-  (interactive)
-  (let ((root (projectile-project-root)))
-    (if (and root (psv/chromium-project-path-p root))
-        (let* ((abs-path (psv/buffer-file-path))
-               (rel-path (substring abs-path (length root))))
-          (if (s-starts-with? "src/" rel-path)
-              (substring rel-path (length "src/"))
-            rel-path))
-      (user-error "Not in chromium project"))))
-
-(defun psv/chromium-buffer-relative-path()
-  "Return current buffer path relative to chromium project root."
-  (interactive)
-  (let ((root (projectile-project-root)))
-    (if root
-        (let* ((abs-path (psv/buffer-file-path))
-               (rel-path (substring abs-path (length root))))
-          (if (s-starts-with? "src/" rel-path)
-              (substring rel-path (length "src/"))
-            rel-path)))))
-
 (defun psv/copy-projectile-buffer-relative-path-to-clipboard ()
   "Put the current file name to clipboard."
   (interactive)

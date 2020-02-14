@@ -62,10 +62,7 @@
 (bind-key "C-<return>" 'psv/newline-below)
 (bind-key "C-S-<return>" 'psv/newline-above)
 
-(bind-key (kbd "<f9>") 'psv/chromium-code-search-at-point)
-
 (bind-key "C-x l" 'magit-blame)
-
 
 (bind-key "C-x C-j" 'dired-jump)
 
