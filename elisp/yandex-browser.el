@@ -303,6 +303,34 @@ Returns 'chromium, 'yandex-browser or nil if other."
 
 (defvar yb-current-build-dir "")
 
+(define-compilation-mode gn-refs-mode "gn-refs"
+  (set (make-local-variable 'compilation-disable-input) t)
+  (add-hook 'compilation-filter-hook 'yb-gn-refs2-filter nil t))
+
+(defun yb-gn-refs-filter ()
+  "Handle match highlighting escape sequences inserted by the grep process.
+This function is called from `compilation-filter-hook'."
+  (save-excursion
+    (forward-line 0)
+    (let ((end (point)) beg)
+      (goto-char compilation-filter-start)
+      (forward-line 0)
+      (setq beg (point))
+      ;; Only operate on whole lines so we don't get caught with part of an
+      ;; escape sequence in one chunk and the rest in another.
+      (when (< (point) end)
+        (setq end (copy-marker end))
+        ;; Highlight target matches.
+        (while (re-search-forward "//\\([a-zA-Z_/]+\\)?:\\([a-zA-Z_]+\\)" (point-max) t)
+            (let* ((component (match-string 1))
+                   (binary (match-string 2))
+                   (target (if component
+                               (format "%s:%s" component binary)
+                             binary)))
+              (yb-gn-refs-match-button 0 (format "ninja -C %s -j 50 %s" yb-current-build-dir target)
+                                       (concat (projectile-project-root) "src/"))
+              (cl-incf grep-num-matches-found)))))))
+
 (defun yb-gn-refs ()
   "Run gn refs for current source file.
 List all gn refs that using current file in *yb-gn-refs* buffer."
@@ -313,18 +341,11 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
                (dir (concat root "src/"))
                (build-dir (substring (yb-select-build-profile) (length dir)))
                (default-directory dir) ; used by process as default directory
-               (buf (get-buffer-create yb-gn-refs-buffer-name)))
-          (with-current-buffer buf
-            (kill-region (point-min) (point-max))
-            (insert (format "cmd: %s refs %s --all %s\n\n"
+               (cmd (format "%s refs %s --all %s"
                             yb-gn-path
                             build-dir
                             file)))
-          (setq yb-current-build-dir build-dir)
-          (let ((proc (start-process "yv-gn-refs-proc" buf yb-gn-path "refs" build-dir "--all" file)))
-            (set-process-sentinel proc 'yb-gn-refs-sentinel)
-            (message "gn refs started...")
-            (switch-to-buffer-other-window buf)))
+          (compilation-start cmd 'gn-refs-mode))
       (user-error "Not in yandex-browser project"))))
 
 (defun yb-gn-refs-button-action (button)
@@ -606,7 +627,7 @@ With passed universal argument it visits file in other window."
                       build-dir
                       path)))
     (let ((default-directory (concat (projectile-project-root) "src/")))
-      (compile cmd))))
+      (compilation-start cmd))))
 
 ;; hydra
 (defhydra yb-tools (:hint t)
