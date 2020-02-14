@@ -211,19 +211,18 @@ Rooted at the `DIR' with list of included globs `INCLUDE' and
   "Current buffer operations"
   ("n" psv/copy-file-name-to-clipboard "copy file name")
   ("i" psv/copy-include-statement-to-clipboard "copy #include statement")
-  ("r" psv/copy-projectile-buffer-relative-path-to-clipboard "copy project relative path")
-  )
+  ("r" psv/copy-projectile-buffer-relative-path-to-clipboard "copy project relative path"))
 
 (defhydra psv/hydra-projectile-ripgrep (:hint t)
   "Projectile ripgrep at:"
-  ("n" psv/projectile-ripgrep-current-filename "current filename")
+  ("f" psv/projectile-ripgrep-current-filename "current filename")
   ("p" psv/projectile-ripgrep-cpp "c++ files (*.h, *.cc, etc.)")
   ("y" psv/projectile-ripgrep-py "python files (*.py)")
   ("b" psv/projectile-ripgrep-build "build files")
   ("m" psv/projectile-ripgrep-mojom "mojom files (*.mojom)")
   ("t" psv/projectile-ripgrep-tests "c++ test files (*test.cc)")
   ("y" psv/projectile-ripgrep-yaml "yaml files (*.yaml)")
-  )
+  ("j" psv/projectile-ripgrep-java "java files (*.java)"))
 
 (provide 'bioh-nix)
 ;;; bioh-nix ends here
