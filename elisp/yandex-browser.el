@@ -3,6 +3,7 @@
 ;;; Commentary:
 
 ;;; Code:
+(require 'projectile)
 (require 'f)
 (require 'cl-lib)
 (require 'url-util)
