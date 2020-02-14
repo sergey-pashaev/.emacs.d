@@ -68,6 +68,7 @@
   :diminish lsp-mode
   :commands lsp
   :config
+  (setq lsp-enable-semantic-highlighting nil)
   (setq lsp-enable-indentation nil)
   (setq lsp-enable-on-type-formatting nil)
   (setq lsp-prefer-flymake nil))
