@@ -7,9 +7,6 @@
 ;; org-mode & gtd
 ;; https://github.com/jethrokuan/.emacs.d/blob/master/config.org#org-mode-for-gtd
 
-(defvar *psv/ditaa-path* (expand-file-name "~/bin/ditaa.jar"))
-(defvar *psv/plantuml-path* (expand-file-name "~/bin/plantuml.jar"))
-
 (defun psv/org-confirm-babel-evaluate (lang _body)
   "Return t if LANG is in whitelist."
   (not (or (string= lang "ditaa")
@@ -54,8 +51,6 @@
           org-refile-targets '((org-agenda-files :maxlevel . 2))
           org-refile-use-outline-path 'file
           org-return-follows-link t     ; follow links by ret
-          org-ditaa-jar-path *psv/ditaa-path*
-          org-plantuml-jar-path *psv/plantuml-path*
           org-directory "~/Dropbox/org"
           org-default-notes-file "~/Dropbox/org/notes.org"
           org-capture-templates
