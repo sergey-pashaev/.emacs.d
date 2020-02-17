@@ -302,7 +302,17 @@ Returns 'chromium, 'yandex-browser or nil if other."
 (defconst yb-gn-refs-buffer-name "*yb-gn-refs*")
 (defconst yb-yakuza-path (expand-file-name "yakuza" yb-depot-tools-path))
 
-(defvar yb-current-build-dir "")
+(defvar yb-current-build-profile "")
+
+(defun yb-build-command (build-profile target)
+  "Return build command for TARGET in BUILD-PROFILE."
+  (format "ninja -C %s -j 50 %s" build-profile target))
+
+(defun yb-build-target (build-profile target)
+  "Compile TARGET for BUILD-PROFILE."
+  (interactive)
+  (let ((default-directory (concat (projectile-project-root) "src/")))
+    (compilation-start (yb-build-command build-profile target))))
 
 (define-compilation-mode gn-refs-mode "gn-refs"
   (set (make-local-variable 'compilation-disable-input) t)
@@ -328,7 +338,7 @@ This function is called from `compilation-filter-hook'."
                    (target (if component
                                (format "%s:%s" component binary)
                              binary)))
-              (yb-gn-refs-match-button 0 (format "ninja -C %s -j 50 %s" yb-current-build-dir target)
+              (yb-gn-refs-match-button 0 (yb-build-command yb-current-build-profile target)
                                        (concat (projectile-project-root) "src/"))
               (cl-incf grep-num-matches-found)))))))
 
@@ -346,6 +356,7 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
                             yb-gn-path
                             build-dir
                             file)))
+          (setq yb-current-build-profile build-dir)
           (compilation-start cmd 'gn-refs-mode))
       (user-error "Not in yandex-browser project"))))
 
