@@ -380,24 +380,6 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
   "Create button out of MATCH with given CMD & DIR as action."
   (yb-gn-refs-make-button (match-beginning match) (match-end match) cmd dir))
 
-(defun yb-gn-refs-sentinel (proc _msg)
-  "Process entire output of PROC line-wise."
-  (when (and (eq (process-status proc) 'exit)
-             (zerop (process-exit-status proc))
-             (buffer-live-p (process-buffer proc)))
-    (with-current-buffer (process-buffer proc)
-      (save-excursion
-        (goto-char (point-min))
-        (let ((case-fold-search t))
-          (while (re-search-forward "//\\([a-zA-Z_/]+\\)?:\\([a-zA-Z_]+\\)" (point-max) t)
-            (let* ((component (match-string 1))
-                   (binary (match-string 2))
-                   (target (if component
-                               (format "%s:%s" component binary)
-                             binary)))
-              (yb-gn-refs-match-button 0 (format "ninja -C %s -j 50 %s" yb-current-build-dir target)
-                                       (concat (projectile-project-root) "src/")))))))))
-
 ;; yb trace
 (defconst yb-trace-buffer-name "*yb-trace*")
 (defvar yb-trace-frames '() "Currently collected trace frames.")
