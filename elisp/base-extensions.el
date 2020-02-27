@@ -16,12 +16,12 @@
   :bind
   ("C-=" . er/expand-region))
 
-(use-package flycheck
-  :ensure t
-  :config
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  (setq flycheck-mode-line-prefix " fc")
-  (global-flycheck-mode))
+;; (use-package flycheck
+;;   :ensure t
+;;   :config
+;;   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+;;   (setq flycheck-mode-line-prefix " fc")
+;;   (global-flycheck-mode))
 
 (use-package helm
   :ensure t
