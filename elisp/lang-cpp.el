@@ -227,9 +227,6 @@
   (interactive)
   (lsp-ui-peek-find-custom "$ccls/vars"))
 
-(use-package hydra
-  :ensure t)
-
 (defhydra psv/hydra-ccls (:hint t)
   "Where?"
   ("c" psv/ccls-peek-caller "peek caller")
