@@ -365,7 +365,9 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
   (psv/put-to-clipboard (button-get button 'cmd))
   (message "Copied: %s for %s"
            (button-get button 'cmd)
-           (button-get button 'dir)))
+           (button-get button 'dir))
+  ;(yb-build-target (button-get button 'cmd))
+  )
 
 (defun yb-gn-refs-make-button (beg end cmd dir)
   "Make button from BEG to END with action w/ CMD & DIR."
