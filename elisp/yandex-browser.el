@@ -316,7 +316,7 @@ Returns 'chromium, 'yandex-browser or nil if other."
 
 (define-compilation-mode gn-refs-mode "gn-refs"
   (set (make-local-variable 'compilation-disable-input) t)
-  (add-hook 'compilation-filter-hook 'yb-gn-refs2-filter nil t))
+  (add-hook 'compilation-filter-hook 'yb-gn-refs-filter nil t))
 
 (defun yb-gn-refs-filter ()
   "Handle match highlighting escape sequences inserted by the grep process.
