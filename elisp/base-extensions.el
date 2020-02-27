@@ -115,20 +115,6 @@
   :init
   (setq markdown-command "pandoc"))
 
-(use-package elfeed
-  :ensure t
-  :config
-  (setq elfeed-feeds '("https://www.reddit.com/.rss?feed=33a3018b0dbb339573b04a5c08c0a799e5c167f5&user=bioh" ;reddit
-                       "http://planet.emacsen.org/ru/atom.xml"
-                       "https://changelog.com/feed"
-                       "http://planet.emacsen.org/atom.xml"
-                       "http://pragmaticemacs.com/feed/"
-                       "http://habrahabr.ru/rss/all" ;it
-                       "https://www.linux.org.ru/section-rss.jsp?section=1"
-                     ; "http://www.aaronsw.com/2002/feeds/pgessays.rss" ;Paul Graham
-                       "http://stephenramsay.us/atom.xml"
-                       )))
-
 (use-package google-translate
   :ensure t
   :init
@@ -145,91 +131,6 @@
 (use-package cmake-mode :ensure t)
 (use-package wgrep :ensure t)
 
-(use-package skeletor
-  :ensure t
-  :config
-  (setq skeletor-project-directory (expand-file-name "~/workspace/cpp/"))
-  (skeletor-define-template "cpp-make"
-    :requires-executables '(("make" . "http://www.gnu.org/software/make/"))
-    :no-license? t)
-  (skeletor-define-template "appl"
-    :no-license? t)
-  (skeletor-define-template "cpp-cmake"
-    :requires-executables '(("make" . "http://www.gnu.org/software/make/")
-                            ("cmake" . "https://cmake.org/"))
-    :no-license? t
-    :before-git
-    (lambda (dir)
-      (skeletor-shell-command "chmod +x build.sh" dir))))
-
-(use-package plantuml-mode
-  :ensure t
-  :config
-  (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
-
-(defun psv/langtool-autoshow-detail-popup (overlays)
-  "Show error message w/ OVERLAYS in popup tip."
-  (when (require 'popup nil t)
-    ;; Do not interrupt current popup
-    (unless (or popup-instances
-                ;; suppress popup after type `C-g` .
-                (memq last-command '(keyboard-quit)))
-      (let ((msg (langtool-details-error-message overlays)))
-        (popup-tip msg)))))
-
-(use-package langtool
-  :ensure t
-  :config
-  (setq
-   langtool-default-language          "en-US"
-   langtool-language-tool-jar         (expand-file-name "~/src/LanguageTool-4.0/languagetool-commandline.jar")
-   langtool-autoshow-message-function 'psv/langtool-autoshow-detail-popup)
-  :bind
-  ("C-c g" . langtool-check))
-
-(use-package string-inflection :ensure t)
-
-;; dash
-(defun psv/helm-dash-cpp-doc ()
-  "Enable C++ dash docset for c++ buffers."
-  (interactive)
-  (setq-local helm-dash-docsets '("C++" "C")))
-
-(defun psv/helm-dash-python-doc ()
-  "Enable python2 dash docset for python buffers."
-  (interactive)
-  (setq-local helm-dash-docsets '("Python 2")))
-
-(defun psv/helm-dash-bash-doc ()
-  "Enable bash dash docset for shell buffers."
-  (interactive)
-  (setq-local helm-dash-docsets '("Bash")))
-
-(defun psv/helm-dash-ensure-docset-installed (docset-name)
-  "Ensures that DOCSET-NAME is installed."
-  (make-directory (expand-file-name "~/.docsets") t)
-  (if (not (helm-dash-docset-installed-p docset-name))
-      (let ((tarball (replace-regexp-in-string (rx whitespace) "_" docset-name)))
-        (helm-dash-install-docset-from-file (concat psv/helm-dash-tarballs-path tarball)))))
-
-(defconst psv/helm-dash-tarballs-path (expand-file-name "~/docsets/")
-  "My default path to downloaded docset tarballs.")
-
-(defconst psv/helm-dash-docsets '("C++" "C" "Python 2" "CMake" "Bash")
-  "My default docset list.")
-
-(use-package helm-dash
-  :ensure t
-  :config
-  (setq helm-dash-common-docsets psv/helm-dash-docsets)
-  (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
-  (add-hook 'python-mode-hook 'psv/helm-dash-python-doc)
-  (add-hook 'sh-mode-hook 'psv/helm-dash-bash-doc)
-  :bind
-  ("C-c ?" . helm-dash-at-point)
-  (:map sh-mode-map
-        ("C-c ?" . helm-dash-at-point)))
-
 (use-package git-timemachine :ensure t)
 
 (use-package company
@@ -242,11 +143,6 @@
 
 (use-package rmsbolt
   :ensure t)
-
-(use-package diff-hl
-  :ensure t
-  :config
-  (global-diff-hl-mode))
 
 (use-package shell-pop
   :ensure t
