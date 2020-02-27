@@ -18,6 +18,9 @@
 ;;; Code:
 
 ;; load common configs
+(package-initialize)
+(setq package-check-signature nil)
+
 (defconst psv/elisp-dir (expand-file-name "elisp" user-emacs-directory)
   "Directory which contains all config modules.")
 
