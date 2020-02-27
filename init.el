@@ -32,6 +32,7 @@
 (load "lang-py")
 (load "lang-js")
 (load "base-diminish")
+(load "yandex-browser")
 
 ;; load host specific configs
 (defconst psv/hosts-dir (expand-file-name "hosts" psv/elisp-dir)
