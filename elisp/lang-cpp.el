@@ -138,8 +138,8 @@
 ;; (use-package helm-rg
 ;;   :ensure t)
 
-;; (use-package projectile-ripgrep
-;;   :ensure t)
+(use-package projectile-ripgrep
+  :ensure t)
 
 ;; ;; https://github.com/MaskRay/ccls/wiki/lsp-mode#cross-reference-extensions
 ;; (defun psv/ccls-peek-references ()
