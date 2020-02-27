@@ -173,5 +173,13 @@
 
 (use-package hydra :ensure t)
 
+(use-package ivy
+  :ensure t
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  :bind
+  ("C-s" . swiper-isearch))
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
