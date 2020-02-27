@@ -151,9 +151,6 @@
 (column-number-mode t)
 (size-indication-mode t)
 
-;; highlight the current line
-(global-hl-line-mode t)
-
 ;; always do syntax highlighting
 (global-font-lock-mode t)
 
