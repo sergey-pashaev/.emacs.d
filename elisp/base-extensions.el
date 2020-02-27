@@ -273,5 +273,9 @@
   :config
   (git-ps1-mode +1))
 
+(use-package f :ensure t)
+
+(use-package hydra :ensure t)
+
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
