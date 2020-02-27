@@ -29,12 +29,12 @@
 (load "base-extensions")
 (load "base-functions")
 (load "base-global-keys")
-(load "base-org")
-(load "lang-elisp")
-(load "lang-cpp")
-(load "lang-py")
-(load "lang-js")
-(load "base-diminish")
+;; (load "base-org")
+;; (load "lang-elisp")
+;; (load "lang-cpp")
+;; (load "lang-py")
+;; (load "lang-js")
+;; (load "base-diminish")
 (load "yandex-browser")
 
 ;; load host specific configs
