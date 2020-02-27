@@ -30,7 +30,7 @@
 (load "base-functions")
 (load "base-global-keys")
 ;; (load "base-org")
-;; (load "lang-elisp")
+(load "lang-elisp")
 (load "lang-cpp")
 ;; (load "lang-py")
 ;; (load "lang-js")
