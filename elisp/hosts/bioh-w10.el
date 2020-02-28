@@ -3,7 +3,10 @@
 ;;; Commentary:
 
 ;;; Code:
-(load-theme 'tango-dark t)
+(use-package solarized-theme
+  :ensure t
+  :config
+  (load-theme 'solarized-light t))
 
 (provide 'bioh-w10)
 ;;; bioh-w10 ends here
