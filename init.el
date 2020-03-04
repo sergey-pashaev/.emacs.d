@@ -39,7 +39,7 @@
   "Directory which contains all host-specific settings.")
 
 (add-to-list 'load-path psv/hosts-dir)
-(let ((host-specific-config (intern (system-name))))
+(let ((host-specific-config (intern (downcase (system-name)))))
   (require host-specific-config nil 'noerror))
 
 ;; make compilation buffers support colors
