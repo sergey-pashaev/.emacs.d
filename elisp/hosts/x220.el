@@ -8,8 +8,11 @@
 ;; browse with firefox
 (setq browse-url-browser-function 'browse-url-firefox)
 
+;; font
+(defconst psv/default-font "Liberation Mono 11")
 (when window-system
-  (set-frame-font "Liberation Mono 11" nil t))
+  (set-frame-font psv/default-font nil t)
+  (add-to-list 'default-frame-alist '(font . psv/default-font)))
 
 (when window-system
   (use-package solarized-theme

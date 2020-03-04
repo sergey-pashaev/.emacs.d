@@ -258,16 +258,6 @@
   ;; need to do this manually or not picked up by `shell-pop'
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
-(when window-system
-  (set-frame-font "Liberation Mono 12" nil t))
-
-(when window-system
-  (use-package solarized-theme
-    :ensure t
-    :config
-    (load-theme 'solarized-light t)))
-
-
 (use-package git-ps1-mode
   :ensure t
   :config
