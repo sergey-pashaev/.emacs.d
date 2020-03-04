@@ -584,8 +584,8 @@ With passed universal argument it visits file in other window."
          (m (string-match "[A-Z]\\{2,\\}-[0-9]+" branch)))
     (match-string 0 branch)))
 
-(defun yb-goto-ticket-dir ()
-  "Go to ticket notes directory."
+(defun yb-goto-ticket-notes ()
+  "Go to ticket notes notes."
   (interactive)
   (let* ((dir (expand-file-name "~/workspace/ya/notes/"))
          (contents (directory-files dir))
@@ -601,7 +601,8 @@ With passed universal argument it visits file in other window."
       (dired-create-directory path))
     (when (not (file-exists-p notes))
       (f-write-text "" 'utf-8 notes))
-    (dired path)))
+    (find-file notes)
+    (goto-char (point-max))))
 
 ;; compile single file
 (defun yb-select-build-profile ()
@@ -633,7 +634,7 @@ With passed universal argument it visits file in other window."
   ("c" yb-compile-single-file "compile file")
   ("t" yb-trace-action-hydra/body "trace" :exit t)
   ("o" yb-visit-file-other-project "other project")
-  ("d" yb-goto-ticket-dir "ticket dir"))
+  ("n" yb-goto-ticket-notes "ticket notes"))
 
 (bind-key "C-c y" 'yb-tools/body)
 
