@@ -3,6 +3,19 @@
 ;;; Commentary:
 
 ;;; Code:
+;; font
+(defconst psv/default-font "Liberation Mono 11")
+(when window-system
+  (set-frame-font psv/default-font nil t)
+  (add-to-list 'default-frame-alist '(font . psv/default-font)))
+
+;; theme
+(when window-system
+  (use-package solarized-theme
+    :ensure t
+    :config
+    (load-theme 'solarized-light t)))
+
 (require 's)
 (require 'f)
 (require 'projectile)

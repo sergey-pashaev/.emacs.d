@@ -195,10 +195,6 @@
 (if window-system
     (add-hook 'post-command-hook 'psv/update-cursor-color))
 
-;; default font
-(set-frame-font "Liberation Mono 11")
-(add-to-list 'default-frame-alist '(font . "Liberation Mono 11"))
-
 ;; find file
 (require 'find-file)
 (setq ff-always-try-to-create nil)
