@@ -3,6 +3,12 @@
 ;;; Commentary:
 
 ;;; Code:
+;; font
+(defconst psv/default-font "Consolas 10")
+(when window-system
+  (set-frame-font psv/default-font nil t))
+
+;; theme
 (use-package solarized-theme
   :ensure t
   :config
