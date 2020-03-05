@@ -51,6 +51,7 @@
           org-refile-targets '((org-agenda-files :maxlevel . 2))
           org-refile-use-outline-path 'file
           org-return-follows-link t     ; follow links by ret
+          org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar"
           org-directory "~/Dropbox/org"
           org-default-notes-file "~/Dropbox/org/notes.org"
           org-capture-templates
