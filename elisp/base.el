@@ -185,7 +185,7 @@
   (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
-(when window-system
+(when (display-graphic-p)
   (blink-cursor-mode -1)
   (tooltip-mode -1))
 
@@ -195,8 +195,8 @@
                         "red"
                       "black")))
 
-(if window-system
-    (add-hook 'post-command-hook 'psv/update-cursor-color))
+(when (display-graphic-p)
+  (add-hook 'post-command-hook 'psv/update-cursor-color))
 
 ;; find file
 (require 'find-file)
