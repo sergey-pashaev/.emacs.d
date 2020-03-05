@@ -243,11 +243,6 @@
 (use-package rmsbolt
   :ensure t)
 
-(use-package diff-hl
-  :ensure t
-  :config
-  (global-diff-hl-mode))
-
 (use-package shell-pop
   :ensure t
   :bind (("C-`" . shell-pop))
