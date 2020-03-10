@@ -163,7 +163,7 @@
 
 (use-package hydra :ensure t)
 
-(use-package ivy
+(use-package swiper
   :ensure t
   :config
   (setq ivy-use-virtual-buffers t)
