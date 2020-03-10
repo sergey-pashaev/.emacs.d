@@ -127,7 +127,7 @@
 ;; (bind-key "C-c f" 'lsp-format-region)
 
 ;; fix font for all unicode characters
-(set-fontset-font t 'unicode "Symbola" nil 'prepend)
+;; (set-fontset-font t 'unicode "Symbola" nil 'prepend)
 
 ;; (use-package helm-lsp
 ;;   :ensure t
