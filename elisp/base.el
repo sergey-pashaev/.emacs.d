@@ -127,6 +127,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;;; Bookmarks
+(require 'bookmark)
 (setq bookmark-save-flag t) ; persistent bookmarks
 
 ;;; Lockfiles

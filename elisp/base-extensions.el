@@ -167,6 +167,7 @@
   :config
   (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
 
+(require 'popup)
 (defun psv/langtool-autoshow-detail-popup (overlays)
   "Show error message w/ OVERLAYS in popup tip."
   (when (require 'popup nil t)
