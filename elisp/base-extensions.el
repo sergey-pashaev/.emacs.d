@@ -188,8 +188,6 @@
   :bind
   ("C-c g" . langtool-check))
 
-(use-package string-inflection :ensure t)
-
 ;; dash
 (defun psv/helm-dash-cpp-doc ()
   "Enable C++ dash docset for c++ buffers."
@@ -254,22 +252,9 @@
   ;; need to do this manually or not picked up by `shell-pop'
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
-(use-package git-ps1-mode
-  :ensure t
-  :config
-  (git-ps1-mode +1))
-
 (use-package f :ensure t)
 
 (use-package hydra :ensure t)
-
-(use-package ivy
-  :ensure t
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  :bind
-  ("C-s" . swiper-isearch))
 
 (provide 'base-extensions)
 ;;; base-extensions.el ends here
